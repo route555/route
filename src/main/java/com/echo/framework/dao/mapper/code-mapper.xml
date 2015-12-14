@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="code">
+	<insert id="insertCode" parameterType="code" useGeneratedKeys="true"
+		keyProperty="codeId" keyColumn="codeId">
+		INSERT INTO /* insertCode */ code
+			(codeType, code, codeDesc,
+			 regUserId, updUserId, regDateTime,
+			 updDateTime, isDel)
+		VALUES
+			(#{codeType}, #{code}, #{codeDesc},
+			 #{regUserId}, #{updUserId}, NOW(),
+			 NOW(), 'N')
+	</insert>
+
+	<select id="selectCode" parameterType="code" resultType="code">
+		SELECT /* selectCode */
+			*
+		FROM
+			code
+		WHERE 1 = 1
+		AND isDel = 'N'
+		AND codeId = #{codeId}
+	</select>
+	
+	<select id="selectListCode" parameterType="Map" resultType="tMap">
+		SELECT /* selectListCode */
+			*
+		FROM
+			code
+		WHERE 1 = 1
+		AND isDel = 'N'
+		<if test="searchType != 'like'">
+		    <if test="codeType != null and ''.equals(codeType) == false">AND codeType = #{codeType}</if>
+		    <if test="code != null and ''.equals(code) == false">AND code = #{code}</if>
+		    <if test="codeDesc != null and ''.equals(codeDesc) == false">AND codeDesc = #{codeDesc}</if>
+		</if>
+    	<if test="searchType == 'like'">
+		    <if test="codeType != null and ''.equals(codeType) == false">AND codeType LIKE CONCAT('%', #{codeType}, '%')</if>
+		    <if test="code != null and ''.equals(code) == false">AND code LIKE CONCAT('%', #{code}, '%')</if>
+		    <if test="codeDesc != null and ''.equals(codeDesc) == false">AND codeDesc LIKE CONCAT('%', #{codeDesc}, '%')</if>
+    	</if>
+		ORDER BY
+		<if test="orderElement == null or ''.equals(orderElement) == true">
+			codeId
+		</if>
+		<if test="orderElement != null and ''.equals(orderElement) == false">
+		    ${orderElement}
+	    </if>
+	    <if test="orderType == 'DESC'">
+		    ASC
+	    </if>
+   		<if test="pageSize != null and pageSize != -1">
+		LIMIT ${start}, ${pageSize}
+		</if>
+	</select>
+	
+	<select id="selectCntCode" parameterType="Map" resultType="int">
+		SELECT /* selectCntCode */
+			COUNT(1)
+		FROM
+			code
+		WHERE 1 = 1
+		AND isDel = 'N'
+		<if test="searchType != 'like'">
+		    <if test="codeType != null and ''.equals(codeType) == false">AND codeType = #{codeType}</if>
+		    <if test="code != null and ''.equals(code) == false">AND code = #{code}</if>
+		    <if test="codeDesc != null and ''.equals(codeDesc) == false">AND codeDesc = #{codeDesc}</if>
+		</if>
+    	<if test="searchType == 'like'">
+		    <if test="codeType != null and ''.equals(codeType) == false">AND codeType LIKE CONCAT('%', #{codeType}, '%')</if>
+		    <if test="code != null and ''.equals(code) == false">AND code LIKE CONCAT('%', #{code}, '%')</if>
+		    <if test="codeDesc != null and ''.equals(codeDesc) == false">AND codeDesc LIKE CONCAT('%', #{codeDesc}, '%')</if>
+    	</if>
+	</select>
+	
+	<update id="updateCode" parameterType="code">
+		UPDATE /* updateCode */
+			code
+		SET
+			codeDesc = #{codeDesc}
+		WHERE 1 = 1
+		AND isDel = 'N'
+		<if test="codeId != null">AND codeId = #{codeId}</if>	
+		<if test="code != null">AND code = #{code}</if>	
+	</update>
+	
+	<delete id="deleteCode" parameterType="code">
+		UPDATE /* deleteCode */
+			code
+		SET
+			isDel = 'Y'
+		WHERE 1 = 1
+		<if test="codeId != null">AND codeId = #{codeId}</if>	
+		<if test="codeType != null">AND codeType = #{codeType}</if>	
+		<if test="code != null">AND code = #{code}</if>	
+	</delete>
+</mapper>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	#parse("common/commonScript.vm") 
+	<script src="/${contextPath}/htdocs/js/sample/human.js"></script>
+	 
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">   
+</head>
+
+<body>
+
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">        
+			#parse("common/header.vm")
+			#parse("common/menu.vm")
+        </nav>
+		
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Human Pool</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            
+            
+            
+            <!-- 검색박스 -->
+            <nav class="navbar navbar-default" role="navigation">             
+	            <div class="navbar-header">                
+	                <a class="navbar-brand" href="#">Name</a>
+	            </div>
+	            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">                
+	                <div class="col-sm-3 col-md-3 pull-left">
+	                    <form class="navbar-form" id="sf"  id="sf"  role="search">                    	
+	                        <input type="hidden" name="searchType" value="like" />
+	                        <input type="hidden" name="orderElement" value="year, month" />
+	                        <input type="hidden" name="orderType" value="ASC" />	
+	                        <div class="input-group">
+	                            <input type="text" class="form-control" placeholder="Search" name="q">
+	                            <div class="input-group-btn">
+	                                <button class="btn btn-default" id="btnSearch" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+	                            </div>
+	                        </div>
+	                    </form>
+	                </div>	                
+	                <div class="col-sm-3 col-md-3 pull-right">
+	                <form class="navbar-form" id="f" role="search">
+	                	<button type="button" class="btn btn-primary pull-right" id="btnNew">신규 등록</button> 
+	                </form>   
+	                </div>	                
+	            </div>	           
+	        </nav>            
+	        <!-- 검색박스 종료-->
+	        
+            <!-- 테이블 -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            DataTables Advanced Tables
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body"> 
+                            <div class="dataTable_wrapper">
+                                <table cellspacing="0" width="100%" class="display table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>구분</th>
+                                            <th>이름</th>
+                                            <th>업무</th>
+                                            <th>이메일</th>
+                                            <th>연락처</th>
+                                        </tr>
+                                    </thead>                                    
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->                            
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- 테이블종료 -->
+                     
+            
+            <!-- 디테일화면 -->
+            <div class="row" style="display: none;" id="detail">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Basic Form Elements
+                        </div>
+                        <div class="panel-body">
+                        	<form role="form" name="f" id="f" method="post">
+                        	<input type="hidden" id="humanId" name="humanId">
+                            <div class="row">
+                                <div class="col-lg-6">                                    
+                                    <div class="form-group">
+                                        <label>구분</label>
+                                        <input class="form-control" id="division" name="division">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>이름</label>
+                                        <input class="form-control" id="name" name="name">
+                                    </div>
+                                    <div class="form-group">
+	                                    <label>업무</label>
+	                                    <input class="form-control" id="job" name="job">
+	                                </div> 
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
+                                <div class="col-lg-6">  
+                                    <div class="form-group">
+	                                    <label>이메일</label>
+	                                    <input class="form-control" id="email" name="email">
+	                                </div>
+	                                <div class="form-group">
+	                                    <label>연락처</label>
+	                                    <input class="form-control" id="phone" name="phone">
+	                                </div>
+	                                <button type="button" class="btn btn-default" id="btnSave">저장</button>
+                                    <button type="button" class="btn btn-default" id="btnDelete">삭제</button>
+                                </div>
+                            </form>
+                                <!-- /.col-lg-6 (nested) -->
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!--디테일 종료-->
+            
+  
+            
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+
+</body>
+
+</html>

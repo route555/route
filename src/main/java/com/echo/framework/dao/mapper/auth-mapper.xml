@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="auth">
+	<cache eviction="LRU" flushInterval="60000" size="10" readOnly="true" />
+
+	<select id="selectUserAuthInfo" parameterType="auth" resultType="auth">
+		SELECT /* selectUserAuthInfo */
+			AA.userId, AA.businessId, AA.loginId,
+			AA.passwd, AA.userName, AA.rightsType
+		FROM
+			user AA
+		WHERE 1 = 1
+		AND AA.isDel = 'N'
+		AND AA.isUse = 'Y'
+		AND AA.loginId = #{loginId}
+		AND AA.passwd = #{passwdByCrypt}
+	</select>
+	
+	<select id="selectDeviceAuthInfo" parameterType="auth" resultType="auth">
+		SELECT /* selectDeviceAuthInfo */
+			AA.businessId, AA.deviceId
+		FROM
+			device AA
+		WHERE
+			isDel = 'N'
+		<if test="deviceId != null">AND deviceId = #{deviceId}</if>	
+	</select>
+	
+	<select id="selectSecurityInfo" resultType="tMap" useCache="true">
+		SELECT /* selectSecurityInfo */
+			ip, securityDesc
+		FROM
+			security_info
+		WHERE 1 = 1
+		AND isDel = 'N'	
+	</select>
+</mapper>

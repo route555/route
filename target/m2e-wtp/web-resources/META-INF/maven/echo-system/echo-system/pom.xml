@@ -1,0 +1,427 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>echo-system</groupId>
+	<artifactId>echo-system</artifactId>
+	<version>0.1.0-SNAPSHOT</version>
+	<packaging>war</packaging>
+
+	<properties>
+		<maven.test.skip>false</maven.test.skip>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven-eclipse-plugin.version>2.9</maven-eclipse-plugin.version>
+		<java.version>1.7</java.version>
+		<!-- 3rd party version -->
+		<spring.version>3.1.0.RELEASE</spring.version>
+	</properties>
+	<dependencies>
+
+		<!-- log -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.6.4</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.lazyluke</groupId>
+			<artifactId>log4jdbc-remix</artifactId>
+			<version>0.2.7</version>
+		</dependency>
+
+		<!-- common -->
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.2.1</version>
+		</dependency>
+
+		<!-- crypto -->
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.8</version>
+		</dependency>
+
+		<!-- validator -->
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>1.1.0.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>5.0.1.Final</version>
+		</dependency>
+
+
+		<!-- test -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.10</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- spring core -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+
+		<!-- web -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- aop -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.7.3</version>
+		</dependency>
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>2.2</version>
+		</dependency>
+
+		<!-- orm -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.2.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.26</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.4</version>
+		</dependency>
+
+		<!-- presentation -->
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.13</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>velocity</artifactId>
+			<version>1.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>velocity-tools</artifactId>
+			<version>2.0</version>
+		</dependency>
+
+		<!-- file upload -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.3</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-net</groupId>
+			<artifactId>commons-net</artifactId>
+			<version>3.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.3.2</version>
+		</dependency>
+
+		<!-- xml -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.10-beta2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.10-beta2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml-schemas</artifactId>
+			<version>3.10-beta2</version>
+		</dependency>
+
+		<!-- mqtt -->
+		<dependency>
+			<groupId>org.fusesource.mqtt-client</groupId>
+			<artifactId>mqtt-client</artifactId>
+			<version>1.5</version>
+		</dependency>
+
+		<!-- quartz -->
+		<dependency>
+			<groupId>opensymphony</groupId>
+			<artifactId>quartz</artifactId>
+			<version>1.6.3</version>
+		</dependency>
+
+		<!-- joda -->
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>2.3</version>
+		</dependency>
+
+		<!-- thumbnail -->
+		<dependency>
+			<groupId>net.coobird</groupId>
+			<artifactId>thumbnailator</artifactId>
+			<version>[0.4, 0.5)</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<executions>
+						<execution>
+							<goals>
+								<goal>jar</goal>
+							</goals>
+							<configuration>
+								<excludes>
+									<exclude>**/META-INF/spring/**/*.xml</exclude>
+									<exclude>**/META-INF/mybatis/**/*.xml</exclude>
+									<exclude>**/bin/**/*</exclude>
+									<exclude>**/*.properties</exclude>
+								</excludes>
+								<includes>
+									<include>**/*.class</include>
+								</includes>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.6</version>
+					<configuration>
+						<testFailureIgnore>true</testFailureIgnore>
+						<includes>
+							<include>**/*Test.java</include>
+						</includes>
+					</configuration>
+				</plugin>
+				<plugin>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>2.4</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>war</goal>
+							</goals>
+							<configuration>
+								<packagingExcludes>**/TestController.class</packagingExcludes>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*apper.xml</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/test/resources</directory>
+				<targetPath>${basedir}/target/test-classes</targetPath>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<encoding>utf-8</encoding>
+				</configuration>
+				<version>2.3.2</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.5</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.4.1</version>
+				<configuration>
+					<autoVersionSubmodules>true</autoVersionSubmodules>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>local</id>
+			<properties>
+				<profile.active.profiles>jdbc</profile.active.profiles>
+				<!-- <profile.active.profiles>jndi</profile.active.profiles> -->
+				<profile.db.driver>net.sf.log4jdbc.DriverSpy</profile.db.driver>
+				<profile.db.master.url>jdbc:log4jdbc:mysql://localhost:3306/echo?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true</profile.db.master.url>
+				<profile.db.master.username>echo</profile.db.master.username>
+				<profile.db.master.password>1qazxsw2</profile.db.master.password>
+				<profile.db.slave.url>jdbc:log4jdbc:mysql://localhost:3306/echo?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true</profile.db.slave.url>
+				<profile.db.slave.username>echo</profile.db.slave.username>
+				<profile.db.slave.password>1qazxsw2</profile.db.slave.password>
+				<profile.cookie.domain>127.0.0.1</profile.cookie.domain>
+				<profile.context.admin.path>echo-admin</profile.context.admin.path>
+				<profile.context.echo.path>echo-pms</profile.context.echo.path>
+				<profile.context.device.path>echo-device</profile.context.device.path>
+				<profile.mqtt.broker>echoit.iptime.org</profile.mqtt.broker>
+				<profile.mqtt.port>6883</profile.mqtt.port>
+				<profile.mqtt.user>mqtt</profile.mqtt.user>
+				<profile.mqtt.password>mqtt1234!@#$</profile.mqtt.password>
+				<profile.mqtt.port.max>40000</profile.mqtt.port.max>
+				<profile.mqtt.port.min>20000</profile.mqtt.port.min>
+				<profile.mqtt.timeout.sec>5</profile.mqtt.timeout.sec>
+				<profile.mqtt.topic.prefix>ibm</profile.mqtt.topic.prefix>
+				<profile.batch.faultHistoryUrl>http://127.0.0.1:8080/echo-admin/faultHistory</profile.batch.faultHistoryUrl>
+				<profile.batch.deviceUrl>http://127.0.0.1:8080/echo-admin/devices</profile.batch.deviceUrl>
+				<profile.file.upload>Y</profile.file.upload>
+				<profile.ftp.server>echo.iptime.org</profile.ftp.server>
+				<profile.ftp.port>8021</profile.ftp.port>
+				<profile.ftp.username>echoftp</profile.ftp.username>
+				<profile.ftp.password>echo1234!@#$</profile.ftp.password>
+				<profile.ftp.path.prefix>data/echo</profile.ftp.path.prefix>
+				<profile.ftp.cdn.end.point>http://echoit.iptime.org:8081</profile.ftp.cdn.end.point>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+
+		<profile>
+			<id>prd</id>
+			<properties>
+				<profile.active.profiles>jdbc</profile.active.profiles>
+				<!-- <profile.active.profiles>jndi</profile.active.profiles> -->
+				<profile.db.driver>com.mysql.jdbc.Driver</profile.db.driver>
+				<profile.db.master.url>jdbc:mysql://127.0.0.1:3306/echo?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true</profile.db.master.url>
+				<profile.db.master.username>echo</profile.db.master.username>
+				<profile.db.master.password>echo!@#$</profile.db.master.password>
+				<profile.db.slave.url>jdbc:mysql://127.0.0.1:3306/echo?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true</profile.db.slave.url>
+				<profile.db.slave.username>echo</profile.db.slave.username>
+				<profile.db.slave.password>echo!@#$</profile.db.slave.password>
+				<profile.cookie.domain>10.10.13.151</profile.cookie.domain>
+				<profile.context.admin.path>echo-admin</profile.context.admin.path>
+				<profile.context.device.path>echo-device</profile.context.device.path>
+				<profile.mqtt.broker>127.0.0.1</profile.mqtt.broker>
+				<profile.mqtt.port>6883</profile.mqtt.port>
+				<profile.mqtt.user>mqtt</profile.mqtt.user>
+				<profile.mqtt.password>mqtt1234!@#$</profile.mqtt.password>
+				<profile.mqtt.port.max>40000</profile.mqtt.port.max>
+				<profile.mqtt.port.min>20000</profile.mqtt.port.min>
+				<profile.mqtt.timeout.sec>5</profile.mqtt.timeout.sec>
+				<profile.mqtt.topic.prefix>ibm</profile.mqtt.topic.prefix>
+				<profile.batch.faultHistoryUrl>http://127.0.0.1:8080/echo-admin/faultHistory</profile.batch.faultHistoryUrl>
+				<profile.batch.deviceUrl>http://127.0.0.1:8080/echo-admin/devices</profile.batch.deviceUrl>
+				<profile.file.upload>Y</profile.file.upload>
+				<profile.ftp.server>127.0.0.1</profile.ftp.server>
+				<profile.ftp.port>21</profile.ftp.port>
+				<profile.ftp.username>ibmftp</profile.ftp.username>
+				<profile.ftp.password>ibm1234!@#$</profile.ftp.password>
+				<profile.ftp.path.prefix>data/echo</profile.ftp.path.prefix>
+				<profile.ftp.cdn.end.point>http://10.10.13.151</profile.ftp.cdn.end.point>
+			</properties>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+		</profile>
+	</profiles>
+
+
+
+</project>

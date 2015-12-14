@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generatetestdata">
+	<insert id="insertBusiness" parameterType="Map" useGeneratedKeys="true"
+		keyProperty="businessId" keyColumn="businessId">
+		INSERT INTO /* insertBusiness */ business
+			(businessName, businessDesc, openTime,
+			 closeTime, holiday, soundVolume,
+			 brightness, minInterval, regUserId,
+			 updUserId, regDateTime, updDateTime,
+			 isDel)
+		VALUES
+			(#{businessName}, #{businessDesc}, #{openTime},
+			 #{closeTime}, #{holiday}, #{soundVolume},
+			 #{brightness}, IFNULL(#{minInterval}, 300), #{regUserId},
+			 #{regUserId}, NOW(), NOW(),
+			 'N')
+	</insert>
+	
+	<insert id="insertUser" parameterType="Map" useGeneratedKeys="true"
+		keyProperty="userId" keyColumn="userId">
+		INSERT INTO /* insertUser */ user
+			(businessId, loginId, passwd,
+			 userName, phone, email,
+			 rightsType, isUse, regUserId,
+			 updUserId, regDateTime, updDateTime,
+			 isDel)
+		VALUES
+			(#{businessId}, #{loginId}, #{passwdByCrypt},
+			 #{userName}, #{phone}, #{email},
+			 #{rightsType}, #{isUse}, #{regUserId},
+			 #{updUserId}, NOW(), NOW(),
+			 'N')
+	</insert>	
+	
+	<insert id="insertDevice" parameterType="Map" useGeneratedKeys="true"
+		keyProperty="deviceId" keyColumn="deviceId">
+		INSERT INTO /* insertDevice */ device
+			(businessId, deviceName, deviceDesc,
+			 deviceMeta, openTime, closeTime,
+			 holiday, soundVolume, brightness,
+			 isFault, faultDateTime, regUserId,
+			 updUserId, regDateTime, updDateTime,
+			 isDel)
+		VALUES
+			(#{businessId}, #{deviceName}, #{deviceDesc},
+			 #{deviceMeta}, #{openTime}, #{closeTime},
+			 #{holiday}, #{soundVolume}, #{brightness},
+			 #{isFault}, #{faultDateTime}, #{regUserId},
+			 #{updUserId}, NOW(), NOW(),
+			 'N')
+	</insert>
+	
+	<insert id="insertCtrlHistory" parameterType="Map" useGeneratedKeys="true"
+		keyProperty="ctrlHistoryId" keyColumn="ctrlHistoryId">
+		INSERT INTO /* insertCtrlHistory */ ctrl_history
+			(businessId, deviceId, ctrlType,
+			 result, regUserId, updUserId,
+			 regDateTime, updDateTime, isDel)
+		VALUES
+			(#{businessId}, #{deviceId}, #{ctrlType},
+			 #{result}, #{regUserId}, #{updUserId},
+			 NOW(), NOW(), 'N')
+	</insert>
+	
+	<update id="updateBusiness" parameterType="Map">
+		UPDATE /* updateBusiness */
+			business
+		SET
+			regUserId = #{regUserId},
+			updUserId = #{updUserId},
+			updDateTime = NOW()
+		WHERE
+			businessId = #{businessId}
+	</update>
+		
+	<update id="updateUser" parameterType="Map">
+		UPDATE /* updateUser */
+			user
+		SET
+			regUserId = #{regUserId},
+			updUserId = #{updUserId},
+			updDateTime = NOW()
+		WHERE
+			userId = #{userId}
+	</update>
+	
+	<select id="selectUser" parameterType="long" resultType="tMap">
+		SELECT /* selectUser */
+			*
+		FROM
+			user
+		WHERE
+			userId = #{userId}	
+	</select>
+	
+</mapper>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:application-context.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>classpath:messages/messages</value>
+			</list>
+		</property>
+		<property name="defaultEncoding" value="UTF-8" />
+		<property name="cacheSeconds" value="${message.source.cache.sec}" />
+	</bean>
+
+	<!-- annotation head -->
+	<context:component-scan base-package="com.echo" />
+	<context:annotation-config />
+	<!-- annotation tail -->
+
+	<!-- aop setting head -->
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+	<bean class="com.echo.framework.RequestResponseAspect" />
+	<bean class="com.echo.framework.DaoAspect" />
+	<bean class="com.echo.framework.ServiceAspect" />
+	<!-- aop setting tail -->
+
+
+	<!-- tx -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource">
+			<ref bean="dataSourceEchoMaster" />
+		</property>
+	</bean>
+	
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<bean id="sqlSessionFactoryEchoMaster" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSourceEchoMaster" />
+		<property name="configLocation"
+			value="classpath:/META-INF/mybatis/mybatis-config.xml" />
+	</bean>
+
+	<bean id="sqlSessionEchoMaster" class="org.mybatis.spring.SqlSessionTemplate">
+		<qualifier value="sqlSessionEchoMaster"
+			type="org.springframework.beans.factory.annotation.Qualifier" />
+		<constructor-arg ref="sqlSessionFactoryEchoMaster" />
+	</bean>
+
+	<bean id="sqlSessionFactoryEchoSlave" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSourceEchoSlave" />
+		<property name="configLocation"
+			value="classpath:/META-INF/mybatis/mybatis-config.xml" />
+	</bean>
+
+	<bean id="sqlSessionEchoSlave" class="org.mybatis.spring.SqlSessionTemplate">
+		<qualifier value="sqlSessionEchoSlave"
+			type="org.springframework.beans.factory.annotation.Qualifier" />
+		<constructor-arg ref="sqlSessionFactoryEchoSlave" />
+	</bean>
+
+	<!-- db -->
+	<beans profile="jndi">
+		<bean id="dataSourceEchoMaster" class="org.springframework.jndi.JndiObjectFactoryBean">
+			<property name="jndiName">
+				<value>java:comp/env/jdbc/echoMaster</value>
+			</property>
+		</bean>
+		<bean id="dataSourceEchoSlave" class="org.springframework.jndi.JndiObjectFactoryBean">
+			<property name="jndiName">
+				<value>java:comp/env/jdbc/echoSlave</value>
+			</property>
+		</bean>
+	</beans>
+
+	<beans profile="jdbc">
+		<bean id="dataSourceEchoMaster" class="org.apache.commons.dbcp.BasicDataSource"
+			destroy-method="close">
+			<property name="driverClassName" value="${db.driver}" />
+			<property name="url" value="${db.master.url}" />
+			<property name="username" value="${db.master.username}" />
+			<property name="password" value="${db.master.password}" />
+			<property name="validationQuery" value="select 1" />
+			<property name="testWhileIdle" value="true" />
+			<property name="testOnBorrow" value="false" />
+			<property name="timeBetweenEvictionRunsMillis" value="21600000" /> <!-- 6 hour -->
+		</bean>
+		<bean id="dataSourceEchoSlave" class="org.apache.commons.dbcp.BasicDataSource"
+			destroy-method="close">
+			<property name="driverClassName" value="${db.driver}" />
+			<property name="url" value="${db.slave.url}" />
+			<property name="username" value="${db.slave.username}" />
+			<property name="password" value="${db.slave.password}" />
+			<property name="validationQuery" value="select 1" />
+			<property name="testWhileIdle" value="true" />
+			<property name="testOnBorrow" value="false" />
+			<property name="timeBetweenEvictionRunsMillis" value="21600000" /> <!-- 6 hour -->
+		</bean>
+	</beans>
+
+</beans>

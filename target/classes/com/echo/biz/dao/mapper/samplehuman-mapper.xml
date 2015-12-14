@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="samplehuman">
+	
+	<insert id="insertSampleHuman" parameterType="Map" useGeneratedKeys="true" keyProperty="humanId" keyColumn="humanId"  >
+		INSERT INTO /* insertSampleHuman */ echo_sample_human
+			(human_id, division, name, job, phone, email, bank, salary, create_time) 
+		VALUES 
+			(#{humanId}, #{division}, #{name}, #{job}, #{phone}, #{email}, #{bank}, #{salary}, NOW())
+	</insert>
+	
+	
+	<update id="updateSampleHuman" parameterType="sampleHuman">
+		UPDATE /* updateSampleHuman */
+			echo_sample_human
+		SET	
+			<if test="division != null and ''.equals(division) == false">division = #{division},</if>
+			<if test="name != null and ''.equals(name) == false">name = #{name},</if>
+			<if test="job != null and ''.equals(job) == false">job = #{job},</if>
+			<if test="phone != null and ''.equals(phone) == false">phone = #{phone},</if>
+			<if test="email != null and ''.equals(email) == false">email = #{email},</if>
+			<if test="bank != null and ''.equals(bank) == false">bank = #{bank},</if>
+			<if test="salary != null and ''.equals(salary) == false">salary = #{salary},</if>			
+			create_time = NOW()
+		WHERE 1 = 1
+		AND	human_id = #{humanId}
+	</update>
+	
+	<delete id="deleteSampleHuman" parameterType="sampleHuman">
+		DELETE /* deleteSampleHuman */	FROM echo_sample_human
+		WHERE	human_id = #{humanId}
+	</delete>
+	
+	
+	<select id="selectSampleHuman" parameterType="sampleHuman" resultType="sampleHuman">
+		SELECT /* selectSampleHuman */
+			human_id as humanId,
+			division,
+			name,
+			job,
+			phone,
+			email,
+			bank,
+			salary,
+			create_time as createTime
+		FROM 
+			echo_sample_human
+		WHERE 1 = 1		 
+		  AND human_id = #{humanId}
+	</select>
+	
+	<select id="selectListSampleHuman" parameterType="Map" resultType="tMap">
+		SELECT	/* selectListSampleHuman */
+			human_id as humanId,
+			division,
+			name,
+			job,
+			phone,
+			email,
+			bank,
+			salary,
+			create_time as createTime
+		FROM	echo_sample_human 
+		WHERE 1 = 1	
+		<!-- <include refid="listWhere"/> -->
+		ORDER BY
+		<if test="orderElement == null or ''.equals(orderElement) == true">
+	    	human_id
+    	</if>
+    	<if test="orderElement != null and ''.equals(orderElement) == false">
+	    	${orderElement}
+    	</if>
+    	<if test="orderType != 'ASC'">
+	    	DESC
+    	</if>
+    	<if test="pageSize != null and pageSize != -1">
+		LIMIT ${start}, ${pageSize}
+		</if>
+	</select>
+	
+	<select id="selectCntSampleHuman" parameterType="Map" resultType="int">
+		SELECT /* selectCntSampleHuman */
+			COUNT(1)
+		FROM
+			echo_sample_human 
+		WHERE 1 = 1
+		<!-- <include refid="listWhere"/> -->
+	</select>
+	
+	
+	
+</mapper>

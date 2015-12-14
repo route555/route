@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<toolbox>
+	<tool>
+		<key>esc</key>
+		<scope>application</scope>
+		<class>org.apache.velocity.tools.generic.EscapeTool</class>
+	</tool>
+	<tool>
+		<key>propsUtil</key>
+		<scope>application</scope>
+		<class>com.echo.framework.util.PropsUtil</class>
+	</tool>
+	<tool>
+		<key>jsonUtil</key>
+		<scope>application</scope>
+		<class>com.echo.framework.util.JsonUtil</class>
+	</tool>
+	<tool>
+		<key>signageUtil</key>
+		<scope>application</scope>
+		<class>com.echo.framework.util.EchoUtil</class>
+	</tool>
+	<tool>
+		<key>stringUtil</key>
+		<scope>application</scope>
+		<class>com.echo.framework.util.StringUtils</class>
+	</tool>
+</toolbox>
