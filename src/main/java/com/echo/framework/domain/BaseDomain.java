@@ -19,6 +19,12 @@ public abstract class BaseDomain implements Serializable {
 	private Date regDateTime;
 	private Date updDateTime;
 	private String isDel;
+	
+	private Date rgtTm;
+	private String rgtId;
+	private Date uptTm;
+	private String uptId;
+	
 
 	public BaseDomain() {
 
@@ -87,6 +93,38 @@ public abstract class BaseDomain implements Serializable {
 
 	public void setIsDel(String isDel) {
 		this.isDel = isDel;
+	}
+
+	public Date getRgtTm() {
+		return rgtTm;
+	}
+
+	public void setRgtTm(Date rgtTm) {
+		this.rgtTm = rgtTm;
+	}
+
+	public String getRgtId() {
+		return rgtId;
+	}
+
+	public void setRgtId(String rgtId) {
+		this.rgtId = rgtId;
+	}
+
+	public Date getUptTm() {
+		return uptTm;
+	}
+
+	public void setUptTm(Date uptTm) {
+		this.uptTm = uptTm;
+	}
+
+	public String getUptId() {
+		return uptId;
+	}
+
+	public void setUptId(String uptId) {
+		this.uptId = uptId;
 	}
 
 	@Override

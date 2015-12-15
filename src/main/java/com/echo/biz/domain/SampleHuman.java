@@ -21,7 +21,7 @@ public class SampleHuman extends BaseDomain {
 	private Date createTime;
 	
 	public SampleHuman() {
-	};
+	}
 	
 	
 	public SampleHuman(SampleHumanDto dto) throws Exception {

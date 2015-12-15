@@ -20,7 +20,7 @@ import com.echo.framework.dto.CodeDto;
 import com.echo.framework.service.CodeService;
 
 @Controller
-@RequestMapping(value = "/codes")
+@RequestMapping(value = "/codesold")
 public class CodeController extends BaseController {
 	@Autowired
 	@Qualifier("CodeService")

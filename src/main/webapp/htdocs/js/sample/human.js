@@ -1,43 +1,55 @@
 	var view = {		
 		onLoadEvent : function() {
 		
-		$("#btnSearch").unbind('click');
-		$("#btnSearch").click( function() {			
-			var table = $('#dataTables-example').dataTable();
-			table.fnReloadAjax();
-		});
-		
-		$("#btnSave").unbind('click');
-		$("#btnSave").click( function() {
+			view.selectCommonCode();
 			
-			if($("#humanId").val()==''){
-				view.insertData();
-				
-			}else{
-				view.modifyData();
-			}
+			$("#btnSearch").unbind('click');
+			$("#btnSearch").click( function() {			
+				var table = $('#dataTables-example').dataTable();
+				table.fnReloadAjax();
+			});
 			
+			$("#btnSave").unbind('click');
+			$("#btnSave").click( function() {				
+				if($("#humanId").val()==''){
+					view.insertData();					
+				}else{
+					view.modifyData();
+				}
+			});
 			
-		});
+			$("#btnDelete").unbind('click');
+			$("#btnDelete").click( function() {			
+				view.deleteData();
+			});
+			
+			$("#btnNew").unbind('click');
+			$("#btnNew").click( function() {			
+				view.initDetail();
+				$("#detail").show();
+			});			
 		
-		$("#btnDelete").unbind('click');
-		$("#btnDelete").click( function() {			
-			view.deleteData();
-		});
+			view.selectTableData();
+		}
+		, selectCommonCode : function() {			
+			common.ajax({
+				  		url : G_CONTEXT_PATH+"/codes/G01"
+				  		, type : "GET"
+						, success : view.selectCommonCodeCallBack
+			});
+		}
+		, selectCommonCodeCallBack : function(json) {
+			var el = '';			
+			$(json.list).each(function(i, itm){				
+				el += '<option value="' + itm.dtlCd + '">' + itm.dtlCdNm + '</option>';
+			});
+			
+			$("select:eq(0)").append(el);
+			$("select:eq(0) option:eq(0)").attr("selected", "selected");
+			$("select:eq(0) option:eq(0)").trigger('change');	
+		}
 		
-		$("#btnNew").unbind('click');
-		$("#btnNew").click( function() {			
-			view.initDetail();
-			$("#detail").show();
-		});
-		
-	
-		view.selectTableData();
-		
-
-		
-		},		
-		selectTableData : function() {
+		, selectTableData : function() {
 			var table = $('#dataTables-example').DataTable(
 					{
 						"processing" : true,

@@ -29,35 +29,44 @@
                 <!-- /.col-lg-12 -->
             </div>
             
-            
-            
-            <!-- 검색박스 -->
-            <nav class="navbar navbar-default" role="navigation">             
-	            <div class="navbar-header">                
-	                <a class="navbar-brand" href="#">Name</a>
-	            </div>
-	            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">                
-	                <div class="col-sm-3 col-md-3 pull-left">
-	                    <form class="navbar-form" id="sf"  id="sf"  role="search">                    	
-	                        <input type="hidden" name="searchType" value="like" />
-	                        <input type="hidden" name="orderElement" value="year, month" />
-	                        <input type="hidden" name="orderType" value="ASC" />	
-	                        <div class="input-group">
-	                            <input type="text" class="form-control" placeholder="Search" name="q">
-	                            <div class="input-group-btn">
-	                                <button class="btn btn-default" id="btnSearch" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-	                            </div>
-	                        </div>
-	                    </form>
-	                </div>	                
-	                <div class="col-sm-3 col-md-3 pull-right">
-	                <form class="navbar-form" id="f" role="search">
-	                	<button type="button" class="btn btn-primary pull-right" id="btnNew">신규 등록</button> 
-	                </form>   
-	                </div>	                
-	            </div>	           
-	        </nav>            
-	        <!-- 검색박스 종료-->
+
+           <!-- 검색박스 -->
+            <div class="row"  id="searchBox">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Search Form Elements
+                        </div>
+                        <div class="panel-body">
+                        	<form role="form" class="form-inline"  id="sf"  id="sf"  >
+	                        	<input type="hidden" name="searchType" value="like" />
+		                        <input type="hidden" name="orderElement" value="year, month" />
+		                        <input type="hidden" name="orderType" value="ASC" />
+                        		
+                        		<label for="selectUser" style="float:left;padding: 6px 12px 2px 12px;">이름 :</label>
+                        		<input type="text" class="form-control" placeholder="Search" name="q">
+	                            <button class="btn btn-default" id="btnSearch" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                        	                        
+					      <div class="form-group">
+					        <label for="selectUser" style="float:left;padding: 6px 12px 2px 12px;">성별 :</label>
+					        <select id="selectUser" style="width:auto;" class="form-control selectWidth">
+					          <option class="">전체</option>					          
+					        </select>
+					      </div>					     
+					      
+                       
+	              		 <div class="form-group  pull-right">
+	                		<button type="button" class="btn btn-primary" id="btnNew">신규 등록</button> 
+	                 	</div> 
+	                              
+                         </form>
+                        
+                        </div>                       
+                    </div>                   
+                </div>               
+            </div>
+            <!-- 검색박스 종료-->
+
 	        
             <!-- 테이블 -->
             <div class="row">

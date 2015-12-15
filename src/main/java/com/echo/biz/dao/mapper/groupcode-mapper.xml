@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="groupcode">
+	
+	<select id="selectListCommonCode" parameterType="Map" resultType="tMap">	
+		SELECT /* selectListCommonCode */
+		    a.grp_cd grpCd,
+		    a.grp_cd_nm grpCdNm, 
+		    b.dtl_cd dtlCd, 
+		    b.dtl_cd_nm dtlCdNm
+		FROM
+		    T_PMS014 a
+		        INNER JOIN
+		    T_PMS015 b
+		WHERE
+		    a.grp_cd = b.grp_cd
+		    AND a.grp_cd = '${grpCd}'
+	</select>
+	
+	
+</mapper>
