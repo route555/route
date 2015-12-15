@@ -210,6 +210,6 @@ public class EchoInterceptor extends BaseInterceptor {
 		if (isIgnoreCheckIp(request) == false) {
 			authService.checkIp(request);
 		}
-		authService.checkAuth(request, PropsUtil.getValue("context.echo.path"));
+		//authService.checkAuth(request, PropsUtil.getValue("context.echo.path"));
 	}
 }
