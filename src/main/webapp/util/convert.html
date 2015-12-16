@@ -61,10 +61,10 @@
             // Select
             else if($('#code_select:checked').val()) {
                 if(count == 0) {
-                    output1 += (before);
+                    output1 += (before + ' AS ' + after);
                 }
                 else {
-                    output1 += (',\n\t' + before);
+                    output1 += (',\n\t' + before + ' AS ' + after);
                 }
 
                 if(count == 0) {
