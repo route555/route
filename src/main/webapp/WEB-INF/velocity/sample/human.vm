@@ -38,14 +38,14 @@
                             Search Form Elements
                         </div>
                         <div class="panel-body">
-                        	<form role="form" class="form-inline"  id="sf"  id="sf"  >
+                        	<form role="form" class="form-inline"  name="sf"  id="sf"  >
 	                        	<input type="hidden" name="searchType" value="like" />
-		                        <input type="hidden" name="orderElement" value="year, month" />
+		                        <input type="hidden" name="orderElement" id="orderElement" value="year, month" />
 		                        <input type="hidden" name="orderType" value="ASC" />
                         		
                         		<label for="selectUser" style="float:left;padding: 6px 12px 2px 12px;">이름 :</label>
                         		<input type="text" class="form-control" placeholder="Search" name="q">
-	                            <button class="btn btn-default" id="btnSearch" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+	                            <button class="btn btn-default" id="btnSearch" type="button"><i class="glyphicon glyphicon-search"></i></button>
                         	                        
 					      <div class="form-group">
 					        <label for="selectUser" style="float:left;padding: 6px 12px 2px 12px;">성별 :</label>
