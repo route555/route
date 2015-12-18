@@ -8,20 +8,14 @@
 	<!-- domain 정의 -->
 	<typeAliases>
 		
+		<!-- sample -->
 		<typeAlias type="com.echo.biz.domain.SampleHuman" alias="sampleHuman" />
 		
-		<!-- biz 
-		<typeAlias type="com.echo.biz.domain.Business" alias="business" />
-		<typeAlias type="com.echo.biz.domain.Device" alias="device" />
-		<typeAlias type="com.echo.biz.domain.Container" alias="container" />
-		<typeAlias type="com.echo.biz.domain.ContainerTag" alias="containerTag" />
-		<typeAlias type="com.echo.biz.domain.Schedule" alias="schedule" />
-		<typeAlias type="com.echo.biz.domain.Ad" alias="ad" />
-		<typeAlias type="com.echo.biz.domain.AdDevice" alias="adDevice" />
-		<typeAlias type="com.echo.biz.domain.CtrlHistory" alias="ctrlHistory" />
-		<typeAlias type="com.echo.biz.domain.FaultHistory" alias="faultHistory" />
+		<!-- biz -->		
 		
-		-->
+		<!-- system -->
+		<typeAlias type="com.echo.biz.domain.GroupCode" alias="groupCode" />
+		<typeAlias type="com.echo.biz.domain.DetailCode" alias="detailCode" />
 		
 		<!-- common -->
 		<typeAlias type="com.echo.framework.domain.Auth" alias="auth" />
@@ -29,12 +23,14 @@
 		<typeAlias type="java.util.TreeMap" alias="tMap" />
 	</typeAliases>
 	<mappers>
-		<!-- admin 
-		<mapper resource="com/echo/biz/dao/mapper/business-mapper.xml" />
-		
-		-->
+		<!-- sample -->
 		<mapper resource="com/echo/biz/dao/mapper/samplehuman-mapper.xml" />
+		
+		<!-- biz -->
+		
+		<!-- system -->
 		<mapper resource="com/echo/biz/dao/mapper/groupcode-mapper.xml" />
+		<mapper resource="com/echo/biz/dao/mapper/detailcode-mapper.xml" />
 		
 		<!-- common -->
 		<mapper resource="com/echo/framework/dao/mapper/auth-mapper.xml" />

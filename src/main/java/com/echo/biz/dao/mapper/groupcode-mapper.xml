@@ -1,7 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="groupcode">
+
+	<insert id="insertGroupCode" parameterType="Map">
+		INSERT INTO /* insertGroupCode */ T_PMS014
+			(grp_cd, grp_cd_nm, grp_cd_desc, rgt_tm, rgt_id, upt_tm, upt_id) 
+		VALUES
+			(#{grpCd}, #{grpCdNm}, #{grpCdDesc},  NOW(), #{rgtId},  NOW(), #{uptId})
+	</insert>	
 	
+	<update id="updateGroupCode" parameterType="groupCode">
+		UPDATE /* updateGroupCode */
+			T_PMS014 
+		SET	
+			<if test="grpCdNm != null and ''.equals(grpCdNm) == false">grp_cd_nm = #{grpCdNm},</if>
+			<if test="grpCdDesc != null and ''.equals(grpCdDesc) == false">grp_cd_desc = #{grpCdDesc},</if>
+			upt_tm =  NOW(),
+			upt_id = #{uptId}
+		WHERE
+			grp_cd = #{grpCd}
+	</update>
+	
+	<delete id="deleteGroupCode" parameterType="groupCode">
+		DELETE /* deleteGroupCode */
+		FROM
+			T_PMS014 
+		WHERE	
+			grp_cd = #{grpCd}	
+	</delete>	
+	
+	<select id="selectGroupCode" parameterType="groupCode" resultType="groupCode">
+		SELECT	 /* selectGroupCode */
+			grp_cd AS grpCd,
+			grp_cd_nm AS grpCdNm,
+			grp_cd_desc AS grpCdDesc,
+			rgt_tm AS rgtTm,
+			rgt_id AS rgtId,
+			upt_tm AS uptTm,
+			upt_id AS uptId
+		FROM
+			T_PMS014
+		WHERE 1 = 1		
+		AND	grp_cd = #{grpCd}
+	</select>
+	
+	<select id="selectListGroupCode" parameterType="Map" resultType="tMap">
+		SELECT	/* selectListGroupCode */
+			grp_cd AS grpCd,
+			grp_cd_nm AS grpCdNm,
+			grp_cd_desc AS grpCdDesc,
+			rgt_tm AS rgtTm,
+			rgt_id AS rgtId,
+			upt_tm AS uptTm,
+			upt_id AS uptId
+		FROM
+			T_PMS014
+		WHERE 1 = 1	
+		<include refid="listWhere"/>
+		ORDER BY
+		<if test="orderElement == null or ''.equals(orderElement) == true">
+	    	grp_cd
+    	</if>
+    	<if test="orderElement != null and ''.equals(orderElement) == false">
+	    	${orderElement}
+    	</if>
+    	<if test="orderType != 'ASC'">
+	    	DESC
+    	</if>
+    	<if test="pageSize != null and pageSize != -1">
+		LIMIT ${start}, ${pageSize}
+		</if>
+	</select>
+	
+	<select id="selectCntGroupCode" parameterType="Map" resultType="int">
+		SELECT /* selectCntGroupCode */
+			COUNT(1)
+		FROM
+			T_PMS014 
+		WHERE 1 = 1
+		<include refid="listWhere"/>
+	</select>
+	
+	<sql id="listWhere">
+		<if test="searchType == 'equal'">
+	    	<if test="grpCd != null and grpCd != ''">AND grp_cd = #{grpCd}</if>
+	    	<if test="grpCdNm != null and grpCdNm != ''">AND grp_nm = #{grpCdNm}</if>
+    	</if>
+    	<if test="searchType == 'like'">
+	    	<if test="grpCd != null and grpCd != ''">AND grp_cd LIKE CONCAT('%', #{grpCd}, '%')</if>
+	    	<if test="grpCdNm != null and grpCdNm != ''">AND grp_cd_nm LIKE CONCAT('%', #{grpCdNm}, '%')</if>
+    	</if>		
+	   
+	</sql>
+		
 	<select id="selectListCommonCode" parameterType="Map" resultType="tMap">	
 		SELECT /* selectListCommonCode */
 		    a.grp_cd grpCd,

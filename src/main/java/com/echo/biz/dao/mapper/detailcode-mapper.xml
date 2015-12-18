@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="detailcode">
+
+	<insert id="insertDetailCode" parameterType="Map">
+		INSERT INTO /* insertDetailCode */ T_PMS015
+			(grp_cd, dtl_cd, dtl_cd_nm, dtl_cd_desc, rgt_tm, rgt_id, upt_tm, upt_id) 
+		VALUES
+			(#{grpCd}, #{dtlCd}, #{dtlCdNm}, #{dtlCdDesc}, NOW(), #{rgtId}, NOW(), #{uptId})
+	</insert>	
+	
+	<update id="updateDetailCode" parameterType="detailCode">
+		UPDATE  /* updateDetailCode */
+			T_PMS015 
+		SET	
+			<if test="dtlCdNm != null and ''.equals(dtlCdNm) == false">dtl_cd_nm = #{dtlCdNm},</if>
+			<if test="dtlCdDesc != null and ''.equals(dtlCdDesc) == false">dtl_cd_desc = #{dtlCdDesc},</if>
+			upt_tm =  NOW(),
+			upt_id = #{uptId}
+		WHERE	
+			grp_cd = #{grpCd}
+		AND	dtl_cd = #{dtlCd}
+	</update>
+	
+	<delete id="deleteDetailCode" parameterType="detailCode">
+		DELETE /* deleteDetailCode */
+		FROM
+			T_PMS015 
+		WHERE	
+			grp_cd = #{grpCd}
+			AND	dtl_cd = #{dtlCd}	
+	</delete>	
+	
+	<delete id="deleteDetailCodeByGrpCd" parameterType="Map">
+		DELETE /* deleteDetailCodeByGrpCd */
+		FROM
+			T_PMS015 
+		WHERE	
+			grp_cd = #{grpCd}
+	</delete>	
+	
+	<select id="selectDetailCode" parameterType="detailCode" resultType="detailCode">
+		SELECT	 /* selectDetailCode */
+			grp_cd AS grpCd,
+			dtl_cd AS dtlCd,
+			dtl_cd_nm AS dtlCdNm,
+			dtl_cd_desc AS dtlCdDesc,
+			rgt_tm AS rgtTm,
+			rgt_id AS rgtId,
+			upt_tm AS uptTm,
+			upt_id AS uptId
+		FROM
+			T_PMS015
+		WHERE 1 = 1		
+		AND	grp_cd = #{grpCd}
+		AND	dtl_cd = #{dtlCd}
+	</select>
+	
+	<select id="selectListDetailCode" parameterType="Map" resultType="tMap">
+		SELECT	/* selectListDetailCode */
+			grp_cd AS grpCd,
+			dtl_cd AS dtlCd,
+			dtl_cd_nm AS dtlCdNm,
+			dtl_cd_desc AS dtlCdDesc,
+			rgt_tm AS rgtTm,
+			rgt_id AS rgtId,
+			upt_tm AS uptTm,
+			upt_id AS uptId
+		FROM
+			T_PMS015
+		WHERE 1 = 1	
+		<include refid="listWhere"/>
+		ORDER BY
+		<if test="orderElement == null or ''.equals(orderElement) == true">
+	    	grp_cd
+    	</if>
+    	<if test="orderElement != null and ''.equals(orderElement) == false">
+	    	${orderElement}
+    	</if>
+    	<if test="orderType != 'ASC'">
+	    	DESC
+    	</if>
+    	<if test="pageSize != null and pageSize != -1">
+		LIMIT ${start}, ${pageSize}
+		</if>
+	</select>
+	
+	<select id="selectCntDetailCode" parameterType="Map" resultType="int">
+		SELECT /* selectCntDetailCode */
+			COUNT(1)
+		FROM
+			T_PMS015 
+		WHERE 1 = 1
+		<include refid="listWhere"/>
+	</select>
+	
+	
+	<sql id="listWhere">		
+	   	<if test="grpCd != null and ''.equals(grpCd) == false">
+		AND grp_cd = #{grpCd}
+		</if>	
+	</sql>
+
+</mapper>

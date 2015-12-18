@@ -26,9 +26,6 @@
  	<!-- DataTables CSS -->
     <link href="/${contextPath}/assets/sbadmin/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
 
-    <!-- DataTables Responsive CSS 
-    <link href="/${contextPath}/assets/sbadmin/bower_components/datatables-responsive/css/responsive.dataTables.scss" rel="stylesheet">
--->
     <!-- Timeline CSS -->
     <link href="/${contextPath}/assets/sbadmin/dist/css/timeline.css" rel="stylesheet">
 
@@ -39,7 +36,9 @@
     <link href="/${contextPath}/assets/sbadmin/bower_components/morrisjs/morris.css" rel="stylesheet">
     
     <link href="https://cdn.datatables.net/select/1.1.0/css/select.bootstrap.min.css" rel="stylesheet">
-
+    
+    <link href="https://cdn.datatables.net/select/1.1.0/css/select.dataTables.min.css" rel="stylesheet">
+ 
     <!-- Custom Fonts -->
     <link href="/${contextPath}/assets/sbadmin/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
@@ -51,7 +50,6 @@
     <![endif]-->
 
 
-
     <!-- jQuery -->
     <script src="/${contextPath}/assets/sbadmin/bower_components/jquery/dist/jquery.min.js"></script>
 
@@ -61,18 +59,19 @@
     <!-- Metis Menu Plugin JavaScript -->
     <script src="/${contextPath}/assets/sbadmin/bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
-
-
 	<!-- DataTables JavaScript -->
     <script src="/${contextPath}/assets/sbadmin/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
     <script src="/${contextPath}/assets/sbadmin/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
-
+	<script src="https://cdn.datatables.net/select/1.1.0/js/dataTables.select.min.js"></script>
+	<script src="https://cdn.datatables.net/plug-ins/1.10.10/api/fnReloadAjax.js"></script>
+    
     <!-- Custom Theme JavaScript -->
     <script src="/${contextPath}/assets/sbadmin/dist/js/sb-admin-2.js"></script>
-<script src="https://cdn.datatables.net/plug-ins/1.10.10/api/fnReloadAjax.js"></script>
-<script src="/${contextPath}/htdocs/js/common.js"></script>
+
+	<!-- Framework Common JavaScript -->
+	<script src="/${contextPath}/htdocs/js/common.js"></script>
 
 
    <script type="text/javascript">
-   var G_CONTEXT_PATH = "/${contextPath}";
+		var G_CONTEXT_PATH = "/${contextPath}";
    </script>

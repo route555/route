@@ -1,5 +1,6 @@
 package com.echo.biz.domain;
 
+import com.echo.biz.dto.GroupCodeDto;
 import com.echo.framework.domain.BaseDomain;
 
 public class GroupCode extends BaseDomain {
@@ -14,6 +15,18 @@ public class GroupCode extends BaseDomain {
 
 	}
 
+	public GroupCode(GroupCodeDto dto) throws Exception {
+		/*
+		 * for regUserId, updUserId
+		 */
+		super(dto);
+
+		this.grpCd = dto.getGrpCd();
+		this.grpCdNm = dto.getGrpCdNm();
+		this.grpCdDesc = dto.getGrpCdDesc();
+
+	}
+	
 	public String getGrpCd() {
 		return grpCd;
 	}

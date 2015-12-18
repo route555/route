@@ -1,6 +1,5 @@
 package com.echo.biz.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.echo.biz.dao.GroupCodeDao;
 import com.echo.biz.domain.GroupCode;
@@ -24,23 +24,37 @@ public class GroupCodeService extends AbstractService<GroupCode, GroupCodeDto> {
 
 	@Autowired
 	private GroupCodeDao groupCodeDao;
+	
+	@Autowired
+	private DetailCodeService detailCodeService;
 
 	public GroupCodeService() {
 		super(GroupCode.class, GroupCodeDto.class);
 	}
 
-
 	public Object selectListCommonCode(String grpCd) throws Exception {
-		
 
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("grpCd", grpCd);
 
 		log.debug("#$#$#" + param);
-		List<Map<String, Object>> list = groupCodeDao.selectListCommonCode(param);	
-		
-		
+		List<Map<String, Object>> list = groupCodeDao.selectListCommonCode(param);
+
 		return list;
+	}
+
+	
+	@Transactional
+	@Override
+	public int deleteDto(GroupCodeDto dto) throws Exception {
+		
+		int s = super.deleteDto(dto);
+		
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("grpCd", dto.getGrpCd());
+		int d = detailCodeService.deleteDetailCodeByGrpCd(param);
+		
+		return s+d;
 	}
 	
 	@PostConstruct

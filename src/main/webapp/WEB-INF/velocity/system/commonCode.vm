@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	#parse("common/commonScript.vm") 
+	<script src="/${contextPath}/htdocs/js/system/commonCode.js"></script>
+	
+	<script src="https://cdn.datatables.net/buttons/1.1.0/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.1.0/js/buttons.colVis.min.js "></script>
+<link href="https://cdn.datatables.net/buttons/1.1.0/css/buttons.dataTables.min.css" rel="stylesheet">
+ 
+<style>
+
+.dataTables_wrapper .dataTables_length {
+    position: relative;
+    text-align: left;
+    float:left; 
+}
+
+.dataTables_wrapper .dt-buttons {
+  float:right;  
+  text-align:right;
+}
+</style>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">   
+</head>
+
+<body>
+
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">        
+			#parse("common/header.vm")
+			#parse("common/menu.vm")
+        </nav>
+		
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">공통코드 관리</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            
+
+           <!-- 검색박스 -->
+            <div class="row"  id="searchBox">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Search Form Elements
+                        </div>
+                        <div class="panel-body">
+                        	<form role="form" class="form-inline"  id="sf"  name="sf"  >
+	                        	<input type="hidden" name="searchType" value="like" />
+		                        <input type="hidden" name="orderElement" value="grp_cd" />
+		                        <input type="hidden" name="orderType" value="ASC" />
+                        		
+                        		<label for="grpCd" >그룹코드 : </label>
+                        		<input type="text" class="form-control" placeholder="그룹코드" name="grpCd">
+                        		&nbsp &nbsp &nbsp 
+                        		<label for="grpCdNm" >그룹코드명 : </label>
+                        		<input type="text" class="form-control" placeholder="그룹코드명" name="grpCdNm">
+                        		
+	                            <button class="btn btn-default" id="btnSearch" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                        	                        
+					     				     
+					      
+                       
+	                              
+                         </form>
+                        
+                        </div>                       
+                    </div>                   
+                </div>               
+            </div>
+            <!-- 검색박스 종료-->
+	
+
+			<!-- 컨텐츠-->
+			<div class="row">
+				<div class="col-lg-6">
+					<!-- 테이블 -->
+					<div class="panel panel-default">
+						<div class="panel-heading">그룹코드</div>												
+						<div class="panel-body">
+							<div class="dataTable_wrapper">
+								<table cellspacing="0" width="100%"	class="display table table-striped table-bordered table-hover" id="dataTables-groupCode">
+									<thead>
+										<tr>
+											<th>그룹코드</th>
+											<th>그룸코드명</th>
+											<th>설명</th>
+											<th>등록자</th>
+											<th>등록일시</th>
+											<th>수정자</th>
+											<th>수정일시</th>
+										</tr>
+									</thead>
+								</table>
+							</div>							
+						</div>						
+					</div>	
+								
+					<!-- 테이블종료 -->
+					
+					
+					<!-- 그룹디테일화면 -->
+		            <div class="row" style="display: none;" id="groupCodeDetail">
+		                <div class="col-lg-12">
+		                    <div class="panel panel-default">
+		                        <div class="panel-heading">
+		                            	그룹코드 상세
+		                        </div>
+		                        <div class="panel-body">
+		                        	<form role="form" name="f" id="f" method="post">
+		                        	<input type="hidden" id="isGroupView" name="isGroupView">
+		                            <div class="row">
+		                                <div class="col-lg-12">                                    
+		                                    <div class="form-group">
+		                                        <label>그룹코드</label>
+		                                        <input class="form-control" id="grpCd" name="grpCd">
+		                                    </div>
+		                                    <div class="form-group">
+		                                        <label>그룹코드명</label>
+		                                        <input class="form-control" id="grpCdNm" name="grpCdNm">
+		                                    </div>
+		                                    <div class="form-group">
+			                                    <label>설명</label>
+			                                    <input class="form-control" id="grpCdDesc" name="grpCdDesc">
+			                                </div> 
+		                               
+			                                <button type="button" class="btn btn-default" id="btnSave">저장</button>
+		                                    <button type="button" class="btn btn-default" id="btnDelete">삭제</button>
+		                                </div>
+		                            </form>
+		                            </div>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		            <!--그룹디테일 종료-->
+							
+					
+					
+					
+				</div>
+
+				<div class="col-lg-6">
+					<!-- 테이블 -->
+					<div class="panel panel-default">
+						<div class="panel-heading">상세코드</div>
+						<!-- /.panel-heading -->
+						<div class="panel-body">
+							<div class="dataTable_wrapper">
+								<table cellspacing="0" width="100%"	class="display table table-striped table-bordered table-hover" id="dataTables-detailCode">
+									<thead>
+										<tr>
+											<th>그룹코드</th>
+											<th>상세코드</th>
+											<th>상세코드명</th>
+											<th>설명</th>
+											<th>등록자</th>
+											<th>등록일시</th>
+											<th>수정자</th>
+											<th>수정일시</th>
+										</tr>
+									</thead>
+								</table>
+							</div>
+						</div>
+					</div>
+					<!-- 테이블종료 -->
+					
+					<!-- 세부디테일화면 -->
+		            <div class="row" style="display: none;" id="detailCodeDetail">
+		                <div class="col-lg-12">
+		                    <div class="panel panel-default">
+		                        <div class="panel-heading">
+		                            	세부코드 상세
+		                        </div>
+		                        <div class="panel-body">
+		                        	<form role="form" name="df" id="df" method="post">
+		                        	<input type="hidden" id="isDetailView" name="isDetailView">
+		                            <div class="row">
+		                                <div class="col-lg-12">                                    
+		                                    <div class="form-group">
+		                                        <label>그룹코드</label>
+		                                        <input class="form-control" id="grpCd" name="grpCd" readonly>
+		                                    </div>
+		                                    <div class="form-group">
+		                                        <label>세부코드</label>
+		                                        <input class="form-control" id="dtlCd" name="dtlCd">
+		                                    </div>
+		                                    <div class="form-group">
+		                                        <label>세부코드명</label>
+		                                        <input class="form-control" id="dtlCdNm" name="dtlCdNm">
+		                                    </div>
+		                                    <div class="form-group">
+			                                    <label>설명</label>
+			                                    <input class="form-control" id="dtlCdDesc" name="dtlCdDesc">
+			                                </div> 
+		                               
+			                                <button type="button" class="btn btn-default" id="btnSave">저장</button>
+		                                    <button type="button" class="btn btn-default" id="btnDelete">삭제</button>
+		                                </div>
+		                            </form>
+		                            </div>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		            <!--세부디테일 종료-->					
+					
+					
+					
+				</div>
+			</div>
+			<!-- 컨텐츠 종료-->
+                     
+            
+        
+  
+            
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+
+</body>
+
+</html>

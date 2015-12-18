@@ -1,31 +1,13 @@
-package com.echo.biz.domain;
+package com.echo.biz.dto;
 
-import com.echo.biz.dto.DetailCodeDto;
-import com.echo.framework.domain.BaseDomain;
-
-public class DetailCode extends BaseDomain {
+public class DetailCodeDto extends BasePmsDto {
 
 	private static final long serialVersionUID = 1L;
+	
 	private String grpCd;
 	private String dtlCd;
 	private String dtlCdNm;
 	private String dtlCdDesc;
-
-	public DetailCode() {
-
-	}
-
-	public DetailCode(DetailCodeDto dto) throws Exception {
-		/*
-		 * for regUserId, updUserId
-		 */
-		super(dto);
-
-		this.grpCd = dto.getGrpCd();
-		this.dtlCd = dto.getDtlCd();
-		this.dtlCdNm = dto.getDtlCdNm();
-		this.dtlCdDesc = dto.getDtlCdDesc();
-	}
 
 	public String getGrpCd() {
 		return grpCd;
@@ -59,4 +41,9 @@ public class DetailCode extends BaseDomain {
 		this.dtlCdDesc = dtlCdDesc;
 	}
 
+	@Override
+	public void validate(String method) throws Exception {
+		// TODO Auto-generated method stub
+
+	}
 }

@@ -31,11 +31,13 @@ public abstract class BaseDomain implements Serializable {
 	}
 
 	public BaseDomain(BaseDto dto) {
-		//setCookieInfo(dto.getEchoCookie(), null);
+		setCookieInfo(dto.getEchoCookie(), null);
 	}
 
 	public void setCookieInfo(EchoCookie echoCookie,
 			String forIgnoreMybatisReflectionException /* not use */) {
+		rgtId = "temp";
+		uptId = "temp";
 		if (echoCookie != null) {
 			echo = echoCookie;
 
@@ -44,6 +46,8 @@ public abstract class BaseDomain implements Serializable {
 
 			regUserId = userId;
 			updUserId = userId;
+			
+		
 		}
 	}
 
