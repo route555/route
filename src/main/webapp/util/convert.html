@@ -37,6 +37,9 @@
             after = after.replace(/_/g, "");
             // console.log('\t' + before + ' ->> ' + after);
 
+            var afterInitCap = after.substring(0, 1).toUpperCase() + after.substring(1, after.length);
+            
+          
             // make result for each
             if($('#code_basic:checked').val()) {
                 output1 += (after + '\n');
@@ -54,6 +57,12 @@
                     output1 += (modifier + ' ' + datatype + ' ' + after + ';\n');
                 }
             }
+            
+            // SetDto
+            else if($('#code_setdto:checked').val()) {
+                output1 += ('this.'+after+' = '+ 'dto.get'+afterInitCap+'();\n');
+            }
+            
             // ResultMap
             else if($('#code_resultmap:checked').val()) {
                 output1 += ('\t<result property="' + after + '" column="' + before + '" />\n');
@@ -128,6 +137,10 @@
         else if($('#code_vo:checked').val()) {
             output = output1;
         }
+        else if($('#code_setdto:checked').val()) {
+            output = output1;
+        }
+        
         else if($('#code_resultmap:checked').val()) {
             output = '<resultMap id="' + document.conf._id.value + '" class="' + document.conf._class.value + '">\n';
             output += output1;
@@ -210,6 +223,10 @@
                 <label for="code_basic">Basic</label>&nbsp;
                 <input id="code_vo" type="radio" name="code" />
                 <label for="code_vo">VO</label>&nbsp;
+                
+                <input id="code_setdto" type="radio" name="code" />
+                <label for="code_setdto">Set Dto</label>&nbsp;
+                
                 <input id="code_resultmap" type="radio" name="code" />
                 <label for="code_resultmap">ResultMap</label>&nbsp;
                 <input id="code_select" type="radio" name="code" />
@@ -226,6 +243,11 @@
                         convert();
                     });
     
+                    $('#code_setdto').click(function() {
+                        $('#options').html('');
+                        convert();
+                    });
+                    
                     $('#code_vo').click(function() {
                         var html = [];
                         html.push('<p>');
