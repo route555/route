@@ -34,7 +34,7 @@ public class ValidService extends AbstractService<Valid, BaseDto> {
 
 		{ "business", "businessId", "businessId" },
 
-		{ "user", "userId", "userId" },
+		{ "user1", "userId1", "userId1" },
 
 		{ "ad", "adId", "adId" },
 

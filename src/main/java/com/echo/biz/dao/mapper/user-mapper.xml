@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+
+	<insert id="insertUser" parameterType="Map" useGeneratedKeys="true" keyProperty="userId" keyColumn="userId" >
+		INSERT INTO /* insertUser */ T_PMS016
+			(user_id, tenant_id, login_id, login_pw, user_name, phone, email, rights_type, is_use, is_del, rgt_tm, rgt_id, upt_tm, upt_id) 
+		VALUES
+			(#{userId}, #{tenantId}, #{loginId}, #{passwdByCrypt}, #{userName}, #{phone}, #{email}, #{rightsType}, #{isUse}, 'N', NOW(), #{rgtId}, NOW(), #{uptId})
+	</insert>	
+	
+	<update id="updateUser" parameterType="user">
+		UPDATE  /* updateUser */
+			T_PMS016 
+		SET	
+			<if test="tenantId != null and tenantId !=''">tenant_id = #{tenantId},</if>
+			<if test="loginId != null and loginId !=''">login_id = #{loginId},</if>
+			<if test="loginPw != null and loginPw !=''">login_pw = #{passwdByCrypt},</if>
+			<if test="userName != null and userName !=''">user_name = #{userName},</if>
+			<if test="phone != null and phone !=''">phone = #{phone},</if>
+			<if test="email != null and email !=''">email = #{email},</if>
+			<if test="rightsType != null and rightsType !=''">rights_type = #{rightsType},</if>
+			<if test="isUse != null and isUse !=''">is_use = #{isUse},</if>
+			<if test="isDel != null and isDel !=''">is_del = #{isDel},</if>
+			upt_tm =  NOW(),
+			upt_id = #{uptId}
+		WHERE	
+			user_id = #{userId}
+	</update>
+
+	<delete id="deleteUser" parameterType="user">
+		DELETE /* deleteUser */
+		FROM
+			T_PMS016 
+		WHERE	
+			user_id = #{userId}
+	</delete>	
+	
+	<select id="selectUser" parameterType="user" resultType="user">
+		SELECT	 /* selectUser */
+			user_id AS userId,
+			tenant_id AS tenantId,
+			login_id AS loginId,
+			login_pw AS loginPw,
+			user_name AS userName,
+			phone AS phone,
+			email AS email,
+			rights_type AS rightsType,
+			is_use AS isUse,
+			is_del AS isDel,
+			rgt_tm AS rgtTm,
+			rgt_id AS rgtId,
+			upt_tm AS uptTm,
+			upt_id AS uptId
+		FROM
+			T_PMS016
+		WHERE 1 = 1		
+		AND	user_id = #{userId}
+	</select>
+	
+	<select id="selectListUser" parameterType="Map" resultType="tMap">
+		SELECT	/* selectListUser */
+			user_id AS userId,
+			tenant_id AS tenantId,
+			login_id AS loginId,
+			login_pw AS loginPw,
+			user_name AS userName,
+			phone AS phone,
+			email AS email,
+			rights_type AS rightsType,
+			is_use AS isUse,
+			is_del AS isDel,
+			rgt_tm AS rgtTm,
+			rgt_id AS rgtId,
+			upt_tm AS uptTm,
+			upt_id AS uptId
+		FROM
+			T_PMS016
+		WHERE 1 = 1	
+		<include refid="listWhere"/>
+		ORDER BY
+		<if test="orderElement == null or ''.equals(orderElement) == true">
+	    	user_id
+    	</if>
+    	<if test="orderElement != null and ''.equals(orderElement) == false">
+	    	${orderElement}
+    	</if>
+    	<if test="orderType != 'ASC'">
+	    	DESC
+    	</if>
+    	<if test="pageSize != null and pageSize != -1">
+		LIMIT ${start}, ${pageSize}
+		</if>
+	</select>
+	
+	<select id="selectCntUser" parameterType="Map" resultType="int">
+		SELECT /* selectCntUser */
+			COUNT(1)
+		FROM
+			T_PMS016 
+		WHERE 1 = 1
+		<include refid="listWhere"/>
+	</select>
+	
+	
+	<sql id="listWhere">
+		<if test="searchType == 'equal'">
+	    	<if test="loginId != null and loginId != ''">AND login_id = #{loginId}</if>
+	    	<if test="userName != null and userName != ''">AND user_name = #{userName}</if>
+    	</if>
+    	<if test="searchType == 'like'">
+	    	<if test="loginId != null and loginId != ''">AND login_id LIKE CONCAT('%', #{loginId}, '%')</if>
+	    	<if test="userName != null and userName != ''">AND user_name LIKE CONCAT('%', #{userName}, '%')</if>
+    	</if>			
+	
+	</sql>
+
+</mapper>

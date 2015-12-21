@@ -208,7 +208,7 @@ public class EchoInterceptor extends BaseInterceptor {
 		
 		makeSessionKey(request);
 		if (isIgnoreCheckIp(request) == false) {
-			authService.checkIp(request);
+			//authService.checkIp(request);
 		}
 		//authService.checkAuth(request, PropsUtil.getValue("context.echo.path"));
 	}

@@ -19,4 +19,9 @@ public class SystemWebController extends BaseController {
 		return "system/commonCode";
 	}
 	
+	@RequestMapping(value = "/system/user", method = RequestMethod.GET)
+	public String user(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+		return "system/user";
+	}
+	
 }

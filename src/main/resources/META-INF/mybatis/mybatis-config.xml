@@ -16,13 +16,17 @@
 		<!-- system -->
 		<typeAlias type="com.echo.biz.domain.GroupCode" alias="groupCode" />
 		<typeAlias type="com.echo.biz.domain.DetailCode" alias="detailCode" />
+		<typeAlias type="com.echo.biz.domain.User" alias="user" />
 		
 		<!-- common -->
 		<typeAlias type="com.echo.framework.domain.Auth" alias="auth" />
 		<typeAlias type="com.echo.framework.domain.Code" alias="code" />
 		<typeAlias type="java.util.TreeMap" alias="tMap" />
+		
 	</typeAliases>
+	
 	<mappers>
+	
 		<!-- sample -->
 		<mapper resource="com/echo/biz/dao/mapper/samplehuman-mapper.xml" />
 		
@@ -31,6 +35,7 @@
 		<!-- system -->
 		<mapper resource="com/echo/biz/dao/mapper/groupcode-mapper.xml" />
 		<mapper resource="com/echo/biz/dao/mapper/detailcode-mapper.xml" />
+		<mapper resource="com/echo/biz/dao/mapper/user-mapper.xml" />
 		
 		<!-- common -->
 		<mapper resource="com/echo/framework/dao/mapper/auth-mapper.xml" />
