@@ -19,6 +19,13 @@ var view = {
 					view.personTable.fnReloadAjax();
 				});
 				
+				$("#btnSearchInit").unbind('click');
+				$("#btnSearchInit").click( function() {			
+					$('form[name="sf"]').each(function() {
+						this.reset();  
+					}); 
+				});
+				
 				$("#btnClose").unbind('click');
 				$("#btnClose").click( function() {
 					window.close();
@@ -33,11 +40,9 @@ var view = {
 						window.opener.view.popEvent(view.sendData);  
 						window.close(); 
 					}
-					
-					
 
 				});
-				
+				$('form').find('input[type=text],textarea,select').filter(':visible:first').focus();
 								
 			}
 			, onLoadForAsync : function() {
@@ -47,6 +52,9 @@ var view = {
 				$('#dataTables-person tbody').on('click', 'tr', function () {
 					view.initDetail();
 					data = view.personTable.fnGetData(this);
+					if(data==null){
+						return false;
+					}
 					view.sendData=data;
 					view.selectOneData(data.prsnNo);
 			    } );
@@ -77,6 +85,10 @@ var view = {
 							el += '<input type="radio" name="sexCd" id="sexCd" value="' + itm.dtlCd + '">' + itm.dtlCdNm + '</label>';
 						});						
 						$("#sexCdTdSf").append(el);
+						var newEl='';
+						newEl += '<label class="radio-inline">';
+						newEl += '<input type="radio" name="sexCd" id="sexCd" value="">전체</label>';
+						$("#sexCdTdSf").prepend(newEl);
 					} else if(key=='skillSectCd'){
 						var el = '';			
 						$(view.codeDatas[value]).each(function(i, itm){	
@@ -131,6 +143,7 @@ var view = {
 							"bFilter": false,
 							"autoWidth": true,
 							"ordering": false,
+							deferLoading: 0, 
 							"iDisplayLength": 10,
 							columnDefs: [ { visible: false, targets: [0] } ],
 							select:true,
@@ -186,13 +199,13 @@ var view = {
 					if(k=='cntrctSectCd'){
 						$("#"+k).html(view.converCodeNm(v, 'cntrctSectCd'));
 					}else if(k=='sexCd'){
-						$("#"+k).html(view.converCodeNm(v, 'sexCd'));
+						$("#detail #"+k).html(view.converCodeNm(v, 'sexCd'));
 					}else if(k=='certCd'){
 						$("#"+k).html(view.converCodeNm(v, 'certCd'));
 					}else if(k=='acdmcCd'){
 						$("#"+k).html(view.converCodeNm(v, 'acdmcCd'));	
 					}else if(k=='skillSectCd'){
-						$("#"+k).html(view.converCodeNmSkill(v, 'skillSectCd'));
+						$("#detail #"+k).html(view.converCodeNmSkill(v, 'skillSectCd'));
 					}else{
 						$("#"+k).html( v);
 					}

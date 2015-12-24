@@ -56,7 +56,7 @@ var view = {
 					{
 						dom: 'lBfrtip',
 				        buttons: [{extend: 'colvis', postfixButtons: [ 'colvisRestore' ]} , 'newGroupCode' ],				        
-				        columnDefs: [ { visible: false, targets: [3,4,5] } ],
+				        columnDefs: [ { visible: false, targets: [3,4,5,6] } ],
 						processing : true,
 						serverSide : true,
 						bFilter: false,
@@ -265,7 +265,7 @@ var view = {
 						{
 							dom: 'lBfrtip',
 					        buttons: [{extend: 'colvis', postfixButtons: [ 'colvisRestore' ]} , 'newDetailCode' ],				        
-					        columnDefs: [ { visible: false, targets: [4,5,6] } ],
+					        columnDefs: [ { visible: false, targets: [4,5,6,7] } ],
 							processing : true,
 							serverSide : true,
 							bFilter: false,

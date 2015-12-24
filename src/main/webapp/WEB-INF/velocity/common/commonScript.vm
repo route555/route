@@ -75,3 +75,37 @@
    <script type="text/javascript">
 		var G_CONTEXT_PATH = "/${contextPath}";
    </script>
+
+   	<script src="https://cdn.datatables.net/buttons/1.1.0/js/dataTables.buttons.min.js"></script>
+	<script src="https://cdn.datatables.net/buttons/1.1.0/js/buttons.colVis.min.js "></script>
+	<link href="https://cdn.datatables.net/buttons/1.1.0/css/buttons.dataTables.min.css" rel="stylesheet">
+ 
+	<style>
+	
+	.dataTables_wrapper .dataTables_length {
+	    position: relative;
+	    text-align: left;
+	    float:left; 
+	}
+	
+	.dataTables_wrapper .dt-buttons {
+	  float:right;  
+	  text-align:right;
+	}
+	.table-responsive table> tbody > tr > th {
+     vertical-align: middle;
+     padding: 6px;
+     height: 20px;
+     
+	}
+
+	.table-responsive table> tbody > tr > td {
+	vertical-align: middle;
+     padding: 6px;
+     height: 20px;
+	}
+	#popup {
+   	 background-color: rgba(255,255,255,0.9);
+	}
+
+	</style>

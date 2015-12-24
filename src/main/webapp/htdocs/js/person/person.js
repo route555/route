@@ -29,26 +29,41 @@ var view = {
 				});
 				
 				$("#btnDelete").unbind('click');
-				$("#btnDelete").click( function() {			
-					view.deleteData();
+				$("#btnDelete").click( function() {
+					if($("#prsnNo").val()==''){
+						alert('선택된 데이터가 없습니다.');
+					}else{
+						view.deleteData();
+					}
 				});
 				
+				$("#btnSearchInit").unbind('click');
+				$("#btnSearchInit").click( function() {			
+					$('form[name="sf"]').each(function() {
+						this.reset();  
+					}); 
+				});
+								
+				
+			}
+			, onLoadForAsync : function() {
 				$.fn.dataTable.ext.buttons.newPerson = {
 					    text: '신규등록',
 					    action: function ( e, dt, node, config ) {				        
 					    	$("#detail").show(0, view.initDetail);
 					    }
-				};
-					
+					};
 				view.selectTableData();
 				view.personTable = $('#dataTables-person').dataTable();
 				
 				$('#dataTables-person tbody').on('click', 'tr', function () {
 					view.initDetail();
 					data = view.personTable.fnGetData(this);
+					if(data==null){
+						return false;
+					}
 					view.selectOneData(data.prsnNo);
 			    } );
-				
 			}
 			, selectCommonCodes : function() {
 				var reqData = new Object();
@@ -77,6 +92,12 @@ var view = {
 						});						
 						$("#sexCdTd").append(el);
 						$("#sexCdTdSf").append(el);
+						
+						var newEl='';
+						newEl += '<label class="radio-inline">';
+						newEl += '<input type="radio" name="sexCd" id="sexCd" value="">전체</label>';
+						$("#sexCdTdSf").prepend(newEl);
+						
 					} else if(key=='certCd'){
 						var el = '';			
 						$(view.codeDatas[value]).each(function(i, itm){	
@@ -112,6 +133,7 @@ var view = {
 						
 					}
 				});
+				view.onLoadForAsync();
 			}
 			, converCodeNm : function(data, groupCodeNm) {
 				var groupCode = view.codeMap[groupCodeNm];
@@ -204,8 +226,6 @@ var view = {
 			$(json.detail).each(function(idx, itm) {
 				$.each(itm, function(k, v) {
 					//console.log(k,v);
-					
-					
 					if(k=='sexCd'){
 						 $('#sexCdTd input:radio[name="sexCd"][value="' + v +'"]').prop('checked', true);
 					}else if(k=='certCd'){
@@ -218,12 +238,8 @@ var view = {
 					}else{
 						$("#"+k).val( v);
 					}
-					
 				});
 			});
-			
-			
-			
 			$("#detail").show();
 		}
 		, insertData : function() {

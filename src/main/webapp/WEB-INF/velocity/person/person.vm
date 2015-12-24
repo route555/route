@@ -5,32 +5,7 @@
 	#parse("common/commonScript.vm") 
 	<script src="/${contextPath}/htdocs/js/person/person.js"></script>
 	
-	<script src="https://cdn.datatables.net/buttons/1.1.0/js/dataTables.buttons.min.js"></script>
-	<script src="https://cdn.datatables.net/buttons/1.1.0/js/buttons.colVis.min.js "></script>
-	<link href="https://cdn.datatables.net/buttons/1.1.0/css/buttons.dataTables.min.css" rel="stylesheet">
- 
-	<style>
-	
-	.dataTables_wrapper .dataTables_length {
-	    position: relative;
-	    text-align: left;
-	    float:left; 
-	}
-	
-	.dataTables_wrapper .dt-buttons {
-	  float:right;  
-	  text-align:right;
-	}
-	
-	.table-responsive table> tbody > tr > th {
-     vertical-align: middle;
-     padding: 6px;
-	}
 
-	.table-responsive table> tbody > tr > td {
-     padding: 6px;
-	}
-	</style>
 	 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -51,7 +26,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">인력관리</h1>
+                    <h2 class="page-header">인력관리</h2>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -74,13 +49,13 @@
                                     <tbody>
                                         <tr>
                                             <th width="15%">성명</th>
-                                            <td width="35%" ><input type="text" class="form-control" placeholder="" name="prsnNm"></td>
+                                            <td width="35%" ><input type="text" class="input-sm form-control" placeholder="" name="prsnNm"></td>
                                             <th width="15%">성별</th>
                                             <td width="35%" id="sexCdTdSf"></td>
                                         </tr>
                                         <tr>
                                             <th width="15%">학력</th>
-                                            <td width="35%"><select class="form-control selectWidth" style="width:auto;" id="acdmcCdSf" name="acdmcCd"/></td>
+                                            <td width="35%"><select class="input-sm form-control selectWidth" style="width:auto;" id="acdmcCdSf" name="acdmcCd"/></td>
                                             <th width="15%">경력</th>
                                             <td width="35%">
                                             
@@ -100,16 +75,17 @@
                                             <th width="15%">분야</th>
                                             <td width="35%" id="skillSectCdTdSf"></td>
                                             <th width="15%">거주지</th>
-                                            <td width="35%"><input type="text" class="form-control" placeholder="" name="rsdncAddr"></td>
+                                            <td width="35%"><input type="text" class="input-sm form-control" placeholder="" name="rsdncAddr"></td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div> 
                         		
                         		
-                        		
-                        		
-                        		<button type="button" class="btn btn-primary pull-right" id="btnSearch">조회</button>
+                        	<div class="forms-group  pull-right">
+                              	<button type="button" class="btn btn-warning" id="btnSearchInit">조건초기화</button>
+                        		<button type="button" class="btn btn-primary" id="btnSearch">조회</button>
+                           </div>
 	                            
                          	</form>
                         </div>                       
@@ -124,7 +100,7 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            DataTables Advanced Tables
+                            Person DataTables
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body"> 
@@ -176,13 +152,13 @@
                                     <tbody>
                                         <tr>
                                             <th width="15%">계약구분</th>
-                                            <td width="35%" ><select class="form-control selectWidth" style="width:auto;" id="cntrctSectCd" name="cntrctSectCd"/></td>
+                                            <td width="35%" ><select class="input-sm form-control selectWidth" style="width:auto;" id="cntrctSectCd" name="cntrctSectCd"/></td>
                                             <th width="15%">성명</th>
                                             <td width="35%"><input class="input-sm form-control" id="prsnNm" name="prsnNm"></td>
                                         </tr>
                                         <tr>
                                             <th width="15%">학력</th>
-                                            <td width="35%"><select class="form-control selectWidth" style="width:auto;" id="acdmcCd" name="acdmcCd"/></td>
+                                            <td width="35%"><select class="input-sm form-control selectWidth" style="width:auto;" id="acdmcCd" name="acdmcCd"/></td>
                                             <th width="15%">주민번호</th>
                                             <td width="35%">
                                             	 <div class="form-inline">
@@ -342,15 +318,12 @@
                                     </tbody>
                                 </table>
                             </div>       
-                        	
-                            <div class="row">
-                                <div class="col-lg-12">      
-                                   <button type="button" class="btn btn-default pull-right" id="btnSave">저장</button>
-                                    <button type="button" class="btn btn-default pull-right" id="btnDelete">삭제</button>                              
-	                                </div>	                                
-                        	</div>
+                 
                         
-                        
+                        	<div class="forms-group  pull-right">
+                              	<button type="button" class="btn btn-primary" id="btnSave">저장</button>
+                        		<button type="button" class="btn btn-danger" id="btnDelete">삭제</button>
+                           </div>
                         
                         <!-- /.panel-body -->
                     </div>

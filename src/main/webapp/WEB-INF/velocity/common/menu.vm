@@ -19,42 +19,34 @@
                             <a href="/${contextPath}/web/sample/index"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         
-                         <li>
-                            <a href="/${contextPath}/web/sample/human"><i class="fa fa-user fa-fw"></i> Human Pool</a>
-                        </li>                       
+                                         
                         
                         <li>
-                            <a href="/${contextPath}/web/person/person"><i class="fa fa-codepen fa-fw"></i> 인력관리</a>
+                            <a href="/${contextPath}/web/person/person"><i class="fa fa-user fa-fw"></i> 인력관리</a>
                         </li> 
                         
-                         <li>
-                            <a href="/${contextPath}/web/system/commonCode"><i class="fa fa-codepen fa-fw"></i> 코드관리</a>
-                        </li>  
-                        
-						<li>
-                            <a href="/${contextPath}/web/system/user"><i class="fa fa-codepen fa-fw"></i> 유저관리</a>
-                        </li>  
-                        
                         <li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-wrench fa-fw"></i> 시스템관리<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="/${contextPath}/web/sample/flot">Flot Charts</a>
+                                    <a href="/${contextPath}/web/system/commonCode">공통코드관리</a>
                                 </li>
                                 <li>
-                                    <a href="/${contextPath}/web/sample/morris">Morris.js Charts</a>
+                                    <a href="/${contextPath}/web/system/user">유저관리</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
+                  
+                       <li>
+                            <a href="/${contextPath}/web/sample/human"><i class="fa fa-codepen fa-fw"></i> Sample</a>
+                        </li>   
+                        
+                        
+  
+                     
                         <li>
-                            <a href="/${contextPath}/web/sample/tables"><i class="fa fa-table fa-fw"></i> Tables</a>
-                        </li>
-                        <li>
-                            <a href="/${contextPath}/web/sample/forms"><i class="fa fa-edit fa-fw"></i> Forms</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-wrench fa-fw"></i> UI Elements<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-linux fa-fw"></i> UI Elements<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="/${contextPath}/web/sample/panels-wells">Panels and Wells</a>
@@ -74,9 +66,35 @@
                                 <li>
                                     <a href="/${contextPath}/web/sample/grid">Grid</a>
                                 </li>
+                                <li>
+                                    <a href="/${contextPath}/web/sample/blank">Blank Page</a>
+                                </li>
+                                <li>
+                                    <a href="/${contextPath}/web/sample/login">Login Page</a>
+                                </li>
+                                <li>
+                                    <a href="/${contextPath}/web/sample/tables">Tables</a>
+                                </li>
+                                <li>
+                                    <a href="/${contextPath}/web/sample/forms">Forms</a>
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
+                        
+                                              <li>
+                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="/${contextPath}/web/sample/flot">Flot Charts</a>
+                                </li>
+                                <li>
+                                    <a href="/${contextPath}/web/sample/morris">Morris.js Charts</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        
                         <li>
                             <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -107,18 +125,7 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        <li>
-                            <a href="#"><i class="fa fa-files-o fa-fw"></i> 총무<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="/${contextPath}/web/sample/blank">Blank Page</a>
-                                </li>
-                                <li>
-                                    <a href="/${contextPath}/web/sample/login">Login Page</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
+                        
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
