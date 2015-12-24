@@ -11,7 +11,9 @@
 		<!-- sample -->
 		<typeAlias type="com.echo.biz.domain.SampleHuman" alias="sampleHuman" />
 		
-		<!-- biz -->		
+		<!-- biz -->
+		<typeAlias type="com.echo.biz.domain.Person" alias="person" />
+		<typeAlias type="com.echo.biz.domain.PersonSkill" alias="personSkill" />			
 		
 		<!-- system -->
 		<typeAlias type="com.echo.biz.domain.GroupCode" alias="groupCode" />
@@ -31,6 +33,8 @@
 		<mapper resource="com/echo/biz/dao/mapper/samplehuman-mapper.xml" />
 		
 		<!-- biz -->
+		<mapper resource="com/echo/biz/dao/mapper/person-mapper.xml" />
+		<mapper resource="com/echo/biz/dao/mapper/personskill-mapper.xml" />
 		
 		<!-- system -->
 		<mapper resource="com/echo/biz/dao/mapper/groupcode-mapper.xml" />

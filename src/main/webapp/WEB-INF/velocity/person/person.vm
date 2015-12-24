@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	#parse("common/commonScript.vm") 
+	<script src="/${contextPath}/htdocs/js/person/person.js"></script>
+	
+	<script src="https://cdn.datatables.net/buttons/1.1.0/js/dataTables.buttons.min.js"></script>
+	<script src="https://cdn.datatables.net/buttons/1.1.0/js/buttons.colVis.min.js "></script>
+	<link href="https://cdn.datatables.net/buttons/1.1.0/css/buttons.dataTables.min.css" rel="stylesheet">
+ 
+	<style>
+	
+	.dataTables_wrapper .dataTables_length {
+	    position: relative;
+	    text-align: left;
+	    float:left; 
+	}
+	
+	.dataTables_wrapper .dt-buttons {
+	  float:right;  
+	  text-align:right;
+	}
+	
+	.table-responsive table> tbody > tr > th {
+     vertical-align: middle;
+     padding: 6px;
+	}
+
+	.table-responsive table> tbody > tr > td {
+     padding: 6px;
+	}
+	</style>
+	 
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">   
+</head>
+
+<body>
+
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">        
+			#parse("common/header.vm")
+			#parse("common/menu.vm")
+        </nav>
+		
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">인력관리</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            
+           <!-- 검색박스 -->
+            <div class="row"  id="searchBox">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Search Form Elements
+                        </div>
+                        <div class="panel-body">
+                        	<form role="form" class="form-inline"  id="sf"  name="sf"  >
+	                        	<input type="hidden" name="searchType" value="like" />
+		                        <input type="hidden" name="orderElement" value="user_id" />
+		                        <input type="hidden" name="orderType" value="ASC" />
+                        		
+                        		<div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <tbody>
+                                        <tr>
+                                            <th width="15%">성명</th>
+                                            <td width="35%" ><input type="text" class="form-control" placeholder="" name="prsnNm"></td>
+                                            <th width="15%">성별</th>
+                                            <td width="35%" id="sexCdTdSf"></td>
+                                        </tr>
+                                        <tr>
+                                            <th width="15%">학력</th>
+                                            <td width="35%"><select class="form-control selectWidth" style="width:auto;" id="acdmcCdSf" name="acdmcCd"/></td>
+                                            <th width="15%">경력</th>
+                                            <td width="35%">
+                                            
+											<div class="form-inline">
+                                            	 <div class="form-group">
+												 	<input type="text" style="width:50px;" name="workStart" class="input-sm form-control" />
+												 </div>
+										          -
+										          <div class="form-group">
+										            <input type="text" style="width:50px;"  name="workEnd" class="input-sm form-control" />
+										          </div>
+                                             	</div>
+                                            
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th width="15%">분야</th>
+                                            <td width="35%" id="skillSectCdTdSf"></td>
+                                            <th width="15%">거주지</th>
+                                            <td width="35%"><input type="text" class="form-control" placeholder="" name="rsdncAddr"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div> 
+                        		
+                        		
+                        		
+                        		
+                        		<button type="button" class="btn btn-primary pull-right" id="btnSearch">조회</button>
+	                            
+                         	</form>
+                        </div>                       
+                    </div>                   
+                </div>               
+            </div>
+            <!-- 검색박스 종료-->
+
+	        
+            <!-- 테이블 -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            DataTables Advanced Tables
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body"> 
+                            <div class="dataTable_wrapper">
+                                <table cellspacing="0" width="100%" class="display table table-striped table-bordered table-hover" id="dataTables-person">
+                                    <thead>
+                                        <tr>
+                                            <th>번호</th>
+                                            <th>성명</th>
+                                            <th>분야</th>
+                                            <th>프로젝트시작일</th>
+                                            <th>프로젝트종료일</th>
+                                            <th>총경력</th>
+                                            <th>계약구분</th>
+                                            <th>학력</th>
+                                            <th>휴대폰</th>
+                                            <th>이메일</th>
+                                            <th>비고</th>
+                                        </tr>
+                                    </thead>                                    
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->                            
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- 테이블종료 -->
+                     
+            
+            <!-- 디테일화면 -->
+            <div class="row" style="display: none;" id="detail">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            	상세 입력
+                        </div>
+                        <div class="panel-body">
+                        	<form role="form" name="f" id="f" method="post">
+                        	<input type="hidden" id="prsnNo" name="prsnNo">
+                        	
+                        	
+                        	<h5 class="text-primary" class="text-primary">인력정보</h5>
+                        	<div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <tbody>
+                                        <tr>
+                                            <th width="15%">계약구분</th>
+                                            <td width="35%" ><select class="form-control selectWidth" style="width:auto;" id="cntrctSectCd" name="cntrctSectCd"/></td>
+                                            <th width="15%">성명</th>
+                                            <td width="35%"><input class="input-sm form-control" id="prsnNm" name="prsnNm"></td>
+                                        </tr>
+                                        <tr>
+                                            <th width="15%">학력</th>
+                                            <td width="35%"><select class="form-control selectWidth" style="width:auto;" id="acdmcCd" name="acdmcCd"/></td>
+                                            <th width="15%">주민번호</th>
+                                            <td width="35%">
+                                            	 <div class="form-inline">
+                                            	 <div class="form-group">
+												            <input type="text" style="width:100px;"  id="juminNo1" name="juminNo1" class="input-sm form-control" />
+												          </div>
+												          -
+												          <div class="form-group">
+												            <input type="text" style="width:100px;"   id="juminNo2" name="juminNo2" class="input-sm form-control" />
+												          </div>
+
+                                             	</div>
+                                             </td>
+                                        </tr>
+                                        <tr>
+                                            <th width="15%">주소</th>
+                                            <td colspan="3"><input class="input-sm form-control" id="rsdncAddr" name="rsdncAddr"></td>
+                                        </tr>
+                                        <tr>
+                                            <th width="15%">성별</th>
+                                            <td width="35%" id="sexCdTd"></td>
+                                            <th width="15%">기사자격증구분</th>
+                                            <td width="35%" id="certCdTd"></td>
+                                        </tr>
+                                        <tr>
+                                            <th width="15%">분야</th>
+                                            <td colspan="3" id="skillSectCdTd"></td>
+                                        </tr>
+                                        <tr>
+                                            <th width="15%">이메일</th>
+                                            <td width="35%"><input class="input-sm form-control" id="prsnEmailAddr" name="prsnEmailAddr"></td>
+                                            <th width="15%">경력시작일</th>
+                                            <td width="35%"><input class="input-sm form-control" id="workStartDt" name="workStartDt"></td>
+                                        </tr>
+                                        <tr>
+                                            <th width="15%">연락처</th>
+                                            <td width="35%"><input class="input-sm form-control" id="telNo" name="telNo"></td>
+                                            <th width="15%">휴대폰번호</th>
+                                            <td width="35%">
+	 											<div class="form-inline">
+                                            		<div class="form-group">
+												    	<input type="text" style="width:160px;" class="input-sm form-control" id="hpNo"  name="hpNo"/>
+												    	 예시) 010-XXXX-XXXX
+													</div>
+                                             	</div>
+											</td>
+                                        </tr>
+                                        <tr>
+                                            <th width="15%">프로필</th>
+                                            <td colspan="3"><input type="file" class="input-sm form-control" id="ff" name="ff"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        	
+                        
+                        <h5 class="text-primary">사업자정보(개인/법인사업자)</h5>
+                        	<div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <tbody>
+                                        <tr>
+                                            <th width="15%">법인(사업자)명</th>
+                                            <td width="35%" ><input class="input-sm form-control" id="lawBizNm" name="lawBizNm"></td>
+                                            <th width="15%">대표자명</th>
+                                            <td width="35%"><input class="input-sm form-control" id="ceoNm" name="ceoNm"></td>
+                                        </tr>
+                                        <tr>
+                                            <th width="15%">법인등록번호</th>
+                                            <td width="35%">
+                                            	 <div class="form-inline">
+                                            	 	<div class="form-group">
+												    	<input type="text" style="width:100px;"  id="lawRgtNo1" name="lawRgtNo1" class="input-sm form-control" />
+												    </div>
+												          -
+											        <div class="form-group">
+											        	<input type="text" style="width:100px;"   id="lawRgtNo2" name="lawRgtNo2" class="input-sm form-control" />
+											        </div>
+                                             	</div>                                            
+                                            </td>
+                                            <th width="15%">사업자등록번호</th>
+                                            <td width="35%">
+                                            	 <div class="form-inline">
+                                            	 	<div class="form-group">
+                                            	 		<input type="text" style="width:80px;"  id="bizRgtNo1" name="bizRgtNo1" class="input-sm form-control" />
+												    </div>
+											          -
+											          <div class="form-group">
+											            <input type="text" style="width:30px;"   id="bizRgtNo2" name="bizRgtNo2" class="input-sm form-control" />
+											          </div>
+											          -
+											          <div class="form-group">
+											            <input type="text" style="width:80px;"   id="bizRgtNo3" name="bizRgtNo3" class="input-sm form-control" />
+											          </div>
+                                             	</div>
+                                             </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>                        
+                        
+                        
+ 						<h5 class="text-primary">거래계좌정보</h5>
+                         	<div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <tbody>
+                                        <tr>
+                                            <th width="15%">은행명</th>
+                                            <td width="35%" ><input class="input-sm form-control" id="trBankNm" name="trBankNm"></td>
+                                            <th width="15%">계좌번호</th>
+                                            <td width="35%"><input class="input-sm form-control" id="trAcctNo" name="trAcctNo"></td>
+                                        </tr>
+                                        <tr>
+                                            <th width="15%">예금주명</th>
+                                            <td width="35%">
+                                            	 <input class="input-sm form-control" id="trDpstrNm" name="trDpstrNm">                                          
+                                            </td>
+                                            <th width="15%">지급일</th>
+                                            <td width="35%">
+                                            	 <input class="input-sm form-control" id="payDayNm" name="payDayNm"> 
+                                             </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        	
+                        	<h5 class="text-primary">최종프로젝트정보</h5>
+                         	<div class="table-responsive">
+                                <table class="table table-bordered table-striped" id="ttt">
+                                    <tbody>
+                                        <tr>
+                                            <th width="15%">프로젝트명</th>
+                                            <td width="35%" ><label id="b"></label></td>
+                                            <th width="15%">수행기간</th>
+                                            <td width="35%"><label id="b"></label></td>
+                                        </tr>
+                                        <tr>
+                                            <th width="15%">매입용역비(단가)</th>
+                                            <td width="35%" colspan="3">
+                                            	 <label id="b"></label>                                     
+                                            </td>
+                                           
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>                        	
+                        	
+                        	<div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <tbody>
+                                        <tr>
+                                            <th width="15%">비고</th>
+                                            <td width="85%" colspan="3">
+                                            	<textarea class="form-control" rows="3"  id="memoDesc" name="memoDesc"></textarea>
+                                            </td>
+                                           
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>       
+                        	
+                            <div class="row">
+                                <div class="col-lg-12">      
+                                   <button type="button" class="btn btn-default pull-right" id="btnSave">저장</button>
+                                    <button type="button" class="btn btn-default pull-right" id="btnDelete">삭제</button>                              
+	                                </div>	                                
+                        	</div>
+                        
+                        
+                        
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!--디테일 종료-->
+            
+  
+            
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+
+</body>
+	
+</html>

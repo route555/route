@@ -23,6 +23,10 @@
                             <a href="/${contextPath}/web/sample/human"><i class="fa fa-user fa-fw"></i> Human Pool</a>
                         </li>                       
                         
+                        <li>
+                            <a href="/${contextPath}/web/person/person"><i class="fa fa-codepen fa-fw"></i> 인력관리</a>
+                        </li> 
+                        
                          <li>
                             <a href="/${contextPath}/web/system/commonCode"><i class="fa fa-codepen fa-fw"></i> 코드관리</a>
                         </li>  

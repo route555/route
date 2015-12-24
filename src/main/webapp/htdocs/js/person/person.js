@@ -1,0 +1,300 @@
+var view = {
+			personTable : '',	
+			codeDatas : '',	
+			codeMap : {"sexCd":"002","acdmcCd":"003","cntrctSectCd":"004","skillSectCd":"006","certCd":"007" },	//성별코드, 학력코드, 계약유형코드, 기술분야코드, 기사자격코드
+			onLoadEvent : function() {
+		
+				view.selectCommonCodes();
+
+				$('#searchBox input').keypress(function(e) {
+				    if (e.keyCode == 13){			    	
+				    	$("#btnSearch").click();
+						return false;
+				    }         
+				});
+				
+				$("#btnSearch").unbind('click');
+				$("#btnSearch").click( function() {
+					view.personTable.fnReloadAjax();
+				});
+				
+				$("#btnSave").unbind('click');
+				$("#btnSave").click( function() {
+					//if(!view.validator()) return false;
+					if($("#prsnNo").val()==''){
+						view.insertData();
+					}else{
+						view.modifyData();
+					}
+				});
+				
+				$("#btnDelete").unbind('click');
+				$("#btnDelete").click( function() {			
+					view.deleteData();
+				});
+				
+				$.fn.dataTable.ext.buttons.newPerson = {
+					    text: '신규등록',
+					    action: function ( e, dt, node, config ) {				        
+					    	$("#detail").show(0, view.initDetail);
+					    }
+				};
+					
+				view.selectTableData();
+				view.personTable = $('#dataTables-person').dataTable();
+				
+				$('#dataTables-person tbody').on('click', 'tr', function () {
+					view.initDetail();
+					data = view.personTable.fnGetData(this);
+					view.selectOneData(data.prsnNo);
+			    } );
+				
+			}
+			, selectCommonCodes : function() {
+				var reqData = new Object();
+				var array = [];
+				$.each(view.codeMap, function(k, v) {
+					array.push(v);
+				});
+				reqData.codes=array.toString();
+				common.ajax({
+					  		url : G_CONTEXT_PATH+"/multiCodes"
+					  		, data : reqData
+					  		, type : "GET"
+							, success : view.selectCommonCodesCallBack
+				});
+			}
+			, selectCommonCodesCallBack : function(json) {
+				//codeMap : {"sexCd":"002","acdmcCd":"003","cntrctSectCd":"004","skillSectCd":"006","certCd":"007" },	//성별코드, 학력코드, 계약유형코드, 기술분야코드, 기사자격코드
+				view.codeDatas=json;
+				
+				$.each(view.codeMap, function(key, value) {
+					if(key=='sexCd'){
+						var el = '';			
+						$(view.codeDatas[value]).each(function(i, itm){	
+							el += '<label class="radio-inline">';
+							el += '<input type="radio" name="sexCd" id="sexCd" value="' + itm.dtlCd + '">' + itm.dtlCdNm + '</label>';
+						});						
+						$("#sexCdTd").append(el);
+						$("#sexCdTdSf").append(el);
+					} else if(key=='certCd'){
+						var el = '';			
+						$(view.codeDatas[value]).each(function(i, itm){	
+							el += '<label class="radio-inline">';
+							el += '<input type="radio" name="certCd" id="certCd" value="' + itm.dtlCd + '">' + itm.dtlCdNm + '</label>';
+						});						
+						$("#certCdTd").append(el);
+					} else if(key=='skillSectCd'){
+						var el = '';			
+						$(view.codeDatas[value]).each(function(i, itm){	
+							el += '<label class="checkbox-inline">';
+							el += '<input type="checkbox" name="skillSectCd" id="skillSectCd" value="' + itm.dtlCd + '">' + itm.dtlCdNm + '</label>';
+						});						
+						$("#skillSectCdTd").append(el);
+						$("#skillSectCdTdSf").append(el);
+					} else if(key=='cntrctSectCd'){
+						var el = '';			
+						$(view.codeDatas[value]).each(function(i, itm){	
+							el += '<option value="' + itm.dtlCd + '">' + itm.dtlCdNm + '</option>';
+						});						
+						$("#cntrctSectCd").append(el);
+					} else if(key=='acdmcCd'){
+						var el = '';			
+						$(view.codeDatas[value]).each(function(i, itm){	
+							el += '<option value="' + itm.dtlCd + '">' + itm.dtlCdNm + '</option>';
+						});						
+						$("#acdmcCd").append(el);
+						
+						$("#acdmcCdSf").append(el);
+
+						var newEl = '<option value="">무관</option>';
+						$("#acdmcCdSf").prepend(newEl);
+						
+					}
+				});
+			}
+			, converCodeNm : function(data, groupCodeNm) {
+				var groupCode = view.codeMap[groupCodeNm];
+				var gData = jQuery.grep(view.codeDatas[groupCode], function(obj) {
+				    return obj.dtlCd === data;
+				});
+				//console.log(data,groupCode, gData[0]);
+				if(gData[0] != undefined){
+					return gData[0].dtlCdNm;
+				}else{
+					return 'N/A';
+				}
+			}
+			, converCodeNmSkill : function(data, groupCodeNm) {
+				var dataSplit = data.split(',');
+				var el='';
+				for ( var i=0; i< dataSplit.length; i++) {
+					
+					if(i!=0){
+						el +=',';
+					}
+					el += view.converCodeNm(dataSplit[i],groupCodeNm );
+				}
+				return el;
+			}
+			, makeCombo : function(groupCode) {
+				
+			}
+			, selectTableData : function() {
+				var table = $('#dataTables-person').DataTable(
+						{
+							dom: 'lBfrtip',
+							buttons: [{extend: 'colvis', postfixButtons: [ 'colvisRestore' ]} , 'newPerson' ],				        
+							"paging": true,
+							"processing" : true,
+							"serverSide" : true,
+							"bFilter": false,
+							"autoWidth": true,
+							"ordering": false,
+							"iDisplayLength": 10,
+							columnDefs: [ { visible: false, targets: [0] } ],
+							select:true,
+							"aoColumns": [
+							        { data: 'prsnNo' },
+							        { data: 'prsnNm'},
+							        { data: 'skillSectCd' , "render": function ( data ) { return view.converCodeNmSkill(data, 'skillSectCd');} }, 
+							        { data: 'lastWorkStartDt' },
+							        { data: 'lastWorkEndDt' },
+							        { data: 'totalWork' },							        
+							        { data: 'cntrctSectCd' , "render": function ( data ) { return view.converCodeNm(data, 'cntrctSectCd');} }, 
+							        { data: 'acdmcCd' , "render": function ( data ) { return view.converCodeNm(data, 'acdmcCd');} }, 
+							        { data: 'hpNo' },
+							        { data: 'prsnEmailAddr' },
+							        { data: 'memoDesc' }
+							],
+							"sAjaxSource" : G_CONTEXT_PATH+"/person",
+							"fnServerData" : function(sSource, aoData, fnCallback,	oSettings) {
+								$("#detail").hide(0, view.initDetail);
+								
+								var reqData = $('form[name="sf"]').serializeArray();
+								$.merge(aoData,reqData);
+	
+								oSettings.jqXHR = $.ajax({
+									"dataType" : 'json',
+									"type" : "GET",
+									"url" : sSource,
+									"data" : aoData,
+									"success" : function(json) {
+										var o = {
+											recordsTotal : json.totalCnt,
+											recordsFiltered : json.totalCnt,
+											data : json.list
+										};
+										fnCallback(o);
+									}
+								});
+							}
+						});
+				
+			}
+		, selectOneData : function(prsnNo){
+			common.ajax({
+				  		url : G_CONTEXT_PATH+"/person/"+prsnNo
+				  		, type : "GET"
+						, success : view.selectOneDataCallBack
+			});
+		}
+		, selectOneDataCallBack : function(json){
+			//codeMap : {"sexCd":"002","acdmcCd":"003","cntrctSectCd":"004","skillSectCd":"006","certCd":"007" },	//성별코드, 학력코드, 계약유형코드, 기술분야코드, 기사자격코드
+			$(json.detail).each(function(idx, itm) {
+				$.each(itm, function(k, v) {
+					//console.log(k,v);
+					
+					
+					if(k=='sexCd'){
+						 $('#sexCdTd input:radio[name="sexCd"][value="' + v +'"]').prop('checked', true);
+					}else if(k=='certCd'){
+						 $('#certCdTd input:radio[name="certCd"][value="' + v +'"]').prop('checked', true);
+					}else if(k=='skillSectCd'){
+						var dataSplit = v.split(',');
+						for ( var i=0; i< dataSplit.length; i++) {
+							$('#skillSectCdTd input:checkbox[name="skillSectCd"][value="' + dataSplit[i] +'"]').prop('checked', true);
+						}
+					}else{
+						$("#"+k).val( v);
+					}
+					
+				});
+			});
+			
+			
+			
+			$("#detail").show();
+		}
+		, insertData : function() {
+			var reqData = $('form[name="f"]').serializeArray();
+			common.ajax({
+			  			url : G_CONTEXT_PATH+"/person"
+				  		, type : "POST"
+						, data  : reqData 
+						, success : view.insertDataCallBack
+			});
+		}
+		, insertDataCallBack : function(json){
+			if ( json.status == 200 ) {
+				view.personTable.fnReloadAjax();	
+			}
+			else {
+				alert(json.msg);
+			}	
+		}
+		, modifyData : function() {
+			var reqData = $('form[name="f"]').serializeArray();
+			var prsnNo=$("#prsnNo").val();
+			common.ajax({
+			  			url : G_CONTEXT_PATH+"/person/" + prsnNo
+				  		, type : "PUT"
+						, data  : reqData 
+						, success : view.modifyDataCallBack
+			});	
+		}
+		, modifyDataCallBack : function(json){
+			try {
+				if ( json.status == 200 ) {
+					view.personTable.fnReloadAjax();
+				} else {
+					alert(json.msg);
+				}	
+			} catch (e) {
+				alert(e);
+			}
+		}
+		, deleteData : function() {
+			var prsnNo=$("#prsnNo").val();
+			common.ajax({
+						url : G_CONTEXT_PATH+"/person/" + prsnNo
+				  		, type : "DELETE"
+						, success : view.deleteDataCallBack
+			});		
+		}
+		, deleteDataCallBack : function(json){
+			try {
+				if ( json.status == 200 ) {
+					alert('삭제 완료되었습니다.');
+					view.personTable.fnReloadAjax();
+				} else {
+					alert(json.msg);
+				}	
+			} catch (e) {
+				alert(e);
+			}
+		}
+		, initDetail : function() {
+			$("#prsnNo").val('');
+			$('form[name="f"]').each(function() {
+				this.reset();  
+			}); 
+		}
+	};
+
+	$(function() {
+		view.onLoadEvent();
+	});
+	
+	
+	

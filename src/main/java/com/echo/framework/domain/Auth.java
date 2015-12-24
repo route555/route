@@ -13,16 +13,19 @@ public class Auth extends BaseDomain {
 
 	/* user */
 	private int userId;
-	private int businessId;
+	private int tenantId;
 	private int serviceId;
 	private String loginId;
-	private String passwd;
+	private String loginPw;
 	private String userName;
 	private String phone;
 	private String email;
 	private String mobile;
 	private String dashboardType;
 
+
+
+	
 	/* rights */
 	private int rightsId;
 	private String rightsName;
@@ -51,22 +54,34 @@ public class Auth extends BaseDomain {
 		this.loginId = loginId;
 	}
 
-	public String getPasswd() {
-		return passwd;
+	
+	
+	
+	public int getTenantId() {
+		return tenantId;
+	}
+
+	public void setTenantId(int tenantId) {
+		this.tenantId = tenantId;
+	}
+
+	public String getLoginPw() {
+		return loginPw;
+	}
+
+	public void setLoginPw(String loginPw) {
+		this.loginPw = loginPw;
 	}
 
 	public String getPasswdByCrypt() {
 		try {
-			return CryptUtil.encryptHmacSha256(passwd);
+			return CryptUtil.encryptHmacSha256(loginPw);
 		}
 		catch (Exception e) {
-			return passwd;
+			return loginPw;
 		}
 	}
 
-	public void setPasswd(String passwd) {
-		this.passwd = passwd;
-	}
 
 	public String getUserName() {
 		return userName;
@@ -124,13 +139,7 @@ public class Auth extends BaseDomain {
 		this.rightsType = rightsType;
 	}
 
-	public int getBusinessId() {
-		return businessId;
-	}
-
-	public void setBusinessId(int businessId) {
-		this.businessId = businessId;
-	}
+	
 
 	public int getServiceId() {
 		return serviceId;

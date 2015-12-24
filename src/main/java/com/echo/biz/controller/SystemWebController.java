@@ -23,5 +23,10 @@ public class SystemWebController extends BaseController {
 	public String user(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
 		return "system/user";
 	}
+
+	@RequestMapping(value = "/sample/file", method = RequestMethod.GET)
+	public String fileSample(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+		return "sample/file";
+	}
 	
 }

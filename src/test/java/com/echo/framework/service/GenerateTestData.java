@@ -252,7 +252,7 @@ public class GenerateTestData {
 
 		Auth auth = new Auth();
 		auth.setLoginId((String) user.get("loginId"));
-		auth.setPasswd((String) user.get("passwd"));
+		auth.setLoginPw((String) user.get("loginPw"));
 		auth = authDao.selectUserAuth(auth);
 
 		if (auth == null) {
@@ -268,7 +268,7 @@ public class GenerateTestData {
 		Auth auth = new Auth();
 		auth.setUserId(AuthService.SYS_USERID);
 		auth.setRightsType(RightsType.SYSTEM_ADMIN.code());
-		auth.setBusinessId(0);
+		auth.setTenantId(0);
 		auth.setServiceId(0);
 
 		return new EchoCookie(CommonConst.COOKIE_KEY, auth);

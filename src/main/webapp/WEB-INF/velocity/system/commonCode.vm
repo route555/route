@@ -6,22 +6,22 @@
 	<script src="/${contextPath}/htdocs/js/system/commonCode.js"></script>
 	
 	<script src="https://cdn.datatables.net/buttons/1.1.0/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.1.0/js/buttons.colVis.min.js "></script>
-<link href="https://cdn.datatables.net/buttons/1.1.0/css/buttons.dataTables.min.css" rel="stylesheet">
+	<script src="https://cdn.datatables.net/buttons/1.1.0/js/buttons.colVis.min.js "></script>
+	<link href="https://cdn.datatables.net/buttons/1.1.0/css/buttons.dataTables.min.css" rel="stylesheet">
  
-<style>
-
-.dataTables_wrapper .dataTables_length {
-    position: relative;
-    text-align: left;
-    float:left; 
-}
-
-.dataTables_wrapper .dt-buttons {
-  float:right;  
-  text-align:right;
-}
-</style>
+	<style>
+	
+	.dataTables_wrapper .dataTables_length {
+	    position: relative;
+	    text-align: left;
+	    float:left; 
+	}
+	
+	.dataTables_wrapper .dt-buttons {
+	  float:right;  
+	  text-align:right;
+	}
+	</style>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -67,13 +67,7 @@
                         		<input type="text" class="form-control" placeholder="그룹코드명" name="grpCdNm">
                         		
 	                            <button class="btn btn-default" id="btnSearch" type="button"><i class="glyphicon glyphicon-search"></i></button>
-                        	                        
-					     				     
-					      
-                       
-	                              
-                         </form>
-                        
+                         	</form>
                         </div>                       
                     </div>                   
                 </div>               

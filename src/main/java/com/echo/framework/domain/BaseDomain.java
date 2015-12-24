@@ -25,6 +25,9 @@ public abstract class BaseDomain implements Serializable {
 	private Date uptTm;
 	private String uptId;
 	
+	private String rgtrId;
+	private String uptrId;
+	
 
 	public BaseDomain() {
 
@@ -38,6 +41,8 @@ public abstract class BaseDomain implements Serializable {
 			String forIgnoreMybatisReflectionException /* not use */) {
 		rgtId = "temp";
 		uptId = "temp";
+		rgtrId= "temp";
+		uptrId= "temp";
 		if (echoCookie != null) {
 			echo = echoCookie;
 
@@ -129,6 +134,22 @@ public abstract class BaseDomain implements Serializable {
 
 	public void setUptId(String uptId) {
 		this.uptId = uptId;
+	}
+
+	public String getRgtrId() {
+		return rgtrId;
+	}
+
+	public void setRgtrId(String rgtrId) {
+		this.rgtrId = rgtrId;
+	}
+	
+	public String getUptrId() {
+		return uptrId;
+	}
+
+	public void setUptrId(String uptrId) {
+		this.uptrId = uptrId;
 	}
 
 	@Override

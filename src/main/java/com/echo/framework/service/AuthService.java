@@ -166,7 +166,7 @@ public class AuthService extends AbstractService<Auth, BaseDto> {
 		} else if (isLoginUri(uri)) {
 			Auth auth = new Auth();
 			auth.setLoginId(request.getParameter("loginId"));
-			auth.setPasswd(request.getParameter("passwd"));
+			auth.setLoginPw(request.getParameter("loginPw"));
 			auth = authDao.selectUserAuth(auth);
 
 			if (auth == null) {

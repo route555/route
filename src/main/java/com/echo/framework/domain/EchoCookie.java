@@ -39,7 +39,7 @@ public class EchoCookie {
 	public static final String KEY_USERNAME = "userName";
 	public static final String KEY_LOGINID = "loginId";
 	public static final String KEY_RIGHTSTYPE = "rightsType";
-	public static final String KEY_BUSINESSID = "businessId";
+	public static final String KEY_TENANTID = "tenantId"; 
 	public static final String KEY_TIMESTAMP = "ts";
 
 	private static final String DEFAULT_CHARSET = "UTF-8";
@@ -67,7 +67,7 @@ public class EchoCookie {
 		setValue(KEY_USERNAME, String.valueOf(auth.getUserName()), true /* isNeedCook */);
 		setValue(KEY_LOGINID, String.valueOf(auth.getLoginId()), true /* isNeedCook */);
 		setValue(KEY_RIGHTSTYPE, auth.getRightsType(), true /* isNeedCook */);
-		setValue(KEY_BUSINESSID, String.valueOf(auth.getBusinessId()), true /* isNeedCook */);
+		setValue(KEY_TENANTID, String.valueOf(auth.getTenantId()), true /* isNeedCook */);
 		setValue(KEY_TIMESTAMP, String.valueOf(new Date().getTime()), true /* isNeedCook */);
 	}
 
@@ -134,8 +134,8 @@ public class EchoCookie {
 		return getValue(KEY_USERID);
 	}
 
-	public String getBusinessId() {
-		return getValue(KEY_BUSINESSID);
+	public String getTenantIdId() {
+		return getValue(KEY_TENANTID);
 	}
 
 	public String getRightsType() {
@@ -214,7 +214,7 @@ public class EchoCookie {
 		getKeyValue(buff, KEY_RIGHTSTYPE, getValue(KEY_RIGHTSTYPE));
 
 		buff.append(SEPARATOR_KK);
-		getKeyValue(buff, KEY_BUSINESSID, getValue(KEY_BUSINESSID));
+		getKeyValue(buff, KEY_TENANTID, getValue(KEY_TENANTID));
 
 		buff.append(SEPARATOR_KK);
 		getKeyValue(buff, KEY_TIMESTAMP, getValue(KEY_TIMESTAMP));
@@ -252,7 +252,7 @@ public class EchoCookie {
 		buff.append("userId=").append(getValue(KEY_USERID));
 		buff.append(", loginId=").append(getValue(KEY_LOGINID));
 		buff.append(", rightType=").append(getValue(KEY_RIGHTSTYPE));
-		buff.append(", businessId=").append(getValue(KEY_BUSINESSID));
+		buff.append(", tenantId=").append(getValue(KEY_TENANTID));
 		buff.append(", ts=").append(getValue(KEY_TIMESTAMP));
 
 		return buff.toString();

@@ -38,5 +38,24 @@ public class CommonController extends BaseController {
 
 		return model;
 	}
+	
+	
+	@RequestMapping(value = "/multiCodes", method = RequestMethod.GET)
+	public Model selectListCommonCodeMulti(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+		Map<String, Object> param = this.getParameterMap(request);
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		log.debug("@@@ selectListCommonCodeMulti" + param);
+		
+		String[] codeArray = param.get("codes").toString().split(",");
+		
+		for(int i=0; i< codeArray.length; i++){
+			result.put(codeArray[i], groupCodeService.selectListCommonCode(codeArray[i]));
+		}
+
+		model.addAttribute("resultData", result);
+
+		return model;
+	}
 
 }

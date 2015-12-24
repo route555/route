@@ -89,7 +89,7 @@ public class AuthServiceTest {
 
 		Auth auth = new Auth();
 		auth.setLoginId((String) user.get("loginId"));
-		auth.setPasswd((String) user.get("passwd"));
+		auth.setLoginPw((String) user.get("loginPw"));
 
 		return auth;
 	}
@@ -125,7 +125,7 @@ public class AuthServiceTest {
 		 * give exist loginId on user in DB, then echoCookie is not null
 		 */
 		request.setParameter("loginId", auth.getLoginId());
-		request.setParameter("passwd", auth.getPasswd());
+		request.setParameter("loginPw", auth.getLoginPw());
 		authService.checkAuth(request, contextPath);
 		EchoCookie echoCookie = (EchoCookie) request
 				.getAttribute(CommonConst.COOKIE_KEY);

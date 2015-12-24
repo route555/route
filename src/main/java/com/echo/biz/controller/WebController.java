@@ -20,17 +20,32 @@ public class WebController extends BaseController {
 
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
-		EchoCookie signageCookie = (EchoCookie) request.getAttribute(CommonConst.COOKIE_KEY);
+		EchoCookie echoCookie = (EchoCookie) request.getAttribute(CommonConst.COOKIE_KEY);
 
-		if (signageCookie != null) {
-			// return dashboard(request, response, model);
-		} else {
-			// return "index/index";
+		if (echoCookie != null) {
+			return main(request, response, model);
 		}
-
-		return "index/index";
+		else {
+			return "index/index";
+		}
 	}
-
+	
+	@RequestMapping(value = "/main", method = RequestMethod.GET)
+	public String main(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+		return "index/main";
+	}
+	
+	@RequestMapping(value = "/person/person", method = RequestMethod.GET)
+	public String person(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+		return "person/person";
+	}
+	
+	
+	@RequestMapping(value = "/person/personPop", method = RequestMethod.GET)
+	public String personPop(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+		return "person/personPop";
+	}
+	
 	@RequestMapping(value = "/sample/blank", method = RequestMethod.GET)
 	public String blank(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
 		return "sample/blank";

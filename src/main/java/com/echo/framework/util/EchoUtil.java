@@ -186,7 +186,7 @@ public class EchoUtil {
 		Auth auth = new Auth();
 		auth.setUserId(AuthService.SYS_USERID);
 		auth.setRightsType(RightsType.SYSTEM_ADMIN.code());
-		auth.setBusinessId(0);
+		auth.setTenantId(0);
 		auth.setServiceId(0);
 
 		return new EchoCookie(CommonConst.COOKIE_KEY, auth);

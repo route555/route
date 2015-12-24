@@ -115,6 +115,24 @@
                     output2 += ('AND\t' + before + ' = #{' + after + '}\n');
                 }
             }
+            // Update null
+            else if($('#code_update_null:checked').val()) {
+                if(count == 0) {
+                    output1 += ('<if test="' +  after + ' != null and ' +  after + ' !=\'\'">' + before + ' = #{' + after + '}</if>');
+                }
+                else {
+                	output1 += ('\n\t' + '<if test="' +  after + ' != null and ' +  after + ' !=\'\'">' + before + ' = #{' + after + '},</if>');
+                    
+                }
+
+                if(count == 0) {
+                    output2 += (before + ' = #{' + after + '}\n');
+                }
+                else {
+                    output2 += ('AND\t' + before + ' = #{' + after + '}\n');
+                }
+            }           
+            
             // Delete
             else if($('#code_delete:checked').val()) {
                 if(count == 0) {
@@ -158,6 +176,12 @@
             output += 'VALUES(' + output2 + ')';
         }
         else if($('#code_update:checked').val()) {
+            output = 'UPDATE\t' + getTableName() + ' \n';
+            output += 'SET\t' + output1 + '\n';
+            output += 'WHERE\t';
+            output += output2;
+        }
+        else if($('#code_update_null:checked').val()) {
             output = 'UPDATE\t' + getTableName() + ' \n';
             output += 'SET\t' + output1 + '\n';
             output += 'WHERE\t';
@@ -237,6 +261,10 @@
                 <label for="code_update">Update</label>&nbsp;
                 <input id="code_delete" type="radio" name="code" />
                 <label for="code_delete">Delete</label>&nbsp;
+                
+                <input id="code_update_null" type="radio" name="code" />
+                <label for="code_update_null">Update Null</label>&nbsp;
+                
                 <script type="text/javascript">
                     $('#code_basic').click(function() {
                         $('#options').html('');
@@ -291,6 +319,9 @@
                     $('#code_insert').click(fillOptionBox);
                     $('#code_update').click(fillOptionBox);
                     $('#code_delete').click(fillOptionBox);
+                    
+                    $('#code_update_null').click(fillOptionBox);
+                    
                 </script>
             </p>
             <div id="options"></div>

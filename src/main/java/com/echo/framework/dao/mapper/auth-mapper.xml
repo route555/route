@@ -5,6 +5,25 @@
 
 	<select id="selectUserAuthInfo" parameterType="auth" resultType="auth">
 		SELECT /* selectUserAuthInfo */
+			user_id AS userId,
+			tenant_id AS tenantId,
+			login_id AS loginId,
+			user_name AS userName,
+			phone AS phone,
+			email AS email,
+			rights_type AS rightsType
+		FROM
+			T_PMS016
+		WHERE 1 = 1
+		AND is_Del = 'N'
+		AND is_Use = 'Y'
+		AND login_Id = #{loginId}
+		AND login_Pw = #{passwdByCrypt}
+	</select>
+
+
+	<select id="selectUserAuthInfoOld" parameterType="auth" resultType="auth">
+		SELECT /* selectUserAuthInfoOld */
 			AA.userId, AA.businessId, AA.loginId,
 			AA.passwd, AA.userName, AA.rightsType
 		FROM

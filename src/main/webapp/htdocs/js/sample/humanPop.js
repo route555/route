@@ -1,13 +1,9 @@
-	var view = {
+	var viewPop = {
 		testCode : '',
-		popEvent : function(data) {
-			console.log('받은데이터',data);
-			alert(data.prsnNm);
-		},
 		onLoadEvent : function() {
 		
-			view.selectCommonCode();
-			view.selectCommonCodeTest();
+			//viewPop.selectCommonCode();
+			//viewPop.selectCommonCodeTest();
 			$("#btnSearch").unbind('click');
 			$("#btnSearch").click( function() {			
 				var table = $('#dataTables-example').dataTable();
@@ -17,36 +13,30 @@
 			$("#btnSave").unbind('click');
 			$("#btnSave").click( function() {				
 				if($("#humanId").val()==''){
-					view.insertData();					
+					viewPop.insertData();					
 				}else{
-					view.modifyData();
+					viewPop.modifyData();
 				}
 			});
 			
 			$("#btnDelete").unbind('click');
 			$("#btnDelete").click( function() {			
-				view.deleteData();
+				viewPop.deleteData();
 			});
 			
 			$("#btnNew").unbind('click');
 			$("#btnNew").click( function() {			
-				view.initDetail();
+				viewPop.initDetail();
 				$("#detail").show();
 			});			
 		
-			$("#btnPop").unbind('click');
-			$("#btnPop").click( function() {			
-				var url = G_CONTEXT_PATH+"/web/person/personPop";
-				window.open(url, 'newWindow', 'width=1000, height=900, toolbar=no, menubar=no, scrollbars=no, resizable=no');
-			});	
-			
-			view.selectTableData();
+			//viewPop.selectTableData();
 		}
 		, selectCommonCode : function() {			
 			common.ajax({
 				  		url : G_CONTEXT_PATH+"/codes/G01"
 				  		, type : "GET"
-						, success : view.selectCommonCodeCallBack
+						, success : viewPop.selectCommonCodeCallBack
 			});
 		}
 		, selectCommonCodeCallBack : function(json) {
@@ -63,15 +53,15 @@
 			common.ajax({
 				  		url : G_CONTEXT_PATH+"/codes/111"
 				  		, type : "GET"
-						, success : view.selectCommonCodeCallBackTest
+						, success : viewPop.selectCommonCodeCallBackTest
 			});
 		}
 		, selectCommonCodeCallBackTest : function(json) {
-			view.testCode = json.list;
+			viewPop.testCode = json.list;
 		}
 		, makeComboTest : function(data) {
 			var el = '<select id="test">';			
-			$(view.testCode).each(function(i, itm){
+			$(viewPop.testCode).each(function(i, itm){
 				
 				if(data==itm.dtlCd){
 					el += '<option value="' + itm.dtlCd + '" selected>' + itm.dtlCdNm + '</option>';
@@ -104,7 +94,7 @@
 						        { data: 'division' },
 						        { data: 'name'},
 						        //{ data: 'job' },
-						        { data: 'job' , "render": function ( data ) { return view.makeComboTest(data);} }, 
+						        { data: 'job' , "render": function ( data ) { return viewPop.makeComboTest(data);} }, 
 						        { data: 'email' },
 						        { data: 'phone' }
 						],
@@ -145,8 +135,8 @@
 		        var data = table.row( this ).data();
 		        console.log(data);
 		        //alert( 'You clicked on '+data.humanId+'\'s row' );
-		        view.initDetail();
-		        view.selectOneData(data.humanId);
+		        viewPop.initDetail();
+		        viewPop.selectOneData(data.humanId);
 		        
 		    } );
 			
@@ -157,7 +147,7 @@
 				  		url : G_CONTEXT_PATH+"/sampleHuman/"+humanId
 				  		, type : "GET"
 						, data  : reqData
-						, success : view.selectOneDataCallBack
+						, success : viewPop.selectOneDataCallBack
 			});
 		}
 		, selectOneDataCallBack : function(json){
@@ -180,7 +170,7 @@
 			  			url : G_CONTEXT_PATH+"/sampleHuman"
 				  		, type : "POST"
 						, data  : reqData 
-						, success : view.insertDataCallBack
+						, success : viewPop.insertDataCallBack
 			});
 		}
 		, insertDataCallBack : function(json){
@@ -200,7 +190,7 @@
 			  			url : G_CONTEXT_PATH+"/sampleHuman/" + humanId
 				  		, type : "PUT"
 						, data  : reqData 
-						, success : view.modifyDataCallBack
+						, success : viewPop.modifyDataCallBack
 			});	
 			
 		}
@@ -222,7 +212,7 @@
 			common.ajax({
 						url : G_CONTEXT_PATH+"/sampleHuman/" + humanId
 				  		, type : "DELETE"
-						, success : view.deleteDataCallBack
+						, success : viewPop.deleteDataCallBack
 			});		
 		}
 		, deleteDataCallBack : function(json){
@@ -251,5 +241,5 @@
 	};
 
 	$(function() {
-		view.onLoadEvent();
+		viewPop.onLoadEvent();
 	});
