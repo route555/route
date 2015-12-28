@@ -3,7 +3,7 @@
 <mapper namespace="groupcode">
 
 	<insert id="insertGroupCode" parameterType="Map">
-		INSERT INTO /* insertGroupCode */ T_PMS014
+		INSERT INTO /* insertGroupCode */ T_PMS022
 			(grp_cd, grp_cd_nm, grp_cd_desc, rgt_tm, rgt_id, upt_tm, upt_id) 
 		VALUES
 			(#{grpCd}, #{grpCdNm}, #{grpCdDesc},  NOW(), #{rgtId},  NOW(), #{uptId})
@@ -11,7 +11,7 @@
 	
 	<update id="updateGroupCode" parameterType="groupCode">
 		UPDATE /* updateGroupCode */
-			T_PMS014 
+			T_PMS022 
 		SET	
 			<if test="grpCdNm != null and ''.equals(grpCdNm) == false">grp_cd_nm = #{grpCdNm},</if>
 			<if test="grpCdDesc != null and ''.equals(grpCdDesc) == false">grp_cd_desc = #{grpCdDesc},</if>
@@ -24,7 +24,7 @@
 	<delete id="deleteGroupCode" parameterType="groupCode">
 		DELETE /* deleteGroupCode */
 		FROM
-			T_PMS014 
+			T_PMS022 
 		WHERE	
 			grp_cd = #{grpCd}	
 	</delete>	
@@ -39,7 +39,7 @@
 			upt_tm AS uptTm,
 			upt_id AS uptId
 		FROM
-			T_PMS014
+			T_PMS022
 		WHERE 1 = 1		
 		AND	grp_cd = #{grpCd}
 	</select>
@@ -54,7 +54,7 @@
 			upt_tm AS uptTm,
 			upt_id AS uptId
 		FROM
-			T_PMS014
+			T_PMS022
 		WHERE 1 = 1	
 		<include refid="listWhere"/>
 		ORDER BY
@@ -76,7 +76,7 @@
 		SELECT /* selectCntGroupCode */
 			COUNT(1)
 		FROM
-			T_PMS014 
+			T_PMS022 
 		WHERE 1 = 1
 		<include refid="listWhere"/>
 	</select>
@@ -100,9 +100,9 @@
 		    b.dtl_cd dtlCd, 
 		    b.dtl_cd_nm dtlCdNm
 		FROM
-		    T_PMS014 a
+		    T_PMS022 a
 		        INNER JOIN
-		    T_PMS015 b
+		    T_PMS023 b
 		WHERE
 		    a.grp_cd = b.grp_cd
 		    AND a.grp_cd = '${grpCd}'

@@ -3,7 +3,7 @@
 <mapper namespace="detailcode">
 
 	<insert id="insertDetailCode" parameterType="Map">
-		INSERT INTO /* insertDetailCode */ T_PMS015
+		INSERT INTO /* insertDetailCode */ T_PMS023
 			(grp_cd, dtl_cd, dtl_cd_nm, dtl_cd_desc, rgt_tm, rgt_id, upt_tm, upt_id) 
 		VALUES
 			(#{grpCd}, #{dtlCd}, #{dtlCdNm}, #{dtlCdDesc}, NOW(), #{rgtId}, NOW(), #{uptId})
@@ -11,7 +11,7 @@
 	
 	<update id="updateDetailCode" parameterType="detailCode">
 		UPDATE  /* updateDetailCode */
-			T_PMS015 
+			T_PMS023 
 		SET	
 			<if test="dtlCdNm != null and ''.equals(dtlCdNm) == false">dtl_cd_nm = #{dtlCdNm},</if>
 			<if test="dtlCdDesc != null and ''.equals(dtlCdDesc) == false">dtl_cd_desc = #{dtlCdDesc},</if>
@@ -25,7 +25,7 @@
 	<delete id="deleteDetailCode" parameterType="detailCode">
 		DELETE /* deleteDetailCode */
 		FROM
-			T_PMS015 
+			T_PMS023 
 		WHERE	
 			grp_cd = #{grpCd}
 			AND	dtl_cd = #{dtlCd}	
@@ -34,7 +34,7 @@
 	<delete id="deleteDetailCodeByGrpCd" parameterType="Map">
 		DELETE /* deleteDetailCodeByGrpCd */
 		FROM
-			T_PMS015 
+			T_PMS023 
 		WHERE	
 			grp_cd = #{grpCd}
 	</delete>	
@@ -50,7 +50,7 @@
 			upt_tm AS uptTm,
 			upt_id AS uptId
 		FROM
-			T_PMS015
+			T_PMS023
 		WHERE 1 = 1		
 		AND	grp_cd = #{grpCd}
 		AND	dtl_cd = #{dtlCd}
@@ -67,7 +67,7 @@
 			upt_tm AS uptTm,
 			upt_id AS uptId
 		FROM
-			T_PMS015
+			T_PMS023
 		WHERE 1 = 1	
 		<include refid="listWhere"/>
 		ORDER BY
@@ -89,7 +89,7 @@
 		SELECT /* selectCntDetailCode */
 			COUNT(1)
 		FROM
-			T_PMS015 
+			T_PMS023 
 		WHERE 1 = 1
 		<include refid="listWhere"/>
 	</select>
