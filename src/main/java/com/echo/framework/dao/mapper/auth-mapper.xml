@@ -13,7 +13,7 @@
 			email AS email,
 			rights_type AS rightsType
 		FROM
-			T_PMS016
+			T_PMS021
 		WHERE 1 = 1
 		AND is_Del = 'N'
 		AND is_Use = 'Y'

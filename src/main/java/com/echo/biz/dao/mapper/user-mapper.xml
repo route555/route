@@ -3,7 +3,7 @@
 <mapper namespace="user">
 
 	<insert id="insertUser" parameterType="Map" useGeneratedKeys="true" keyProperty="userId" keyColumn="userId" >
-		INSERT INTO /* insertUser */ T_PMS016
+		INSERT INTO /* insertUser */ T_PMS021
 			(user_id, tenant_id, login_id, login_pw, user_name, phone, email, rights_type, is_use, is_del, rgt_tm, rgt_id, upt_tm, upt_id) 
 		VALUES
 			(#{userId}, #{tenantId}, #{loginId}, #{passwdByCrypt}, #{userName}, #{phone}, #{email}, #{rightsType}, #{isUse}, 'N', NOW(), #{rgtId}, NOW(), #{uptId})
@@ -11,7 +11,7 @@
 	
 	<update id="updateUser" parameterType="user">
 		UPDATE  /* updateUser */
-			T_PMS016 
+			T_PMS021 
 		SET	
 			<if test="tenantId != null and tenantId !=''">tenant_id = #{tenantId},</if>
 			<if test="loginId != null and loginId !=''">login_id = #{loginId},</if>
@@ -31,7 +31,7 @@
 	<delete id="deleteUser" parameterType="user">
 		DELETE /* deleteUser */
 		FROM
-			T_PMS016 
+			T_PMS021 
 		WHERE	
 			user_id = #{userId}
 	</delete>	
@@ -53,7 +53,7 @@
 			upt_tm AS uptTm,
 			upt_id AS uptId
 		FROM
-			T_PMS016
+			T_PMS021
 		WHERE 1 = 1		
 		AND	user_id = #{userId}
 	</select>
@@ -75,7 +75,7 @@
 			upt_tm AS uptTm,
 			upt_id AS uptId
 		FROM
-			T_PMS016
+			T_PMS021
 		WHERE 1 = 1	
 		<include refid="listWhere"/>
 		ORDER BY
@@ -97,7 +97,7 @@
 		SELECT /* selectCntUser */
 			COUNT(1)
 		FROM
-			T_PMS016 
+			T_PMS021 
 		WHERE 1 = 1
 		<include refid="listWhere"/>
 	</select>
