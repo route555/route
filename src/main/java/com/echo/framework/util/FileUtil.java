@@ -197,7 +197,7 @@ public class FileUtil {
 		log.info("copy {} to {}", originalFileName, physicalFilePath);
 
 		List<FileUploadDto> fileList = new ArrayList<FileUploadDto>();
-		fileList.add(new FileUploadDto(originalFileName, originalFileName,
+		fileList.add(new FileUploadDto(uuid + "." + extension, originalFileName,
 				extension, physicalFilePath, fileSize));
 		return new FileUploadMessage(FileUploadMessage.CODE_OK, fileList);
 	}

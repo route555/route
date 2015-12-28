@@ -43,7 +43,25 @@ var view = {
 						this.reset();  
 					}); 
 				});
-								
+					
+				
+				$("#f").submit(function(e) {
+					var formData = new FormData(this);
+					
+					jQuery.ajax({
+				  		url :  G_CONTEXT_PATH+"/person",
+						type: "POST",
+						data:  formData,
+						mimeType:"multipart/form-data",
+						contentType: false,
+						cache: false,
+						processData:false,
+						success: view.insertDataCallBack,
+						error: view.insertDataCallBack
+					});
+					
+					e.preventDefault();
+				});
 				
 			}
 			, onLoadForAsync : function() {
@@ -237,12 +255,24 @@ var view = {
 						}
 					}else{
 						$("#"+k).val( v);
+						
+						if(k=='fileName'){
+							$("#"+k).html( v);
+						}
+						
 					}
 				});
 			});
 			$("#detail").show();
 		}
 		, insertData : function() {
+			
+			
+
+			
+			$("#f").submit();
+			
+			/*
 			var reqData = $('form[name="f"]').serializeArray();
 			common.ajax({
 			  			url : G_CONTEXT_PATH+"/person"
@@ -250,8 +280,11 @@ var view = {
 						, data  : reqData 
 						, success : view.insertDataCallBack
 			});
+			*/
 		}
-		, insertDataCallBack : function(json){
+		, insertDataCallBack : function(data){
+			var json = jQuery.parseJSON(data);
+			
 			if ( json.status == 200 ) {
 				view.personTable.fnReloadAjax();	
 			}

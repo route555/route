@@ -14,6 +14,7 @@
 		<!-- biz -->
 		<typeAlias type="com.echo.biz.domain.Person" alias="person" />
 		<typeAlias type="com.echo.biz.domain.PersonSkill" alias="personSkill" />			
+		<typeAlias type="com.echo.biz.domain.AttachFile" alias="attachFile" />
 		
 		<!-- system -->
 		<typeAlias type="com.echo.biz.domain.GroupCode" alias="groupCode" />
@@ -35,6 +36,7 @@
 		<!-- biz -->
 		<mapper resource="com/echo/biz/dao/mapper/person-mapper.xml" />
 		<mapper resource="com/echo/biz/dao/mapper/personskill-mapper.xml" />
+		<mapper resource="com/echo/biz/dao/mapper/attachfile-mapper.xml" />
 		
 		<!-- system -->
 		<mapper resource="com/echo/biz/dao/mapper/groupcode-mapper.xml" />

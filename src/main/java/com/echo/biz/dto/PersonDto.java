@@ -1,5 +1,7 @@
 package com.echo.biz.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class PersonDto extends BasePmsDto {
 
 	private static final long serialVersionUID = 1L;
@@ -29,6 +31,7 @@ public class PersonDto extends BasePmsDto {
 	private String prflAtchtFlNo;
 	
 	private String[] skillSectCd;
+	private MultipartFile prflAtchtFile;
 	
 	public Integer getPrsnNo() {
 		return prsnNo;
@@ -229,6 +232,14 @@ public class PersonDto extends BasePmsDto {
 
 	public void setSkillSectCd(String[] skillSectCd) {
 		this.skillSectCd = skillSectCd;
+	}
+
+	public MultipartFile getPrflAtchtFile() {
+		return prflAtchtFile;
+	}
+
+	public void setPrflAtchtFile(MultipartFile prflAtchtFile) {
+		this.prflAtchtFile = prflAtchtFile;
 	}
 
 	@Override

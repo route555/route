@@ -86,7 +86,7 @@
 			rgtr_id AS rgtrId,
 			upt_tm AS uptTm,
 			uptr_id AS uptrId,
-			
+			(SELECT ATCHT_FL_ORGNL_NM FROM T_PMS005 where ATCHT_FL_NO=prfl_atcht_fl_no) AS fileName,
 			(select group_concat(AA.skill_sect_cd ORDER BY AA.skill_sect_cd DESC ) from   T_PMS004 AA where AA.prsn_no = #{prsnNo})  AS skillSectCd
 			
 		FROM

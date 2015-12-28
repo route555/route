@@ -32,7 +32,9 @@ public class Person extends BaseDomain {
 	private String prflAtchtFlNo;
 
 	private String skillSectCd;
-
+	private String fileName;
+	
+	
 	public Person() {
 
 	}
@@ -267,6 +269,14 @@ public class Person extends BaseDomain {
 
 	public void setSkillSectCd(String skillSectCd) {
 		this.skillSectCd = skillSectCd;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 
 

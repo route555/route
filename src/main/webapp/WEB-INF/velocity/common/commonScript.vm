@@ -81,7 +81,6 @@
 	<link href="https://cdn.datatables.net/buttons/1.1.0/css/buttons.dataTables.min.css" rel="stylesheet">
  
 	<style>
-	
 	.dataTables_wrapper .dataTables_length {
 	    position: relative;
 	    text-align: left;

@@ -208,7 +208,11 @@
                                         </tr>
                                         <tr>
                                             <th width="15%">프로필</th>
-                                            <td colspan="3"><input type="file" class="input-sm form-control" id="ff" name="ff"></td>
+                                            <td colspan="3">
+                                            <p id="fileName"></p>
+                                            <input type="hidden" id="prflAtchtFlNo" name="prflAtchtFlNo">
+                                            
+                                            <input type="file" class="inputs-sm form-cosntrol" id="prflAtchtFile" name="prflAtchtFile"></td>
                                         </tr>
                                     </tbody>
                                 </table>

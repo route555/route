@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="attachfile">
+
+	<insert id="insertAttachFile" parameterType="Map" useGeneratedKeys="true" keyProperty="atchtFlNo" keyColumn="atchtFlNo"  >
+		INSERT INTO /* insertAttachFile */ T_PMS005
+			(atcht_fl_no, atcht_fl_path_nm, atcht_fl_nm, atcht_fl_orgnl_nm, rgt_tm, rgtr_id, upt_tm, uptr_id) 
+		VALUES
+			(#{atchtFlNo}, #{atchtFlPathNm}, #{atchtFlNm}, #{atchtFlOrgnlNm},  NOW(), #{rgtrId},  NOW(), #{uptrId})
+	</insert>	
+
+	<delete id="deleteAttachFile" parameterType="attachFile">
+		DELETE /* deleteAttachFile */
+		FROM
+			T_PMS005 
+		WHERE	
+			atcht_fl_no = #{atchtFlNo}		
+	</delete>	
+	
+	
+</mapper>
