@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="prjtPrsn">
+
+	<select id="selectPrjtPrsnList" parameterType="Map" resultType="tMap">
+	SELECT T.PRJT_CD prjtCd,
+		   T.DSTRBT_SEQ_NO dstrbtSeqNo,
+		   T.PRSN_NO prsnNo,
+		   (SELECT DTL_CD_NM FROM T_PMS023 WHERE GRP_CD = '004' AND DTL_CD = T.CNTRCT_SECT_CD) cntrctSectCdNm,
+		   T.WORK_START_DT workStartDt,
+		   T.WORK_END_DT workEndDt,
+		   T.DSTRBT_SECT_CD dstrbtSectCd,
+	       (SELECT DTL_CD_NM FROM T_PMS023 WHERE GRP_CD = '011' AND DTL_CD = T.DSTRBT_SECT_CD) dstrbtSectCdNm,
+		   T.SALES_UNIT_COST_AMT salesUnitCostAmt,
+		   T.ORDR_UNIT_CST_AMT ordrUnitCstAmt,
+		   T.SKILL_SECT_CD skillSectCd,
+	       (SELECT DTL_CD_NM FROM T_PMS023 WHERE GRP_CD = '006' AND DTL_CD = T.SKILL_SECT_CD) skillSectCdNm,
+		   T.PRSN_MM prsnMm,
+		   T.MEMO_DESC memoDesc,
+		   T.PRSN_NM prsnNm,
+	       T.CNTRCT_SECT_CD cntrctSectCd,
+	       (SELECT IF(COUNT(1)>0, 'Y', 'N') FROM T_PMS011 WHERE PRJT_CD=T.PRJT_CD AND PRSN_NO=T.PRSN_NO) prjtPrsnCnt
+	FROM (
+		SELECT T1.PRJT_CD,
+			   T1.DSTRBT_SEQ_NO,
+			   T1.PRSN_NO,
+			   T1.WORK_START_DT,
+			   T1.WORK_END_DT,
+			   T1.DSTRBT_SECT_CD,
+			   T1.SALES_UNIT_COST_AMT,
+			   T1.ORDR_UNIT_CST_AMT,
+			   T1.SKILL_SECT_CD,
+			   T1.PRSN_MM,
+			   T1.MEMO_DESC,
+	           T2.PRSN_NM,
+	           T2.CNTRCT_SECT_CD
+		FROM T_PMS007 T1, T_PMS003 T2
+		WHERE T1.PRSN_NO=T2.PRSN_NO 
+	    AND T1.PRJT_CD = #{prjtCd} 
+	    ORDER BY T1.DSTRBT_SEQ_NO ASC) T
+	</select>
+	
+	<insert id="insertPrjtPrsn" parameterType="Map">
+	INSERT INTO T_PMS007 (
+			   PRJT_CD,
+			   DSTRBT_SEQ_NO,
+			   PRSN_NO,
+			   WORK_START_DT,
+			   WORK_END_DT,
+			   DSTRBT_SECT_CD,
+			   SALES_UNIT_COST_AMT,
+			   ORDR_UNIT_CST_AMT,
+			   SKILL_SECT_CD,
+			   PRSN_MM,
+			   MEMO_DESC,
+			   RGT_TM,
+			   RGTR_ID,
+			   UPT_TM,
+			   UPTR_ID
+	)
+	VALUES (
+	     #{prjtCd},
+	     (SELECT IFNULL(MAX(DSTRBT_SEQ_NO), 0)+1 FROM T_PMS007 ALIAS_FOR_SUBQUERY WHERE PRJT_CD=#{prjtCd}),
+	     #{prsnNo},
+	     #{workStartDt},
+	     #{workEndDt},
+	     #{dstrbtSectCd},
+	     #{salesUnitCostAmt},
+	     #{ordrUnitCstAmt},
+	     #{skillSectCd},
+	     #{prsnMm},
+	     #{memoDesc},
+	     NOW(),
+		 #{rgtrId},
+		 NOW(),
+		 #{uptrId}
+	)
+	
+	
+	</insert>
+	
+	<delete id="deletePrjtPrsnAll" parameterType="Map">
+	DELETE FROM T_PMS007 WHERE PRJT_CD = #{prjtCd}
+	</delete>
+	
+	<select id="selectSalesTotAmt" parameterType="Map" resultType="tMap">
+	SELECT FORMAT(ROUND(workSalesTotAmt/1000)*1000, 0) workSalesTotAmt,
+	       FORMAT(A01+A02+A03, 0) ectSalesTotAmt,
+	       FORMAT(ROUND((workSalesTotAmt+IFNULL(A01, 0)+IFNULL(A02, 0)+IFNULL(A03, 0))/1000)*1000, 0) salesTotAmt
+	FROM (
+	SELECT ROUND(SUM(CASE WHEN DSTRBT_SECT_CD = '001' THEN SALES_UNIT_COST_AMT * PRSN_MM END)) workSalesTotAmt,
+	       ROUND(SUM(CASE WHEN DSTRBT_SECT_CD = '002' THEN DATEDIFF(WORK_END_DT, WORK_START_DT)+1 * SALES_UNIT_COST_AMT END)) A01,
+	       ROUND(SUM(CASE WHEN DSTRBT_SECT_CD = '003' THEN SALES_UNIT_COST_AMT END)) A02,
+	       ROUND(SUM(CASE WHEN DSTRBT_SECT_CD = '004' THEN SALES_UNIT_COST_AMT END)) A03
+	FROM T_PMS007
+	WHERE PRJT_CD=#{prjtCd}) T	
+	</select>
+
+</mapper>

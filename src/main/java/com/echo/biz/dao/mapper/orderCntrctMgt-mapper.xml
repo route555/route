@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ordercntrctmgt">
+
+	<select id="selectListOrderCntrctMgt" parameterType="Map" resultType="tMap">
+	SELECT A.PRJT_CD prjtCd,
+	       A.DSTRBT_SEQ_NO dstrbtSeqNo,
+	       A.PRJT_NM prjtNm,
+	       A.TR_ACCT_NM trAcctNm,
+	       A.CSTMR_NM cstmrNm,
+	       A.CHGR_NM chgrNm,
+	       A.HP_NO hpNo,
+	       A.CHGR_HP_NO chgrHpNo,
+	       A.CNTRCT_SECT_CD cntrctSectCd,
+	       A.CNTRCT_SECT_CD_NM cntrctSectCdNm,
+	       A.PRSN_NO prsnNo,
+	       A.PRSN_NM prsnNm,
+	       A.DSTRBT_SECT_CD dstrbtSectCd,
+	       A.DSTRBT_SECT_CD_NM dstrbtSectCdNm,
+	       DATE_FORMAT(A.WORK_START_DT,'%Y.%m.%d') workStartDt,
+	       DATE_FORMAT(A.WORK_END_DT,'%Y.%m.%d') workEndDt,
+	       A.PRSN_MM prsnMm,
+	       B.CNTRCT_CD cntrctCd,
+	       B.CNTRCT_STATUS_CD cntrctStatusCd,
+	       (SELECT DTL_CD_NM FROM T_PMS023 WHERE GRP_CD = '014' AND DTL_CD = B.CNTRCT_STATUS_CD) cntrctStatusCdNm,
+	       (SELECT IFNULL(PRJT_END_YN, 'N') FROM T_PMS006 WHERE PRJT_CD=A.PRJT_CD) prjtEndYn
+	FROM (
+		SELECT T1.PRJT_CD,
+		       T2.DSTRBT_SEQ_NO,
+			   T1.PRJT_NM,
+			   (SELECT TR_ACCT_NM FROM T_PMS001 WHERE TR_ACCT_CD=T1.TR_ACCT_CD) TR_ACCT_NM,
+			   T1.CSTMR_NM,
+			   (SELECT CHGR_NM FROM T_PMS002 WHERE TR_ACCT_CD=T1.TR_ACCT_CD AND CHGR_SEQ_NO=T1.CAL_CHGR_SEQ_NO) CHGR_NM,
+			   (SELECT HP_NO FROM T_PMS002 WHERE TR_ACCT_CD=T1.TR_ACCT_CD AND CHGR_SEQ_NO=T1.CAL_CHGR_SEQ_NO) CHGR_HP_NO,
+			   T3.HP_NO,
+			   T3.CNTRCT_SECT_CD,
+			   (SELECT DTL_CD_NM FROM T_PMS023 WHERE GRP_CD = '004' AND DTL_CD = T3.CNTRCT_SECT_CD) CNTRCT_SECT_CD_NM,
+			   T3.PRSN_NO,
+			   T3.PRSN_NM,
+			   T2.DSTRBT_SECT_CD,
+			   (SELECT DTL_CD_NM FROM T_PMS023 WHERE GRP_CD = '011' AND DTL_CD = T2.DSTRBT_SECT_CD) DSTRBT_SECT_CD_NM,
+			   T2.WORK_START_DT,
+			   T2.WORK_END_DT,
+	           T2.PRSN_MM,
+	           T2.ORDR_UNIT_CST_AMT,
+	           T3.JUMIN_NO1,
+	           T3.JUMIN_NO2
+		FROM T_PMS006 T1 INNER JOIN T_PMS007 T2 INNER JOIN T_PMS003 T3
+		ON T1.PRJT_CD=T2.PRJT_CD AND T2.PRSN_NO=T3.PRSN_NO
+		WHERE PRJT_CFRM_YN='Y'
+		
+		<if test="srchPrjtNm != null and ''.equals(srchPrjtNm) == false">
+		AND T1.PRJT_NM LIKE CONCAT('%', #{srchPrjtNm}, '%')
+		</if>
+		
+		<if test="srchCntrctSectCd != null and ''.equals(srchCntrctSectCd) == false">
+		AND T3.CNTRCT_SECT_CD = #{srchCntrctSectCd}
+		</if>
+		
+		<if test="srchPrsnNm != null and ''.equals(srchPrsnNm) == false">
+		AND T3.PRSN_NM LIKE CONCAT('%', #{srchPrsnNm}, '%')
+		</if>
+		
+		<if test="srchDstrbtSectCd != null and ''.equals(srchDstrbtSectCd) == false">
+		AND T2.DSTRBT_SECT_CD = #{srchDstrbtSectCd}
+		</if>
+		
+		) A LEFT OUTER JOIN T_PMS011 B
+	ON (A.PRJT_CD=B.PRJT_CD AND A.PRSN_NO=B.PRSN_NO)
+	
+	WHERE 1=1
+	
+	<if test="srchCntrctStatusCd != null and ''.equals(srchCntrctStatusCd) == false">
+	AND B.CNTRCT_STATUS_CD = #{srchCntrctStatusCd}
+	</if>
+	
+	ORDER BY B.CNTRCT_CD DESC, A.PRJT_CD DESC, A.DSTRBT_SEQ_NO DESC 
+	
+	<if test="pageSize != null and pageSize != -1">
+	LIMIT ${start}, ${pageSize}
+	</if>
+	
+	</select>
+	
+	<select id="selectCntOrderCntrctMgt" parameterType="Map" resultType="int">
+	SELECT COUNT(1)
+	FROM (
+		SELECT T1.PRJT_CD,
+			   T1.PRJT_NM,
+			   (SELECT TR_ACCT_NM FROM T_PMS001 WHERE TR_ACCT_CD=T1.TR_ACCT_CD) TR_ACCT_NM,
+			   T1.CSTMR_NM,
+			   (SELECT CHGR_NM FROM T_PMS002 WHERE TR_ACCT_CD=T1.TR_ACCT_CD AND CHGR_SEQ_NO=T1.CAL_CHGR_SEQ_NO) CHGR_NM,
+			   (SELECT HP_NO FROM T_PMS002 WHERE TR_ACCT_CD=T1.TR_ACCT_CD AND CHGR_SEQ_NO=T1.CAL_CHGR_SEQ_NO) CHGR_HP_NO,
+			   T3.HP_NO,
+			   T3.CNTRCT_SECT_CD,
+			   (SELECT DTL_CD_NM FROM T_PMS023 WHERE GRP_CD = '004' AND DTL_CD = T3.CNTRCT_SECT_CD) CNTRCT_SECT_CD_NM,
+			   T3.PRSN_NO,
+			   T3.PRSN_NM,
+			   T2.DSTRBT_SECT_CD,
+			   (SELECT DTL_CD_NM FROM T_PMS023 WHERE GRP_CD = '011' AND DTL_CD = T2.DSTRBT_SECT_CD) DSTRBT_SECT_CD_NM,
+			   T2.WORK_START_DT,
+			   T2.WORK_END_DT,
+	           T2.PRSN_MM,
+	           T2.ORDR_UNIT_CST_AMT,
+	           T3.JUMIN_NO1,
+	           T3.JUMIN_NO2
+		FROM T_PMS006 T1 INNER JOIN T_PMS007 T2 INNER JOIN T_PMS003 T3
+		ON T1.PRJT_CD=T2.PRJT_CD AND T2.PRSN_NO=T3.PRSN_NO
+		WHERE PRJT_CFRM_YN='Y'
+		
+		<if test="srchPrjtNm != null and ''.equals(srchPrjtNm) == false">
+		AND T1.PRJT_NM LIKE CONCAT('%', #{srchPrjtNm}, '%')
+		</if>
+		
+		<if test="srchCntrctSectCd != null and ''.equals(srchCntrctSectCd) == false">
+		AND T3.CNTRCT_SECT_CD = #{srchCntrctSectCd}
+		</if>
+		
+		<if test="srchPrsnNm != null and ''.equals(srchPrsnNm) == false">
+		AND T3.PRSN_NM LIKE CONCAT('%', #{srchPrsnNm}, '%')
+		</if>
+		
+		<if test="srchDstrbtSectCd != null and ''.equals(srchDstrbtSectCd) == false">
+		AND T2.DSTRBT_SECT_CD = #{srchDstrbtSectCd}
+		</if>
+		
+		) A LEFT OUTER JOIN T_PMS011 B
+	ON (A.PRJT_CD=B.PRJT_CD AND A.PRSN_NO=B.PRSN_NO)
+	WHERE 1=1
+	
+	<if test="srchCntrctStatusCd != null and ''.equals(srchCntrctStatusCd) == false">
+	AND B.CNTRCT_STATUS_CD = #{srchCntrctStatusCd}
+	</if>
+	</select>
+	
+	<select id="selectOrderCntrctMgt" parameterType="Map" resultType="tMap">
+	SELECT A.PRJT_CD prjtCd,
+	       A.PRJT_NM prjtNm,
+	       A.TR_ACCT_CD trAcctCd,
+	       A.TR_ACCT_NM trAcctNm,
+	       A.CSTMR_NM cstmrNm,
+	       A.CHGR_NM chgrNm,
+	       A.HP_NO hpNo,
+	       A.CHGR_HP_NO chgrHpNo,
+	       A.CNTRCT_SECT_CD cntrctSectCd,
+	       A.CNTRCT_SECT_CD_NM cntrctSectCdNm,
+	       A.PRSN_NO prsnNo,
+	       A.PRSN_NM prsnNm,
+	       A.DSTRBT_SECT_CD dstrbtSectCd,
+	       A.DSTRBT_SECT_CD_NM dstrbtSectCdNm,
+	       DATE_FORMAT(A.WORK_START_DT,'%Y.%m.%d') workStartDt,
+	       DATE_FORMAT(A.WORK_END_DT,'%Y.%m.%d') workEndDt,
+	       A.PRSN_MM prsnMm,
+	       A.ORDR_UNIT_CST_AMT ordrUnitCstAmt,
+	       CONCAT(A.JUMIN_NO1, '-', A.JUMIN_NO2) juminNo,
+	       A.LAW_BIZ_NM lawBizNm,
+	       B.CNTRCT_CD cntrctCd,
+	       B.CNTRCT_STATUS_CD cntrctStatusCd,
+	       (SELECT DTL_CD_NM FROM T_PMS023 WHERE GRP_CD = '017' AND DTL_CD = B.CNTRCT_STATUS_CD) cntrctStatusCdNm,
+	       B.MEMO_DESC memoDesc
+	FROM (
+		SELECT T1.PRJT_CD,
+			   T1.PRJT_NM,
+			   T1.TR_ACCT_CD,
+			   (SELECT TR_ACCT_NM FROM T_PMS001 WHERE TR_ACCT_CD=T1.TR_ACCT_CD) TR_ACCT_NM,
+			   T1.CSTMR_NM,
+			   (SELECT CHGR_NM FROM T_PMS002 WHERE TR_ACCT_CD=T1.TR_ACCT_CD AND CHGR_SEQ_NO=T1.CAL_CHGR_SEQ_NO) CHGR_NM,
+			   (SELECT HP_NO FROM T_PMS002 WHERE TR_ACCT_CD=T1.TR_ACCT_CD AND CHGR_SEQ_NO=T1.CAL_CHGR_SEQ_NO) CHGR_HP_NO,
+			   T3.HP_NO,
+			   T3.CNTRCT_SECT_CD,
+			   (SELECT DTL_CD_NM FROM T_PMS023 WHERE GRP_CD = '004' AND DTL_CD = T3.CNTRCT_SECT_CD) CNTRCT_SECT_CD_NM,
+			   T3.PRSN_NO,
+			   T3.PRSN_NM,
+			   T2.DSTRBT_SECT_CD,
+			   (SELECT DTL_CD_NM FROM T_PMS023 WHERE GRP_CD = '011' AND DTL_CD = T2.DSTRBT_SECT_CD) DSTRBT_SECT_CD_NM,
+			   T2.WORK_START_DT,
+			   T2.WORK_END_DT,
+	           T2.PRSN_MM,
+	           T2.ORDR_UNIT_CST_AMT,
+	           T3.JUMIN_NO1,
+	           T3.JUMIN_NO2,
+	           T3.LAW_BIZ_NM
+		FROM T_PMS006 T1 INNER JOIN T_PMS007 T2 INNER JOIN T_PMS003 T3
+		ON T1.PRJT_CD=T2.PRJT_CD AND T2.PRSN_NO=T3.PRSN_NO
+		WHERE T1.PRJT_CD=#{prjtCd}
+		AND T2.DSTRBT_SEQ_NO=#{dstrbtSeqNo}
+		) A LEFT OUTER JOIN T_PMS011 B
+	ON (A.PRJT_CD=B.PRJT_CD AND A.PRSN_NO=B.PRSN_NO)
+	</select>
+	
+	<select id="selectOrderDpstList" parameterType="Map" resultType="tMap">
+	SELECT CNTRCT_CD cntrctCd,
+	       DPST_SEQ_NO dpstSeqNo,
+	       DPST_DT dpstDt,
+	       DPST_CD dsptCd,
+	       RMLRK_DESC rmlrkDesc,
+	       SUPPLY_AMT supplyAmt,
+	       TAX_AMT taxAmt,
+	       (SUPPLY_AMT+TAX_AMT) totAmt,
+	       MEMO_DESC memoDesc,
+	       DPST_YN dpstYn
+	FROM T_PMS013
+	WHERE CNTRCT_CD=#{cntrctCd}
+	
+	<if test="srchDsptCd != null and ''.equals(srchDsptCd) == false">
+	AND DPST_CD = #{srchDsptCd}
+	</if>
+		
+	ORDER BY DPST_DT DESC, DPST_SEQ_NO DESC
+	</select>
+	
+	<select id="selectMaxOrderCntrctCd" parameterType="Map" resultType="tMap">
+	SELECT   CONCAT('C', DATE_FORMAT(NOW(), '%Y'), 'O', LPAD(CAST(IFNULL(MAX(SUBSTR(CNTRCT_CD, 7, 3))+1, 1) AS CHAR), 3, '0')) maxCntrctCd
+	FROM T_PMS011
+	WHERE SUBSTR(CNTRCT_CD, 2, 4)   = DATE_FORMAT(NOW(), '%Y')
+	</select>
+	
+	<insert id="insertOrderCntrctMgt" parameterType="Map">
+	INSERT INTO T_PMS011 (
+		CNTRCT_CD, 
+		CNTRCT_STATUS_CD, 
+		MEMO_DESC, 
+		PRJT_CD, 
+		PRSN_NO,
+		RGT_TM, 
+		RGTR_ID, 
+		UPT_TM, 
+		UPTR_ID
+	)
+	VALUES (
+		#{cntrctCd},
+		#{cntrctStatusCd},
+		#{memoDesc0},
+		#{prjtCd},
+		#{prsnNo},
+		NOW(),
+		#{rgtrId},
+		NOW(),
+		#{uptrId}
+	)
+	</insert>
+	
+	<update id="updateOrderCntrctMgt" parameterType="Map">
+	UPDATE T_PMS011
+	SET CNTRCT_STATUS_CD = #{cntrctStatusCd},
+	    MEMO_DESC = #{memoDesc0},
+	    UPT_TM=NOW(),
+		UPTR_ID=#{uptrId}
+	WHERE CNTRCT_CD = #{cntrctCd} 
+	</update>
+	
+	<insert id="insertOrderCntrctHst" parameterType="Map">
+	INSERT INTO T_PMS012 (
+		CNTRCT_CD, 
+		HST_SEQ_NO, 
+		CNTRCT_STATUS_CD, 
+		MEMO_DESC, 
+		PRJT_CD, 
+		PRSN_NO,
+		RGT_TM, 
+		RGTR_ID
+	)
+	VALUES (
+	    #{cntrctCd},
+	    (SELECT IFNULL(MAX(HST_SEQ_NO), 0)+1
+		 FROM T_PMS012 ALIAS_FOR_SUBQUERY
+		 WHERE CNTRCT_CD=#{cntrctCd}),
+	    #{cntrctStatusCd},
+	    #{memoDesc0},
+	    #{prjtCd},
+	    #{prsnNo},
+		NOW(),
+		#{rgtrId}
+	)
+	</insert>
+	
+	<insert id="insertOrderDpst" parameterType="Map">
+	INSERT INTO T_PMS013 (
+		CNTRCT_CD, 
+		DPST_SEQ_NO, 
+		DPST_DT, 
+		DPST_CD, 
+		RMLRK_DESC, 
+		SUPPLY_AMT, 
+		TAX_AMT, 
+		MEMO_DESC,
+		DPST_YN,
+		RGT_TM, 
+		RGTR_ID, 
+		UPT_TM, 
+		UPTR_ID
+	)
+	VALUES (
+	    #{cntrctCd},
+	    (SELECT IFNULL(MAX(DPST_SEQ_NO), 0)+1
+		 FROM T_PMS013 ALIAS_FOR_SUBQUERY
+		 WHERE CNTRCT_CD=#{cntrctCd}),
+	    #{dpstDt},
+	    #{dpstCd},
+	    #{rmlrkDesc},
+	    #{supplyAmt},
+	    #{taxAmt},
+	    #{memoDesc},
+	    'N',
+		NOW(),
+		#{rgtrId},
+		NOW(),
+		#{uptrId}
+	)
+	</insert>
+	
+	<delete id="deleteOrderDpst" parameterType="Map">
+	DELETE FROM T_PMS013 WHERE CNTRCT_CD = #{cntrctCd}  AND DPST_YN = 'N'
+	</delete>
+	
+</mapper>

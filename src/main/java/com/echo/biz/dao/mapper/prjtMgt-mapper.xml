@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="prjtmgt">
+
+	<select id="selectListPrjtMgt" parameterType="Map" resultType="tMap">
+	SELECT T1.TR_ACCT_CD trAcctCd,
+			   T1.TR_ACCT_NM trAcctNm,
+		       T2.PRJT_CD prjtCd,
+		       T2.PRJT_NM prjtNm,
+		       T2.CSTMR_NM cstmrNm,
+		       CONCAT(SUBSTRING(T2.PRJT_CFRM_DT, 1, 4), '.', SUBSTRING(T2.PRJT_CFRM_DT, 5, 2), '.', SUBSTRING(T2.PRJT_CFRM_DT, 7, 2)) prjtCfrmDt,
+		       PRJT_CFRM_YN prjtCfrmYn,
+		       CONCAT(SUBSTRING(T2.PRJT_END_DT, 1, 4), '.', SUBSTRING(T2.PRJT_END_DT, 5, 2), '.', SUBSTRING(T2.PRJT_END_DT, 7, 2)) prjtEndDt,
+		       PRJT_END_YN prjtEndYn,
+		       CONCAT(SUBSTRING(T2.WORK_START_DT, 1, 4), '.', SUBSTRING(T2.WORK_START_DT, 5, 2), '.', SUBSTRING(T2.WORK_START_DT, 7, 2)) workStartDt,
+		       CONCAT(SUBSTRING(T2.WORK_END_DT, 1, 4), '.', SUBSTRING(T2.WORK_END_DT, 5, 2), '.', SUBSTRING(T2.WORK_END_DT, 7, 2)) workEndDt,
+		       '' totMm,
+		       (SELECT CHGR_NM FROM T_PMS002 WHERE TR_ACCT_CD=T2.TR_ACCT_CD AND CHGR_SEQ_NO = T2.SALES_CHGR_SEQ_NO) salesChgrNm,
+		       T2.PRJT_GRND_DESC prjtGrncDesc,
+		       (SELECT COUNT(1) FROM T_PMS008 WHERE PRJT_CD=T2.PRJT_CD) prjtCnt
+		FROM T_PMS001 T1, T_PMS006 T2
+		WHERE T1.TR_ACCT_CD=T2.TR_ACCT_CD
+		
+		<if test="srchPrjtNm != null and ''.equals(srchPrjtNm) == false">
+		AND T2.PRJT_NM LIKE CONCAT('%', #{srchPrjtNm}, '%')
+		</if>
+		
+		ORDER BY T2.PRJT_CD DESC
+		
+    	<if test="pageSize != null and pageSize != -1">
+		LIMIT ${start}, ${pageSize}
+		</if>
+	</select>
+	
+	<select id="selectCntPrjtMgt" parameterType="Map" resultType="int">
+		SELECT /* selectCntPrjtMgt */
+			COUNT(1)
+		FROM T_PMS001 T1, T_PMS006 T2
+		WHERE T1.TR_ACCT_CD=T2.TR_ACCT_CD
+		
+		<if test="srchPrjtNm != null and ''.equals(srchPrjtNm) == false">
+		AND T2.PRJT_NM LIKE CONCAT('%', #{srchPrjtNm}, '%')
+		</if>
+		
+	</select>
+	
+	<select id="selectPrjtMgt" parameterType="Map" resultType="tMap">
+		SELECT T1.TR_ACCT_CD trAcctCd,
+			   T1.TR_ACCT_NM trAcctNm,
+		       T2.PRJT_CD prjtCd,
+		       T2.PRJT_NM prjtNm,
+		       T2.CSTMR_NM cstmrNm,
+		       T2.PRJT_CFRM_DT prjtCfrmDt,
+		       T2.PRJT_CFRM_YN prjtCfrmYn,
+		       T2.PRJT_END_DT prjtEndDt,
+		       T2.PRJT_END_YN prjtEndYn,
+		       T2.WORK_START_DT workStartDt,
+		       T2.WORK_END_DT workEndDt,
+		       T2.ABRD_CD abrdCd,
+		       (SELECT DTL_CD_NM FROM T_PMS023 WHERE GRP_CD = '005' AND DTL_CD = T2.ABRD_CD) abrdCdNm,
+		       T2.PRJT_PRPTY_CD prjtPrptyCd,
+		       (SELECT DTL_CD_NM FROM T_PMS023 WHERE GRP_CD = '012' AND DTL_CD = T2.PRJT_PRPTY_CD) prjtPrptyCdNm,
+		       T2.PRJT_GRND_DESC prjtGrndDesc,
+		       T2.MEMO_DESC memoDesc
+		FROM T_PMS001 T1, T_PMS006 T2
+		WHERE T1.TR_ACCT_CD=T2.TR_ACCT_CD
+		  AND T2.PRJT_CD = #{prjtCd}
+	</select>
+	
+	<select id="selectPrjtChgrList1" parameterType="Map" resultType="tMap">
+	SELECT T1.TR_ACCT_CD trAcctCd,
+		       T1.PRJT_CD prjtCd,
+			   T2.CHGR_SEQ_NO chgrSeqNo,
+		       T2.CHG_SECT_CD,
+		       (SELECT DTL_CD_NM FROM T_PMS023 WHERE GRP_CD = '001' AND DTL_CD = T2.CHG_SECT_CD) chgSectNm,
+		       T2.CHGR_NM chgrNm,
+		       T2.PSTN_NM pstnNm,
+		       T2.TEL_NO telNo,
+		       T2.HP_NO hpNo,
+		       T2.EMAIL_ADDR emailAddr
+		FROM T_PMS006 T1 INNER JOIN T_PMS002 T2
+		ON (T1.TR_ACCT_CD=T2.TR_ACCT_CD AND T2.CHGR_SEQ_NO=T1.SALES_CHGR_SEQ_NO)
+		WHERE T1.PRJT_CD =#{prjtCd}
+		ORDER BY T2.CHGR_SEQ_NO DESC
+		LIMIT 1
+	</select>
+	
+	<select id="selectPrjtChgrList2" parameterType="Map" resultType="tMap">
+	SELECT T1.TR_ACCT_CD trAcctCd,
+		       T1.PRJT_CD prjtCd,
+			   T2.CHGR_SEQ_NO chgrSeqNo,
+		       T2.CHG_SECT_CD,
+		       (SELECT DTL_CD_NM FROM T_PMS023 WHERE GRP_CD = '001' AND DTL_CD = T2.CHG_SECT_CD) chgSectNm,
+		       T2.CHGR_NM chgrNm,
+		       T2.PSTN_NM pstnNm,
+		       T2.TEL_NO telNo,
+		       T2.HP_NO hpNo,
+		       T2.EMAIL_ADDR emailAddr
+		FROM T_PMS006 T1 INNER JOIN T_PMS002 T2
+		ON (T1.TR_ACCT_CD=T2.TR_ACCT_CD AND T2.CHGR_SEQ_NO=T1.CAL_CHGR_SEQ_NO)
+		WHERE T1.PRJT_CD =#{prjtCd}
+		ORDER BY T2.CHGR_SEQ_NO DESC
+		LIMIT 1
+	</select>
+	
+	<insert id="insertPrjt" parameterType="Map">
+	INSERT INTO T_PMS006(
+	    PRJT_CD,
+		PRJT_NM, 
+		ABRD_CD, 
+		PRJT_PRPTY_CD, 
+		CSTMR_NM, 
+		WORK_START_DT, 
+		WORK_END_DT, 
+		PRJT_GRND_DESC, 
+		MEMO_DESC, 
+		TR_ACCT_CD, 
+		SALES_CHGR_SEQ_NO, 
+		CAL_CHGR_SEQ_NO, 
+		RGT_TM, 
+		RGTR_ID, 
+		UPT_TM, 
+		UPTR_ID
+	)
+	VALUES (
+		 (SELECT   CONCAT('P', DATE_FORMAT(NOW(), '%Y'), LPAD(CAST(IFNULL(MAX(SUBSTR(PRJT_CD, 6, 3))+1, 1) AS CHAR), 3, '0'))
+	 		FROM T_PMS006 ALIAS_FOR_SUBQUERY
+	 		WHERE SUBSTR(PRJT_CD, 2, 4)   = DATE_FORMAT(NOW(), '%Y')),
+		 #{prjtNm},
+		 #{abrdCd},
+		 #{prjtPrptyCd},		 
+		 #{cstmrNm},
+		 #{workStartDt},
+		 #{workEndDt},
+		 #{prjtGrndDesc},
+		 #{memoDesc},
+		 #{trAcctCd},
+		 #{chgSeqNo1},
+		 #{chgSeqNo2},
+		 NOW(),
+		 #{rgtrId},
+		 NOW(),
+		 #{uptrId}
+	)
+	</insert>
+	
+	<update id="updatePrjt" parameterType="Map">
+	UPDATE T_PMS006
+	SET PRJT_NM=#{prjtNm},
+	    ABRD_CD=#{abrdCd},
+		PRJT_PRPTY_CD=#{prjtPrptyCd}, 
+		CSTMR_NM=#{cstmrNm},
+		WORK_START_DT=#{workStartDt},
+		WORK_END_DT=#{workEndDt},
+		PRJT_GRND_DESC=#{prjtGrndDesc},
+		MEMO_DESC=#{memoDesc},
+		TR_ACCT_CD=#{trAcctCd},
+		SALES_CHGR_SEQ_NO=#{chgSeqNo1},
+		CAL_CHGR_SEQ_NO=#{chgSeqNo2}, 
+		UPT_TM=NOW(), 
+		UPTR_ID=#{uptrId}
+	WHERE PRJT_CD = #{prjtCd}
+	</update>
+	
+	<delete id="deletePrjt" parameterType="Map">
+	DELETE FROM T_PMS006 WHERE PRJT_CD = #{prjtCd} 
+	</delete>
+	
+	<update id="updatePrjtCfrm" parameterType="Map">
+	UPDATE T_PMS006
+	SET PRJT_CFRM_YN='Y',
+	    PRJT_CFRM_DT=DATE_FORMAT(now(), '%Y%m%d'),
+	    UPT_TM=NOW(), 
+		UPTR_ID=#{uptrId}
+	WHERE PRJT_CD = #{prjtCd}
+	</update>
+	
+	<update id="updatePrjtCfrmCancel" parameterType="Map">
+	UPDATE T_PMS006
+	SET PRJT_CFRM_YN='N',
+	    PRJT_CFRM_DT=NULL,
+	    UPT_TM=NOW(), 
+		UPTR_ID=#{uptrId}
+	WHERE PRJT_CD = #{prjtCd}
+	</update>
+	
+	<update id="updatePrjtEnd" parameterType="Map">
+	UPDATE T_PMS006
+	SET PRJT_END_YN='Y',
+	    PRJT_END_DT=DATE_FORMAT(now(), '%Y%m%d'),
+	    UPT_TM=NOW(), 
+		UPTR_ID=#{uptrId}
+	WHERE PRJT_CD = #{prjtCd}
+	</update>
+	
+	<update id="updatePrjtEndCancel" parameterType="Map">
+	UPDATE T_PMS006
+	SET PRJT_END_YN='N',
+	    PRJT_END_DT=NULL,
+	    UPT_TM=NOW(), 
+		UPTR_ID=#{uptrId}
+	WHERE PRJT_CD = #{prjtCd}
+	</update>
+	
+	<delete id="deletePrjtPrsn" parameterType="Map">
+	DELETE FROM T_PMS007 WHERE PRJT_CD = #{prjtCd}
+	</delete>
+
+</mapper>

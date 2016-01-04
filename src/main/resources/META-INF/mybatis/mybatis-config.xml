@@ -15,6 +15,11 @@
 		<typeAlias type="com.echo.biz.domain.Person" alias="person" />
 		<typeAlias type="com.echo.biz.domain.PersonSkill" alias="personSkill" />			
 		<typeAlias type="com.echo.biz.domain.AttachFile" alias="attachFile" />
+		<typeAlias type="com.echo.biz.domain.TrAcctMgt" alias="trAcctMgt" />
+		<typeAlias type="com.echo.biz.domain.PrjtMgt" alias="prjtMgt" />
+		<typeAlias type="com.echo.biz.domain.PrjtPrsn" alias="prjtPrsn" />
+		<typeAlias type="com.echo.biz.domain.SalesCntrctMgt" alias="salesCntrctMgt" />
+		<typeAlias type="com.echo.biz.domain.SalesCntrctMgt" alias="orderCntrctMgt" />	
 		
 		<!-- system -->
 		<typeAlias type="com.echo.biz.domain.GroupCode" alias="groupCode" />
@@ -38,6 +43,11 @@
 		<mapper resource="com/echo/biz/dao/mapper/personskill-mapper.xml" />
 		<mapper resource="com/echo/biz/dao/mapper/attachfile-mapper.xml" />
 		<mapper resource="com/echo/biz/dao/mapper/salemanagement-mapper.xml" />
+		<mapper resource="com/echo/biz/dao/mapper/trAcctMgt-mapper.xml" />
+		<mapper resource="com/echo/biz/dao/mapper/prjtMgt-mapper.xml" />
+		<mapper resource="com/echo/biz/dao/mapper/prjtPrsn-mapper.xml" />
+		<mapper resource="com/echo/biz/dao/mapper/salesCntrctMgt-mapper.xml" />
+		<mapper resource="com/echo/biz/dao/mapper/orderCntrctMgt-mapper.xml" />
 		
 		<!-- system -->
 		<mapper resource="com/echo/biz/dao/mapper/groupcode-mapper.xml" />

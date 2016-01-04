@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tracctmgt">
+
+	<select id="selectListTrAcctMgt" parameterType="Map" resultType="tMap">
+		SELECT  
+			T1.TR_ACCT_CD trAcctCd,
+			T1.TR_ACCT_NM trAcctNm,
+			T1.CEO_NM ceoNm,
+			CONCAT(SUBSTRING(T1.BIZ_RGT_NO, 1, 3), '-', SUBSTRING(T1.BIZ_RGT_NO, 4, 2), '-', SUBSTRING(T1.BIZ_RGT_NO, 6, 5)) bizRgtNo,
+			T2.CHGR_SEQ_NO chgrSeqNo,
+			T2.CHG_SECT_CD chgSectCd,
+		    (SELECT DTL_CD_NM FROM T_PMS023 WHERE GRP_CD = '001' AND DTL_CD = T2.CHG_SECT_CD) chgSectNm,
+		    T2.CHGR_NM chgrNm,
+		    T2.PSTN_NM pstnNm,
+		    T2.TEL_NO telNo,
+		    T2.HP_NO hpNo,
+		    T2.EMAIL_ADDR emailAddr,
+		    (SELECT COUNT(1) FROM T_PMS006 WHERE TR_ACCT_CD=T1.TR_ACCT_CD) trAcctCnt 
+		FROM 
+		
+		(SELECT * 
+		 FROM T_PMS001 
+		 WHERE 1=1
+		 
+		 <if test="srchTrAcctNm != null and ''.equals(srchTrAcctNm) == false">
+		 AND TR_ACCT_NM LIKE CONCAT('%', #{srchTrAcctNm}, '%')  
+		 </if>
+		 
+		 <if test="trAcctCd != null and ''.equals(trAcctCd) == false">
+		 AND TR_ACCT_CD = #{trAcctCd}  
+		 </if>
+		 
+		)T1
+		
+		INNER JOIN 
+		
+		(SELECT * 
+		 FROM T_PMS002 
+		 WHERE 1=1
+		 
+		 <if test="srchChgSectCd != null and ''.equals(srchChgSectCd) == false">
+		 AND CHG_SECT_CD = #{srchChgSectCd}
+		 </if>
+		 
+		 <if test="srchType != null and srchType eq 'S'.toString()">
+		 AND CHG_SECT_CD = '002'
+		 </if>
+		 
+		 <if test="srchType != null and srchType eq 'C'.toString()">
+		 AND CHG_SECT_CD = '004'
+		 </if>
+		 
+		 <if test="srchChgrNm != null and ''.equals(srchChgrNm) == false">
+		 AND CHGR_NM LIKE CONCAT('%', #{srchChgrNm}, '%')  
+		 </if>
+		 
+		 <if test="trAcctCd != null and ''.equals(trAcctCd) == false">
+		 AND TR_ACCT_CD = #{trAcctCd}  
+		 </if>
+		 
+		) T2
+
+		ON T1.TR_ACCT_CD=T2.TR_ACCT_CD
+		 
+		ORDER BY T1.TR_ACCT_CD DESC, T2.CHGR_SEQ_NO ASC
+		
+    	<if test="pageSize != null and pageSize != -1">
+		LIMIT ${start}, ${pageSize}
+		</if>
+	</select>
+	
+	<select id="selectCntTrAcctMgt" parameterType="Map" resultType="int">
+		SELECT /* selectCntTrAcctMgt */
+			COUNT(1)
+		FROM 
+		
+		(SELECT * 
+		 FROM T_PMS001 
+		 WHERE 1=1
+		 
+		 <if test="srchTrAcctNm != null and ''.equals(srchTrAcctNm) == false">
+		 AND TR_ACCT_NM LIKE CONCAT('%', #{srchTrAcctNm}, '%')  
+		 </if>
+		 
+		 <if test="trAcctCd != null and ''.equals(trAcctCd) == false">
+		 AND TR_ACCT_CD = #{trAcctCd}  
+		 </if>
+		 
+		)T1
+		
+		INNER JOIN 
+		
+		(SELECT * 
+		 FROM T_PMS002 
+		 WHERE 1=1
+		 
+		 <if test="srchChgSectCd != null and ''.equals(srchChgSectCd) == false">
+		 AND CHG_SECT_CD = #{srchChgSectCd}
+		 </if>
+		 
+		 <if test="srchType != null and srchType eq 'S'.toString()">
+		 AND CHG_SECT_CD = '002'
+		 </if>
+		 
+		 <if test="srchType != null and srchType eq 'C'.toString()">
+		 AND CHG_SECT_CD = '004'
+		 </if>
+		 
+		 <if test="srchChgrNm != null and ''.equals(srchChgrNm) == false">
+		 AND CHGR_NM LIKE CONCAT('%', #{srchChgrNm}, '%')  
+		 </if>
+		 
+		 <if test="trAcctCd != null and ''.equals(trAcctCd) == false">
+		 AND TR_ACCT_CD = #{trAcctCd}  
+		 </if>
+		 
+		) T2
+
+		ON T1.TR_ACCT_CD=T2.TR_ACCT_CD
+		
+	</select>
+	
+	<select id="selectTrAcctMgt" parameterType="Map" resultType="tMap">
+		SELECT TR_ACCT_CD trAcctCd,
+		          TR_ACCT_NM trAcctNm,
+		          CEO_NM ceoNm,
+		          BIZ_GRND_ADDR bizGrndAddr,
+		          MN_SHP_ADDR mnShpAddr,
+		          DPST_EXPCT_DAY_CD dpstExpctDayDesc,
+		          LAW_RGT_NO1 lawRgtNo1,
+		          LAW_RGT_NO1 lawRgtNo2,
+		          SUBSTRING(BIZ_RGT_NO, 1, 3) bizRgtNo1,
+		          SUBSTRING(BIZ_RGT_NO, 4, 2) bizRgtNo2,
+		          SUBSTRING(BIZ_RGT_NO, 6, 5) bizRgtNo3,
+		          BIZ_STATU_NM bizStatuNm,
+		          BIZ_DTL_NM bizDtlNm,
+		          OPN_DT opnDt,
+		          DPST_EXPCT_DAY_CD dpstExpctDayDesc,
+		          (SELECT DTL_CD_NM FROM T_PMS023 WHERE GRP_CD = '015' AND DTL_CD = DPST_EXPCT_DAY_CD)  dpstExpctDayTxt,
+		          MEMO_DESC emoDesc
+		FROM 
+			T_PMS001
+		WHERE 1 = 1		 
+		  AND TR_ACCT_CD = #{trAcctCd}
+	</select>
+	
+	<select id="selectTracctChgrList" parameterType="Map" resultType="tMap">
+	SELECT  
+	        TR_ACCT_CD trAcctCd,
+		    CHGR_SEQ_NO chgrSeqNo,
+	        CHG_SECT_CD chgSectCd,
+	        (SELECT DTL_CD_NM FROM T_PMS023 WHERE GRP_CD = '001' AND DTL_CD = CHG_SECT_CD) chgSectNm,
+	        CHGR_NM chgrNm,
+	        PSTN_NM pstnNm,
+	        TEL_NO telNo,
+	        HP_NO hpNo,
+			EMAIL_ADDR emailAddr,
+	        ADDR addr,
+	        MEMO_DESC memoDesc
+	FROM T_PMS002
+	WHERE 1 = 1		 
+	AND TR_ACCT_CD = #{trAcctCd}
+	</select>
+	
+	<select id="selectTracctChgrCdList" parameterType="Map" resultType="tMap">
+	SELECT DTL_CD comCd,
+	       DTL_CD_NM comNm
+	FROM T_PMS023
+	WHERE GRP_CD=#{grpCd}
+	</select>
+	
+	<select id="selectMaxTrAcctCd" parameterType="Map" resultType="tMap">
+	SELECT   CONCAT('T', DATE_FORMAT(NOW(), '%Y'), LPAD(CAST(IFNULL(MAX(SUBSTR(TR_ACCT_CD, 6, 2))+1, 1) AS CHAR), 2, '0')) trAcctCd
+	 FROM T_PMS001
+	 WHERE SUBSTR(TR_ACCT_CD, 2, 4)   = DATE_FORMAT(NOW(), '%Y')
+	</select>
+	
+	<insert id="insertTrAcct" parameterType="Map">
+	INSERT INTO T_PMS001(
+		TR_ACCT_CD, 
+		TR_ACCT_NM, 
+		CEO_NM, 
+		BIZ_GRND_ADDR, 
+		MN_SHP_ADDR, 
+		LAW_RGT_NO1, 
+		LAW_RGT_NO2, 
+		BIZ_RGT_NO, 
+		BIZ_STATU_NM, 
+		BIZ_DTL_NM, 
+		OPN_DT, 
+		DPST_EXPCT_DAY_CD, 
+		MEMO_DESC, 
+		RGT_TM, 
+		RGTR_ID, 
+		UPT_TM, 
+		UPTR_ID
+	)
+	VALUES (
+		 #{trAcctCd},
+		 #{trAcctNm},
+		 #{ceoNm},
+		 #{bizGrndAddr},		 
+		 #{mnShpAddr},
+		 #{lawRgtNo1},
+		 #{lawRgtNo2},
+		 CONCAT(#{bizRgtNo1}, #{bizRgtNo2}, #{bizRgtNo3}),
+		 #{bizStatuNm},
+		 #{bizDtlNm},
+		 #{opnDt},
+		 #{dpstExpctDayDesc},
+		 #{emoDesc},
+		 NOW(),
+		 #{rgtrId},
+		 NOW(),
+		 #{uptrId}
+	)
+	</insert>
+	
+	<update id="updateTrAcct" parameterType="Map">
+	UPDATE T_PMS001
+	SET TR_ACCT_NM=#{trAcctNm},
+	    CEO_NM=#{ceoNm},
+		BIZ_GRND_ADDR=#{bizGrndAddr}, 
+		MN_SHP_ADDR=#{mnShpAddr},
+		LAW_RGT_NO1=#{lawRgtNo1},
+		LAW_RGT_NO2=#{lawRgtNo2},
+		BIZ_RGT_NO=CONCAT(#{bizRgtNo1}, #{bizRgtNo2}, #{bizRgtNo3}),
+		BIZ_STATU_NM=#{bizStatuNm},
+		BIZ_DTL_NM=#{bizDtlNm},
+		OPN_DT=#{opnDt},
+		DPST_EXPCT_DAY_CD=#{dpstExpctDayDesc}, 
+		MEMO_DESC=#{emoDesc},
+		UPT_TM=NOW(), 
+		UPTR_ID=#{uptrId}
+	WHERE TR_ACCT_CD = #{trAcctCd}
+	</update>
+	
+	<delete id="deleteTrAcct" parameterType="Map">
+	DELETE FROM T_PMS001 WHERE TR_ACCT_CD = #{trAcctCd}
+	</delete>
+	
+	<insert id="insertTrAcctChgr" parameterType="Map" >
+	INSERT INTO T_PMS002 (
+		TR_ACCT_CD, 
+		CHGR_SEQ_NO, 
+		CHG_SECT_CD, 
+		CHGR_NM, 
+		PSTN_NM, 
+		TEL_NO, 
+		HP_NO, 
+		EMAIL_ADDR, 
+		ADDR, 
+		MEMO_DESC, 
+		RGT_TM, 
+		RGTR_ID, 
+		UPT_TM, 
+		UPTR_ID
+	)
+	VALUES (
+		#{trAcctCd},
+		(SELECT IFNULL(MAX(CHGR_SEQ_NO), 0)+1
+		 FROM T_PMS002 ALIAS_FOR_SUBQUERY
+		 WHERE TR_ACCT_CD=#{trAcctCd}),
+		#{chgSectCd},
+		#{chgrNm},
+		#{pstnNm},
+		#{telNo},
+		#{hpNo},
+		#{emailAddr},
+		#{addr},
+		#{memoDesc},
+		NOW(),
+		#{rgtrId},
+		NOW(),
+		#{uptrId}
+		
+	)
+	
+	</insert>
+	
+	<delete id="deleteTrAcctChgr" parameterType="Map">
+	DELETE FROM T_PMS002 WHERE TR_ACCT_CD=#{trAcctCd}
+	</delete>
+	
+
+</mapper>
