@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	#parse("common/commonScript.vm") 
+	<script src="/${contextPath}/htdocs/js/prjtmgt/prjtpop.js"></script>
+	<style>
+	#page-wrapper2 {
+		    padding: 0 15px;
+		    min-height: 568px;
+		    background-color: #fff;
+		}
+	
+		@media(min-width:768px) {
+		    #page-wrapper2 {
+		        position: inherit;
+		        margin: 0 0 0 0px;
+		        padding: 0 30px;
+		        border-left: 1px solid #e7e7e7;
+		    }
+		}
+	.form-control2 {
+	  height: 34px;
+	  padding: 6px 12px;
+	  font-size: 14px;
+	  line-height: 1.42857143;
+	  color: #555;
+	  background-color: #fff;
+	  background-image: none;
+	  border: 1px solid #ccc;
+	  border-radius: 4px;
+	  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	  -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+	       -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	          transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	}
+	.form-control2[disabled],
+	.form-control2[readonly],
+	fieldset[disabled] .form-control2 {
+	  background-color: #eee;
+	  opacity: 1;
+	}
+	.form-control2[disabled],
+	fieldset[disabled] .form-control2 {
+	  cursor: not-allowed;
+	}
+	.a-left {
+		text-align: left;
+	}
+	.a-center {
+		text-align: center;
+	}
+	.a-right {
+		text-align: right;
+	}
+	</style>                                       
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">   
+</head>
+
+<body>
+
+<div id="wrapper">
+        <div id="page-wrapper2">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">프로젝트 검색</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+         </div>
+         
+         <!-- 디테일화면 -->
+        <form role="form" name="f" id="f" method="post">
+        <input type="hidden" id="prjtCd" name="prjtCd" value="${prjtCd}">
+        <input type="hidden" id="trAcctCd" name="trAcctCd" value="${trAcctCd}">
+        
+        <div class="row" id="detail">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        프로젝트 정보
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-6">                                    
+                                <div class="form-group">
+                                    <label>프로젝트명</label>
+                                    <input class="form-control" id="prjtNm" name="prjtNm" readonly="readonly" maxlength="50">
+                                </div>
+                                <div class="form-group">
+                                    <label>고객사명</label>
+                                    <input class="form-control" id="cstmrNm" name="cstmrNm" readonly="readonly" maxlength="50">
+                                </div>
+                                <div class="form-group">
+                                    <label>프로젝트 확정일</label>
+                                    <input class="form-control" id="prjtCfrmDt" name="prjtCfrmDt" readonly="readonly" maxlength="50">
+                                </div>
+                                <div class="form-group">
+                                    <label>프로젝트 종료일</label>
+                                    <input class="form-control" id="prjtEndDt" name="prjtEndDt" readonly="readonly" maxlength="50">
+                                </div>
+                                <div class="form-group">
+                                    <label>메모</label>
+                                    <textarea class="form-control" id="memoDesc" name="memoDesc" rows="5" readonly="readonly" ></textarea>
+                                </div>                               
+                            </div>
+                            <!-- /.col-lg-6 (nested) -->
+                            <div class="col-lg-6">  
+                                <div class="form-group">
+                                    <label>거래처(법인)명</label>
+                                	<span>
+                                		<input type="text" class="form-control" id="trAcctNm" name="trAcctNm" maxlength="100" readonly="readonly">
+                                        </button>
+                                    </span>
+                                </div>
+                                <div class="form-group">
+                                    <label>국내외구분</label>
+                                    <input class="form-control" id="abrdCdNm" name="abrdCdNm" readonly="readonly" maxlength="50">                           
+                                </div> 
+                                <div class="form-group">
+                                    <label>프로젝트 특성</label>
+                                    <input class="form-control" id="prjtPrptyCdNm" name="prjtPrptyCdNm" maxlength="50" readonly="readonly" >
+                                </div>
+                                <div class="form-group">
+                                    <label>수행일자</label><br>
+                                    <input id="workStartDt" name="workStartDt" style="width:100px;" class="form-control2" maxlength="8" readonly="readonly" >-
+                                    <input id="workEndDt" name="workEndDt" style="width:100px;" class="form-control2" maxlength="8" readonly="readonly" >
+                                </div>
+                                <div class="form-group">
+                                    <label>프로젝트 위치</label>
+                                    <input class="form-control" id="prjtGrndDesc" name="prjtGrndDesc" maxlength="100" readonly="readonly" >
+                                </div>    
+                                
+                            </div>
+                            <!-- /.col-lg-6 (nested) -->
+                        </div>
+                        <!-- /.row (nested) -->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!--디테일 종료-->
+        
+        <!-- 담당자 목록 테이블 -->
+            <div class="row" id="tracctChgrList">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            담당자 정보
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body"> 
+                        	<input type="hidden" id="chgSeqNo1" name="chgSeqNo1" value=""/>
+                        	<input type="hidden" id="chgSeqNo2" name="chgSeqNo2" value=""/>
+                            <div class="dataTable_wrapper">
+                                <table cellspacing="0" width="100%" class="display table table-striped table-bordered table-hover" id="dataTables-prjtChgrList">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align: center;">담당자 구분</th>
+                                            <th style="text-align: center;">담당자명</th>
+                                            <th style="text-align: center;">직위</th>
+                                            <th style="text-align: center;">연락처</th>
+                                            <th style="text-align: center;">휴대폰번호</th>
+                                            <th style="text-align: center;">이메일</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody
+                                    	<tr>
+                                    		<td><input type="text" id="chgSectNm1" name="chgSectNm1" class="form-control" readonly="readonly" value="영업"></td>
+                                    		<td><input type="text" id="chgrNm1" name="chgrNm1" class="form-control" readonly="readonly"></td>
+                                    		<td><input type="text" id="pstnNm1" name="pstnNm1" class="form-control" readonly="readonly"></td>
+                                    		<td><input type="text" id="telNo1" name="telNo1" class="form-control" readonly="readonly"></td>
+                                    		<td><input type="text" id="hpNo1" name="hpNo1" class="form-control" readonly="readonly"></td>
+                                    		<td><input type="text" id="emailAddr1" name="emailAddr1" class="form-control" readonly="readonly"></td>
+                                    	</tr>
+                                    	<tr>
+                                    		<td><input type="text" id="chgSectNm2" name="chgSectNm2" class="form-control" readonly="readonly" value="계산서"></td>
+                                    		<td><input type="text" id="chgrNm2" name="chgrNm2" class="form-control" readonly="readonly"></td>
+                                    		<td><input type="text" id="pstnNm2" name="pstnNm2" class="form-control" readonly="readonly"></td>
+                                    		<td><input type="text" id="telNo2" name="telNo2" class="form-control" readonly="readonly"></td>
+                                    		<td><input type="text" id="hpNo2" name="hpNo1" class="form-control" readonly="readonly"></td>
+                                    		<td><input type="text" id="emailAddr2" name="emailAddr2" class="form-control" readonly="readonly"></td>
+                                    	</tr>
+                                    </tbody>                                    
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->                            
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- 담당자 목록 테이블 종료 -->
+            
+            <!-- 인력 목록 테이블 -->
+            <div class="row" id="prjtPrsnList">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <td>배정인력</td>
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body"> 
+                            <div class="dataTable_wrapper">
+                                <table cellspacing="0" width="100%" class="display table table-striped table-bordered table-hover" id="dataTables-prjtPrsnList">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align: center;">구분</th>
+                                            <th style="text-align: center;">성명</th>
+                                            <th style="text-align: center;">계약형태</th>
+                                            <th style="text-align: center;">분야</th>
+                                            <th style="text-align: center;">시작일</th>
+                                            <th style="text-align: center;">종료일</th>
+                                            <th style="text-align: center;">MM</th>
+                                            <th style="text-align: center;">매출단가</th>
+                                            <th style="text-align: center;">매입단가</th>
+                                            <th style="text-align: center;">메모</th>
+                                            <th style="text-align: center;">인력</th>
+                                        </tr>
+                                    </thead>                                    
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->                            
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- 인력 목록 테이블 종료 -->
+            
+            <div class="row" id="detail2">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                <div class="panel-heading">
+                투입인건비
+                </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-6">                                    
+                                <div class="form-group">
+                                    <label>매출용역비 합계</label>
+                                    <input class="form-control" id="salesWorkTotAmt" name="salesWorkTotAmt" readonly="readonly" maxlength="50">
+                                </div>
+                                <div class="form-group">
+                                    <label>총합계</label>
+                                    <input class="form-control" id="salesTotAmt" name="salesTotAmt" readonly="readonly" maxlength="50">
+                                </div>                           
+                            </div>
+                            <!-- /.col-lg-6 (nested) -->
+                            <div class="col-lg-6">  
+                                <div class="form-group">
+                                    <label>매출용역비외 합계</label>
+                                	<span>
+                                		<input type="text" class="form-control" id="salesEtcTotAmt" name="salesEtcTotAmt" maxlength="100" readonly="readonly">
+                                        </button>
+                                    </span>
+                                </div>
+                                
+                            </div>
+                            <!-- /.col-lg-6 (nested) -->
+                        </div>
+                        <!-- /.row (nested) -->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!--디테일 종료-->
+        
+            <div>
+        		<button type="button" class="btn btn-primary pull-right" id="btnClose">닫기</button>
+            </div>
+         	</form>
+    </div>
+    <!-- /#wrapper -->
+</body>
+</html>

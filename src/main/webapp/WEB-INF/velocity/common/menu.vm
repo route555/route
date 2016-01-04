@@ -46,7 +46,27 @@
                             <a href="/${contextPath}/web/sample/human"><i class="fa fa-codepen fa-fw"></i> Sample</a>
                         </li>   
                         
-                        
+                         <li>
+                            <a href="/${contextPath}/web/tracctmgt/tracctmgt"><i class="fa fa-user fa-fw"></i> 거래처관리</a>
+                        </li>                  
+                                                
+                        <li>
+                            <a href="/${contextPath}/web/prjtmgt/prjtmgt"><i class="fa fa-user fa-fw"></i> 프로젝트관리</a>
+                        </li> 
+  
+  						 <li>
+                            <a href="#"><i class="fa fa-wrench fa-fw"></i> 계약관리<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="/${contextPath}/web/cntrctmgt/salescntrctmgt"><i class="fa fa-user fa-fw"></i> 매출계약관리</a>
+                                </li>
+                                <li>
+                                    <a href="/${contextPath}/web/cntrctmgt/ordercntrctmgt"><i class="fa fa-user fa-fw"></i> 매입계약관리</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>  
+  
   
                      
                         <li>

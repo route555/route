@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	#parse("common/commonScript.vm") 
+	<style>
+		#page-wrapper2 {
+		    padding: 0 15px;
+		    min-height: 568px;
+		    background-color: #fff;
+		}
+	
+		@media(min-width:768px) {
+		    #page-wrapper2 {
+		        position: inherit;
+		        margin: 0 0 0 0px;
+		        padding: 0 30px;
+		        border-left: 1px solid #e7e7e7;
+		    }
+		}
+		.form-control2 {
+	  height: 34px;
+	  padding: 6px 12px;
+	  font-size: 14px;
+	  line-height: 1.42857143;
+	  color: #555;
+	  background-color: #fff;
+	  background-image: none;
+	  border: 1px solid #ccc;
+	  border-radius: 4px;
+	  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	  -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+	       -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	          transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	}
+	.form-control2[disabled],
+	.form-control2[readonly],
+	fieldset[disabled] .form-control2 {
+	  background-color: #eee;
+	  opacity: 1;
+	}
+	.form-control2[disabled],
+	fieldset[disabled] .form-control2 {
+	  cursor: not-allowed;
+	}
+	.a-left {
+		text-align: left;
+	}
+	.a-center {
+		text-align: center;
+	}
+	.a-right {
+		text-align: right;
+	}
+	</style>	
+	<script src="/${contextPath}/htdocs/js/tracctmgt/tracctpop.js"></script>
+ 
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">   
+</head>
+
+<body>
+    <div id="wrapper">    
+        <div id="page-wrapper2">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">거래처검색</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+         </div>
+	        
+	        <!-- 검색박스 -->
+            <div class="row"  id="searchBox">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                        	<form class="navbar-form" id="sf"  id="sf"  role="search">	
+                        		<label for="grpCd" >거래처(법인)명</label>
+                        		<input type="text" class="form-control" placeholder="거래처명" id="srchTrAcctNm" name="srchTrAcctNm">
+                        		&nbsp; &nbsp; &nbsp; 
+                        		<label for="grpCdNm" >담당자 구분</label>
+	                            <select class="form-control" id="srchChgSectCd" name="srchChgSectCd"><option value="">전체</option></select>&nbsp; &nbsp; &nbsp;
+	                            <label for="grpCd" >담당자명</label>
+                        		<input type="text" class="form-control" placeholder="담당자명" id="srchChgrNm" name="srchChgrNm"> 
+	                            <button type="button" class="btn btn-primary pull-right" id="btnSearch">조회</button>
+                            </form>
+                        
+                        </div>                      
+                    </div>                   
+                </div>               
+            </div>
+            <!-- 검색박스 종료-->
+            
+	        
+	        <!-- 테이블 -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <b>거래처 목록</b>
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body"> 
+                            <div class="dataTable_wrapper">
+                                <table cellspacing="0" width="100%" class="display table table-striped table-bordered table-hover" id="dataTables-tracctList">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align: center;">거래처(법인)명</th>
+                                            <th style="text-align: center;">대표자명</th>
+                                            <th style="text-align: center;">사업자등록번호</th>
+                                            <th style="text-align: center;">담당자구분</th>
+                                            <th style="text-align: center;">담당자명</th>
+                                            <th style="text-align: center;">직위</th>
+                                            <th style="text-align: center;">연락처</th>
+                                            <th style="text-align: center;">휴대폰번호</th>
+                                            <th style="text-align: center;">이메일</th>
+                                        </tr>
+                                    </thead>                                    
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->                            
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- 테이블종료 -->
+            
+            <!-- 디테일화면 -->
+            <form role="form" name="f" id="f" method="post">
+            <input type="hidden" id="srchType" name="srchType" value="${srchType}">
+            <input type="hidden" id="trAcctCd" name="trAcctCd" value="${trAcctCd}">
+            
+            <input type="hidden" id="hdnChgSeqNo" name="hdnChgSeqNo" value="">
+            <input type="hidden" id="hdnChgrNm" name="hdnChgrNm" value="">
+            <input type="hidden" id="hdnPstnNm" name="hdnPstnNm" value="">
+            <input type="hidden" id="hdnTelNo" name="hdnTelNo" value="">
+            <input type="hidden" id="hdnHpNo" name="hdnHpNo" value="">
+            <input type="hidden" id="hdnEmailAddr" name="hdnEmailAddr" value="">
+            
+            <div class="row" id="detail">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <b>거래처 정보</b>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">                                    
+                                    <div class="form-group">
+                                        <label>거래처(법인)명</label>
+                                        <input class="form-control" id="trAcctNm" name="trAcctNm" maxlength="25" readonly="readonly">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>사업장 주소</label>
+                                        <input class="form-control" id="bizGrndAddr" name="bizGrndAddr" maxlength="100" readonly="readonly">
+                                    </div>
+                                    <div class="form-group">
+	                                    <label>법인등록번호</label><br>
+	                                    <input class="form-control2" style="width:150px;" id="lawRgtNo1" name="lawRgtNo1" maxlength="6" readonly="readonly"> - 
+	                                    <input class="form-control2" style="width:150px;" id="lawRgtNo2" name="lawRgtNo2" maxlength="7" readonly="readonly">
+	                                </div> 
+	                                <div class="form-group">
+                                        <label>업태</label>
+                                        <input class="form-control" id="bizStatuNm" name="bizStatuNm" maxlength="20" readonly="readonly">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>개업년월일</label>
+                                        <input class="form-control" id="opnDt" name="opnDt" maxlength="8" readonly="readonly">
+                                    </div>   
+                                    <div class="form-group">
+                                        <label>메모</label>
+                                        <textarea class="form-control" id="emoDesc" name="emoDesc" rows="3" readonly="readonly"></textarea>
+                                    </div>                               
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
+                                <div class="col-lg-6">  
+                                    <div class="form-group">
+	                                    <label>대표자명</label>
+	                                    <input class="form-control" id="ceoNm" name="ceoNm" maxlength="20" readonly="readonly">
+	                                </div>
+	                                <div class="form-group">
+	                                    <label>본점 주소</label>
+	                                    <input class="form-control" id="mnShpAddr" name="mnShpAddr" maxlength="100" readonly="readonly">
+	                                </div>
+	                                <div class="form-group">
+	                                    <label>사업자등록번호</label><br>
+	                                    <input class="form-control2" style="width:50px;" id="bizRgtNo1" name="bizRgtNo1" maxlength="3" readonly="readonly"> - 
+	                                    <input class="form-control2" style="width:80px;" id="bizRgtNo2" name="bizRgtNo2" maxlength="2" readonly="readonly"> -
+	                                    <input class="form-control2" style="width:100px;" id="bizRgtNo3" name="bizRgtNo3" maxlength="5" readonly="readonly">
+	                                </div> 
+	                                <div class="form-group">
+                                        <label>종목</label>
+                                        <input class="form-control" id="bizDtlNm" name="bizDtlNm" maxlength="100" readonly="readonly">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>입금예정일</label>
+                                        <input class="form-control" id="dpstExpctDayTxt" name="dpstExpctDayTxt" maxlength="100" readonly="readonly">
+                                    </div>
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!--디테일 종료-->
+            
+            <!-- 담당자 목록 테이블 -->
+            <div class="row" id="tracctChgrList">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <b>담당자 목록</b>
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body"> 
+                            <div class="dataTable_wrapper">
+                                <table cellspacing="0" width="100%" class="display table table-striped table-bordered table-hover" id="dataTables-tracctChgrList">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align: center;">담당자 구분</th>
+                                            <th style="text-align: center;">담당자명</th>
+                                            <th style="text-align: center;">직위</th>
+                                            <th style="text-align: center;">연락처</th>
+                                            <th style="text-align: center;">휴대폰번호</th>
+                                            <th style="text-align: center;">이메일</th>
+                                            <th style="text-align: center;">주소</th>
+                                            <th style="text-align: center;">메모</th>
+                                        </tr>
+                                    </thead>                                    
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->                            
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- 담당자 목록 테이블 종료 -->
+            </form>
+            <div sytyle="align:center;">
+            	<button type="button" class="btn btn-primary pull-center" id="btnConfirm" name="btnClose">확인</button>&nbsp;
+            	<button type="button" class="btn btn-primary pull-center" id="btnClose" name="btnConfirm">닫기</button>
+            </div>
+    </div>
+    <!-- /#wrapper -->
+
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	#parse("common/commonScript.vm") 
+	<script src="/${contextPath}/htdocs/js/cntrctmgt/ordercntrctmgt.js"></script>
+	<style>
+	.form-control2 {
+	  height: 34px;
+	  padding: 6px 12px;
+	  font-size: 14px;
+	  line-height: 1.42857143;
+	  color: #555;
+	  background-color: #fff;
+	  background-image: none;
+	  border: 1px solid #ccc;
+	  border-radius: 4px;
+	  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	  -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+	       -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	          transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	}
+	.form-control2[disabled],
+	.form-control2[readonly],
+	fieldset[disabled] .form-control2 {
+	  background-color: #eee;
+	  opacity: 1;
+	}
+	.form-control2[disabled],
+	fieldset[disabled] .form-control2 {
+	  cursor: not-allowed;
+	}
+	.a-left {
+		text-align: left;
+	}
+	.a-center {
+		text-align: center;
+	}
+	.a-right {
+		text-align: right;
+	}
+	</style>                                       
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">   
+</head>
+
+<body>
+
+<div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">        
+			#parse("common/header.vm")
+			#parse("common/menu.vm")
+        </nav>
+        
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">매입 계약관리</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+         </div>
+         
+         <!-- 검색박스 -->
+            <div class="row"  id="searchBox">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                        	<form class="navbar-form" id="sf"  id="sf"  role="search">	
+                        		<label for="srchPrjtNm" >프로젝트명</label>
+                        		<input type="text" class="form-control" placeholder="프로젝트명" id="srchPrjtNm" name="srchPrjtNm">
+                        		&nbsp; &nbsp; &nbsp; 
+                        		<label for="srchCntrctSectCd" >계약구분</label>
+                        		<select class="form-control" id="srchCntrctSectCd" name="srchCntrctSectCd"><option value="">전체</option></select>
+                        		&nbsp; &nbsp; &nbsp; 
+	                            <label for="srchPrsnNm" >계약자명</label>
+                        		<input type="text" class="form-control" placeholder="계약자명" id="srchPrsnNm" name="srchPrsnNm">
+                        		<br><br>
+                        		&nbsp; &nbsp;<label for="srchChgrNm" >계약상태</label>
+                        		<select class="form-control" id="srchCntrctStatusCd" name="srchCntrctStatusCd"><option value="">전체</option></select>
+                        		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                        		<label for="dstrbtSectCd" >구분</label>
+                        		<select class="form-control" id="srchDstrbtSectCd" name="srchDstrbtSectCd"><option value="">전체</option></select>&nbsp; 
+                        		<label for="dstrbtSectCd" >지급구분</label>
+                        		<select class="form-control" id="srchDsptCd" name="srchDsptCd"><option value="">전체</option></select>&nbsp;*<u>아래 청구정보 목록 검색 조건으로 사용</u>
+	                            <button type="button" class="btn btn-primary pull-right" id="btnSearch">조회</button>
+                            </form>
+                        
+                        </div>                      
+                    </div>                   
+                </div>               
+            </div>
+            <!-- 검색박스 종료-->
+            
+            <!-- 테이블 -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <b>프로젝트 목록</b>
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body"> 
+                            <div class="dataTable_wrapper">
+                                <table cellspacing="0" width="100%" class="display table table-striped table-bordered table-hover" id="dataTables-orderCntrctList">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align: center;">거래처(법인)명</th>
+                                            <th style="text-align: center;">프로젝트명</th>
+                                            <th style="text-align: center;">고객명</th>
+                                            <th style="text-align: center;">담당자명</th>
+                                            <th style="text-align: center;">휴대폰</th>
+                                            <th style="text-align: center;">계약상태</th>
+                                            <th style="text-align: center;">계약구분</th>
+                                            <th style="text-align: center;">계약자명</th>
+                                            <th style="text-align: center;">휴대폰</th>
+                                            <th style="text-align: center;">구분</th>
+                                            <th style="text-align: center;">시작일</th>
+                                            <th style="text-align: center;">종료일</th>
+                                        </tr>
+                                    </thead>                                    
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->                            
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- 테이블종료 -->
+            
+            <!-- 디테일화면 -->
+            <form role="form" name="f" id="f" method="post">
+            <input type="hidden" id="prjtCd" name="prjtCd">           
+            <input type="hidden" id="trAcctCd" name="trAcctCd" value="">
+            <input type="hidden" id="cntrctCd" name="cntrctCd" value="">
+            <input type="hidden" id="prsnNo" name="prsnNo" value="">
+            <input type="hidden" id="prjtEndYn" name="prjtEndYn" value="">
+            
+            <div class="row" id="detail">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <b>프로젝트 정보</b>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">                                    
+                                    <div class="form-group">
+                                        <label>프로젝트명</label>
+                                        <br>
+                                        <input class="form-control2" id="prjtNm" name="prjtNm" maxlength="50" style="width:500px;" readonly="readonly">
+                                        <button class="btn btn-default" type="button" id="btnPrjtPop" name="btnPrjtPop"><i class="fa fa-search"></i></button>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>계약구분</label>
+                                        <input class="form-control" id="cntrctSectCdNm" name="cntrctSectCdNm" readonly="readonly">
+                                    </div>
+                                    <div class="form-group">
+	                                    <label>투입기간&nbsp;&nbsp;(<font color="#ff0000">*<u>인력별 실제 투입기간:프로젝트 수행기간 아님.</u></font>)</label><br>
+	                                    <input class="form-control2" id="workStartDt" name="workStartDt" readonly="readonly">~
+	                                    <input class="form-control2" id="workEndDt" name="workEndDt" readonly="readonly">
+	                                </div> 
+                                    <div class="form-group">
+                                        <label>법인사업자명</label>
+                                        <input class="form-control" id="lawBizNm" name="lawBizNm" readonly="readonly">
+                                    </div>   
+                                    <div class="form-group">
+                                        <label>메모</label>
+                                        <textarea class="form-control" id="memoDesc0" name="memoDesc0" rows="3"></textarea>
+                                    </div>                               
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
+                                <div class="col-lg-6">  
+	                                <div class="form-group">
+	                                    <label>계약자명</label>
+                                    	<span>
+                                    		<input type="text" class="form-control" id="prsnNm" name="prsnNm" readonly="readonly">  	
+                                        </span>
+                                    </div>
+	                                <div class="form-group">
+	                                    <label>주민등록번호</label>
+	                                    <input class="form-control" id="juminNo" name="juminNo" readonly="readonly" >
+	                                </div>
+	                                <div class="form-group">
+	                                    <label>계약MM&nbsp;&nbsp;(<font color="#ff0000">*<u>프로젝트 관리의 실MM</u></font>)</label>
+	                                    <input class="form-control" id="prsnMm" name="prsnMm" readonly="readonly">
+	                                </div>
+	                                <div class="form-group">
+	                                    <label>단가&nbsp;&nbsp;(<font color="#ff0000">*<u>프로젝트 관리의 매입단가</u></font>)</label>
+	                                    <input class="form-control" id="ordrUnitCstAmt" name="ordrUnitCstAmt" readonly="readonly">
+	                                </div> 
+	                                <div class="form-group">
+	                                    <label>계약상태&nbsp;&nbsp;(<font color="#ff0000">*<u>필수입력</u></font>)</label>
+	                                    <select class="form-control" id="cntrctStatusCd" name="cntrctStatusCd"><option value="">선택</option></select>
+	                                </div> 
+	                                                         
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!--디테일 종료-->
+            
+            <!-- 청구 목록 테이블 -->
+            <div class="row" id="prjtPrsnList">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <td><b>지급정보</b>&nbsp;&nbsp;(<font color="#ff0000">*<u>처리여부가 'Y'인 건은 삭제 불가. 매입관리 화면에서 지급처리 하였음.용역비만 부가세 10% 자동계산함.</u></font>)</td>
+                            <td style="vertical-align: text-middle;">
+                        		<button type="button" class="btn btn-success pull-right" id="btnRowAdd">추가</button>
+                            	<button type="button" class="btn btn-success pull-right" id="btnRowDel">삭제</button>
+                            </td>
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body"> 
+                            <div class="dataTable_wrapper">
+                                <table cellspacing="0" width="100%" class="display table table-striped table-bordered table-hover" id="dataTables-orderDpstList">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align: center;">선택</th>
+                                        	<th style="text-align: center;">지급일자</th>
+                                            <th style="text-align: center;">구분</th>
+                                            <th style="text-align: center;">적요</th>
+                                            <th style="text-align: center;">공급가액</th>
+                                            <th style="text-align: center;">부가세</th>
+                                            <th style="text-align: center;">합계</th>
+                                            <th style="text-align: center;">처리여부</th>
+                                            <th style="text-align: center;">메모</th>
+                                        </tr>
+                                    </thead>                                    
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->                            
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- 인력 목록 테이블 종료 -->
+         
+        
+            <div>
+                <button type="button" class="btn btn-primary pull-left" id="btnHstList">이력조회</button>
+        		<button type="button" class="btn btn-primary pull-right" id="btnSave">저장</button>
+            </div>
+         	</form>
+    </div>
+    <!-- /#wrapper -->
+</body>
+</html>

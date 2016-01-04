@@ -1,5 +1,7 @@
 package com.echo.biz.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,6 +20,138 @@ import com.echo.framework.util.StringUtils;
 @RequestMapping(value = "/web")
 public class WebController extends BaseController {
 
+	
+	/**
+	 * 거래처관리 화면 조회
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/tracctmgt/tracctmgt", method = RequestMethod.GET)
+	public String tracctmgt(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+		return "tracctmgt/tracctmgt";
+	}
+	
+	/**
+	 * 프로젝트관리 화면 조회
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/prjtmgt/prjtmgt", method = RequestMethod.GET)
+	public String prsnmgt(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+		return "prjtmgt/prjtmgt";
+	}
+	
+	
+	/**
+	 * 거래처팝업 화면 조회
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/tracctmgt/tracctpop", method = RequestMethod.GET)
+	public String tracctpop(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+		Map<String, Object> params = this.getParameterMap(request);
+		
+		String srchType = String.valueOf(params.get("srchType"));
+		String trAcctCd = String.valueOf(params.get("trAcctCd"));
+		String srchChgSectCd = String.valueOf(params.get("srchChgSectCd"));
+
+		
+		model.addAttribute("srchType", srchType);
+		model.addAttribute("trAcctCd", trAcctCd);
+		model.addAttribute("srchChgSectCd", srchChgSectCd);
+		
+		log.debug("============>검색구분:"+srchType);
+		log.debug("============>거래처코드:"+trAcctCd);
+		log.debug("============>담당자구분:"+srchChgSectCd);
+		
+		return "tracctmgt/tracctpop";
+	}
+	
+	/**
+	 * 프로젝트인력배정관리 화면 조회
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/prjtprsnmgt/prjtprsnmgt", method = RequestMethod.GET)
+	public String prjtprsnmgt(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+		Map<String, Object> params = this.getParameterMap(request);
+		
+		String prjtCd = String.valueOf(params.get("prjtCd"));
+		String trAcctCd = String.valueOf(params.get("trAcctCd"));
+		
+		model.addAttribute("prjtCd", prjtCd);
+		model.addAttribute("trAcctCd", trAcctCd);
+		
+		log.debug("============>프로젝트코드:"+prjtCd);
+		log.debug("============>거래처코드:"+trAcctCd);
+		
+		return "prjtprsnmgt/prjtprsnmgt";
+	}
+	
+	/**
+	 * 프로젝트팝업 화면 조회
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/prjtmgt/prjtpop", method = RequestMethod.GET)
+	public String prjtpop(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+		Map<String, Object> params = this.getParameterMap(request);
+		
+		String prjtCd = String.valueOf(params.get("prjtCd"));
+		String trAcctCd = String.valueOf(params.get("trAcctCd"));
+		
+		model.addAttribute("prjtCd", prjtCd);
+		model.addAttribute("trAcctCd", trAcctCd);
+
+		log.debug("============>프로젝트코드:"+prjtCd);
+		log.debug("============>거래처코드:"+trAcctCd);
+
+		
+		return "prjtmgt/prjtpop";
+	}
+	
+	/**
+	 * 매출계약관리 화면 조회
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/cntrctmgt/salescntrctmgt", method = RequestMethod.GET)
+	public String salescntrctmgt(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+		return "cntrctmgt/salescntrctmgt";
+	}
+	
+	/**
+	 * 매입계약관리 화면 조회
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/cntrctmgt/ordercntrctmgt", method = RequestMethod.GET)
+	public String ordercntrctmgt(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+		return "cntrctmgt/ordercntrctmgt";
+	}
+
+	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
 		EchoCookie echoCookie = (EchoCookie) request.getAttribute(CommonConst.COOKIE_KEY);
