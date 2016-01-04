@@ -37,6 +37,10 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
+                        
+                        <li>
+                            <a href="/${contextPath}/web/finance/saleMgt"><i class="fa fa-won fa-fw"></i> 매출관리</a>
+                        </li> 
                   
                        <li>
                             <a href="/${contextPath}/web/sample/human"><i class="fa fa-codepen fa-fw"></i> Sample</a>

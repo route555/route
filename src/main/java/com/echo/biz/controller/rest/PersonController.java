@@ -57,13 +57,13 @@ public class PersonController extends BaseController {
 		setReqUserIdAndUpdUserId(request, dto);
 		personService.insert(dto, "getPrsnNo", "setPrsnNo");
 
-		result.put("dtlCd", dto.getPrsnNo());
+		result.put("prsnNo", dto.getPrsnNo());
 		model.addAttribute("resultData", result);
 
 		return model;
 	}
 
-	@RequestMapping(value = "/{prsnNo}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/{prsnNo}/modify", method = RequestMethod.POST)
 	public Model update(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("prsnNo") int prsnNo, @ModelAttribute PersonDto dto) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 
@@ -71,7 +71,7 @@ public class PersonController extends BaseController {
 
 		dto.setPrsnNo(prsnNo);
 
-		result.put("dtlCd", dto.getPrsnNo());
+		result.put("prsnNo", dto.getPrsnNo());
 		result.put("updCnt", personService.updateDto(dto));
 
 		model.addAttribute("resultData", result);

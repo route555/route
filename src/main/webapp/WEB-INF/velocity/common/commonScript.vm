@@ -50,6 +50,7 @@
     <![endif]-->
 
 
+
     <!-- jQuery -->
     <script src="/${contextPath}/assets/sbadmin/bower_components/jquery/dist/jquery.min.js"></script>
 
@@ -72,6 +73,10 @@
 	<script src="/${contextPath}/htdocs/js/common.js"></script>
 
 
+<link href="/${contextPath}/assets/datepicker/css/datepicker.css" rel="stylesheet">
+<script src="/${contextPath}/assets/datepicker/js/bootstrap-datepicker.js"></script>
+
+<script src="/${contextPath}/assets/mask/jquery.maskedinput.min.js"></script>
    <script type="text/javascript">
 		var G_CONTEXT_PATH = "/${contextPath}";
    </script>
@@ -79,7 +84,6 @@
    	<script src="https://cdn.datatables.net/buttons/1.1.0/js/dataTables.buttons.min.js"></script>
 	<script src="https://cdn.datatables.net/buttons/1.1.0/js/buttons.colVis.min.js "></script>
 	<link href="https://cdn.datatables.net/buttons/1.1.0/css/buttons.dataTables.min.css" rel="stylesheet">
- 
 	<style>
 	.dataTables_wrapper .dataTables_length {
 	    position: relative;

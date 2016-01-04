@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	#parse("common/commonScript.vm") 
+	<script src="/${contextPath}/htdocs/js/finance/saleMgt.js"></script>
+	
+
+	 
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">   
+</head>
+
+<body>
+
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">        
+			#parse("common/header.vm")
+			#parse("common/menu.vm")
+        </nav>
+		
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="page-header">매출관리</h2>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            
+           <!-- 검색박스 -->
+            <div class="row"  id="searchBox">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Search Form Elements
+                        </div>
+                        <div class="panel-body">
+                        	<form role="form" class="form-inline"  id="sf"  name="sf"  >
+	                        	<input type="hidden" name="searchType" value="like" />
+		                        <input type="hidden" name="orderElement" value="M.CNTRCT_CD" />
+		                        <input type="hidden" name="orderType" value="ASC" />
+                        		
+                        		<div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <tbody>
+                                        <tr>
+                                            <th width="15%">프로젝트명</th>
+                                            <td width="35%"><input type="text" class="input-sm form-control" placeholder="" name="prjtNm"></td>
+                                            <th width="15%">거래처(법인)명</th>
+                                            <td width="35%"><input type="text" class="input-sm form-control" placeholder="" name="trAcctNm"></td>
+                                        </tr>
+                                        <tr>
+                                            <th width="15%">청구여부</th>
+                                            <td width="35%">
+                                            	<label class="radio-inline"><input type="radio" name="dmndYn" value="">전체</label>
+                                            	<label class="radio-inline"><input type="radio" name="dmndYn" value="Y">Yes</label>
+                                            	<label class="radio-inline"><input type="radio" name="dmndYn" value="N">No</label>
+                                            </td>
+                                            <th width="15%">입금여부</th>
+                                            <td width="35%">
+                                            	<label class="radio-inline"><input type="radio" name="dpstYn" value="">전체</label>
+                                            	<label class="radio-inline"><input type="radio" name="dpstYn" value="Y">Yes</label>
+                                            	<label class="radio-inline"><input type="radio" name="dpstYn" value="N">No</label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th width="15%">입금예정일</th>
+                                            <td width="35%">
+											<input type="hidden" id="dpstExpctDay" name="dpstExpctDay">
+                                            <input type="text" class="input-sm form-control" placeholder="" id="dpstExpctDayView"></td>
+                                            <th width="15%">청구구분</th>
+                                            <td width="35%"><select class="input-sm form-control selectWidth" style="width:auto;" id="dmndCdSf" name="dmndCd"/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div> 
+                        		
+                        		
+                        	<div class="forms-group  pull-right">
+                              	<button type="button" class="btn btn-warning" id="btnSearchInit">조건초기화</button>
+                        		<button type="button" class="btn btn-primary" id="btnSearch">조회</button>
+                           </div>
+	                            
+                         	</form>
+                        </div>                       
+                    </div>                   
+                </div>               
+            </div>
+            <!-- 검색박스 종료-->
+
+	        
+            <!-- 테이블 -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Sale Management DataTables
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body"> 
+                            <div class="dataTable_wrapper">
+                                <table cellspacing="0" width="100%" class="display table table-striped table-bordered table-hover" id="dataTables-saleMgt">
+                                    <thead>
+                                        <tr>
+                                        	<th>선택</th>
+                                            <th>계약코드</th>
+                                            <th>청구일련번호</th>
+                                            <th>거래처명</th>
+                                            <th>프로젝트명</th>
+                                            <th>시작일</th>
+                                            <th>종료일</th>
+                                            <th>청구구분</th>
+                                            <th>청구일자</th>
+                                            <th>적요</th>
+                                            <th>검수필요여부</th>
+                                            <th>검수확정여부</th>
+                                            <th>담당자</th>
+                                            <th>연락처</th>
+                                            <th>계산서발행일</th>
+                                            <th>입금예정일</th>
+                                            <th>입금일자</th>
+                                            <th>공급가액</th>
+                                            <th>부가세</th>
+                                            <th>합계</th>                                            
+                                        </tr>
+                                    </thead>                                    
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->                            
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- 테이블종료 -->
+                     
+            
+            <!-- 디테일화면 -->
+            <div class="row" id="detail">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            	상세 입력
+                        </div>
+                        <div class="panel-body">
+                        	<form role="form" name="f" id="f" method="post">
+                        	<input type="hidden" id="prsnNo" name="prsnNo">
+                        	     
+                        	<div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <tbody>
+                                        <tr>
+                                            <th width="15%">비고</th>
+                                            <td width="85%" colspan="3">
+                                            	<textarea class="form-control" rows="3"  id="memoDesc" name="memoDesc"></textarea>
+                                            </td>
+                                           
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>       
+                            
+                 			<div class="forms-group  pull-left">
+                              	<button type="button" class="btn btn-primary" id="btnBillIssueCancel">계산서발행취소</button>
+                        		<button type="button" class="btn btn-info" id="btnDpstCancel">입금취소</button>
+                           </div>
+                        
+                        	<div class="forms-group  pull-right">
+                              	<button type="button" class="btn btn-primary" id="btnBillIssue">계산서발행</button>
+                        		<button type="button" class="btn btn-info" id="btnDpst">입금처리</button>
+                           </div>
+                        
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!--디테일 종료-->
+            
+  
+            
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+
+</body>
+	
+</html>

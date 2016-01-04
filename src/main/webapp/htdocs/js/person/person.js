@@ -43,21 +43,38 @@ var view = {
 						this.reset();  
 					}); 
 				});
+				
+				$('#prflAtchtFile').unbind('change');
+				$('#prflAtchtFile').bind('change', function() {
+					$('#fileName').html('');
+					//$('#prflAtchtFlNo').val('');
+				});	
 					
 				
 				$("#f").submit(function(e) {
 					var formData = new FormData(this);
 					
+					if($("#prsnNo").val()==''){
+						urlStr = G_CONTEXT_PATH+"/person";
+						successObj = view.insertDataCallBack;
+						errorObj = view.insertDataCallBack;
+					}else{
+						var prsnNo=$("#prsnNo").val();
+						urlStr = G_CONTEXT_PATH+"/person/"+prsnNo+"/modify";
+						successObj = view.modifyDataCallBack;
+						errorObj = view.modifyDataCallBack;
+					}
+					
 					jQuery.ajax({
-				  		url :  G_CONTEXT_PATH+"/person",
+				  		url :  urlStr,
 						type: "POST",
 						data:  formData,
 						mimeType:"multipart/form-data",
 						contentType: false,
 						cache: false,
 						processData:false,
-						success: view.insertDataCallBack,
-						error: view.insertDataCallBack
+						success: successObj,
+						error: errorObj
 					});
 					
 					e.preventDefault();
@@ -293,6 +310,9 @@ var view = {
 			}	
 		}
 		, modifyData : function() {
+			
+			$("#f").submit();
+			/*
 			var reqData = $('form[name="f"]').serializeArray();
 			var prsnNo=$("#prsnNo").val();
 			common.ajax({
@@ -300,9 +320,13 @@ var view = {
 				  		, type : "PUT"
 						, data  : reqData 
 						, success : view.modifyDataCallBack
-			});	
+			});
+			*/	
 		}
-		, modifyDataCallBack : function(json){
+		, modifyDataCallBack : function(data){
+			
+			var json = jQuery.parseJSON(data);
+			
 			try {
 				if ( json.status == 200 ) {
 					view.personTable.fnReloadAjax();

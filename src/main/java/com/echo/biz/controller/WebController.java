@@ -46,6 +46,11 @@ public class WebController extends BaseController {
 		return "person/personPop";
 	}
 	
+	@RequestMapping(value = "/finance/saleMgt", method = RequestMethod.GET)
+	public String saleMgt(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+		return "/finance/saleMgt";
+	}
+	
 	@RequestMapping(value = "/sample/blank", method = RequestMethod.GET)
 	public String blank(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
 		return "sample/blank";

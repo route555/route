@@ -193,13 +193,20 @@
 			}	
 		}
 		, modifyData : function() {
-			var reqData = $('form[name="f"]').serializeArray();
+			var reqData = $('form[name="f"]').serializeObject();
 			var humanId=$("#humanId").val();
 			
+			//return false;
+			
+			var serializedMyObj = JSON.stringify(reqData);
+			
+			console.log(serializedMyObj);
+			//return false;
 			common.ajax({
 			  			url : G_CONTEXT_PATH+"/sampleHuman/" + humanId
+			  			, contentType : "application/json; charset=UTF-8"
 				  		, type : "PUT"
-						, data  : reqData 
+						, data  : serializedMyObj 
 						, success : view.modifyDataCallBack
 			});	
 			
@@ -253,3 +260,4 @@
 	$(function() {
 		view.onLoadEvent();
 	});
+	

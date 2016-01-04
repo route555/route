@@ -252,7 +252,7 @@ public class AuthService extends AbstractService<Auth, BaseDto> {
 		if (request.getHeader(X_ECHO_DEVICEID) != null) {
 			checkDeviceAuth(request);
 		} else {
-			checkUserAuth(request, contextPath);
+			//checkUserAuth(request, contextPath);
 		}
 	}
 

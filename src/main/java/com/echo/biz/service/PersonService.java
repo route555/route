@@ -44,6 +44,27 @@ public class PersonService extends AbstractService<Person, PersonDto> {
 	@Override
 	public int updateDto(PersonDto dto) throws Exception {
 
+		
+		if (dto.getPrflAtchtFile() != null) {
+			EchoCookie echoCookie = dto.getEchoCookie();
+			AttachFileDto attachFileDto = new AttachFileDto();
+			attachFileDto.setEchoCookie(echoCookie);
+
+			if(dto.getPrflAtchtFlNo() != null){
+				//prflAtchtFlNo
+				attachFileDto.setAtchtFlNo(dto.getPrflAtchtFlNo());
+				attachFileService.deleteDto(attachFileDto);
+			}
+			
+			MultipartFile f = dto.getPrflAtchtFile();
+			if (StringUtils.isEmpty(f.getOriginalFilename()) == false) {
+				attachFileDto.setAtchtFile(f);
+				attachFileService.insert(attachFileDto, "getAtchtFlNo", "setAtchtFlNo");
+			}
+			
+			dto.setPrflAtchtFlNo(attachFileDto.getAtchtFlNo());
+		}
+		
 		int cnt = super.updateDto(dto);
 
 		log.debug("@@@ person updateDto" + dto);

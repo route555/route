@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="salemanagement">
+
+	<select id="selectCntSaleManagement" parameterType="Map" resultType="int">
+		SELECT /* selectCntSaleManagement */
+			COUNT(1)
+		FROM
+			T_PMS010 M /* 매출청구 */ 
+		    ,T_PMS008 D /* 매출계약 */
+		    ,T_PMS006 C /* 프로젝트 */
+		    ,T_PMS001 A /* 거래처 */
+		WHERE
+			D.CNTRCT_CD = M.CNTRCT_CD
+			AND C.PRJT_CD = D.PRJT_CD
+			AND A.TR_ACCT_CD = C.TR_ACCT_CD
+ 			<include refid="listWhere"/>
+	</select>
+	
+	<sql id="listWhere">
+	
+<!-- 		<if test="searchType == 'equal'">
+	    	<if test="grpCd != null and grpCd != ''">AND grp_cd = #{grpCd}</if>
+	    	<if test="grpCdNm != null and grpCdNm != ''">AND grp_nm = #{grpCdNm}</if>
+    	</if>
+    	<if test="searchType == 'like'">
+	    	<if test="grpCd != null and grpCd != ''">AND grp_cd LIKE CONCAT('%', #{grpCd}, '%')</if>
+	    	<if test="grpCdNm != null and grpCdNm != ''">AND grp_cd_nm LIKE CONCAT('%', #{grpCdNm}, '%')</if>
+    	</if> -->		
+	   
+	</sql>
+		
+<select id="selectListSaleManagement111" parameterType="Map" resultType="tMap">
+		SELECT	/* selectListSaleManagement */
+			'1' AS cntrctCd
+			, '1' AS dmndSeqNo
+			, '1' trAcctNm /* 거래처명 */
+			, '1' prjtNm /* 프로젝트명 */
+			, '1' workStartDt /* 시작일  */
+			, '1'  workEndDt /* 종료일  */
+			, '1' dmndCd /* 청구구분 */
+			, '1' dmndDate /* 청구일자 */
+			, '1' rmlrkDesc /* 적요 */
+			, '1' examNeedYn /* 검수필요여부 */
+			, '1' examCfrmYn /* 검수확정여부 */
+			, '1' chgrNm /* 담당자 */
+			, '1' telNo /* 연락처 */ 
+			, '1' billIssueDt /* 계산서발행일 */
+			, '1' dpstExpctDayCd /* 입금예정일 */
+			, '1' dpstDt /* 입금일자 */
+			, '1' supplyAmt /* 공급가액 */
+			, '1' taxAmt /* 부가세 */
+			, '1' totalAmt  /* 합계 */
+</select>
+	
+	<select id="selectListSaleManagement" parameterType="Map" resultType="tMap">
+		SELECT	/* selectListSaleManagement */
+			M.cntrct_cd AS cntrctCd
+			, M.dmnd_seq_no AS dmndSeqNo
+			, A.TR_ACCT_NM trAcctNm /* 거래처명 */
+			, C.PRJT_NM  prjtNm /* 프로젝트명 */
+			, C.WORK_START_DT workStartDt /* 시작일  */
+			, C.WORK_END_DT  workEndDt /* 종료일  */
+			, M.DMND_CD dmndCd /* 청구구분 */
+			, M.DMND_DATE dmndDate /* 청구일자 */
+			, M.RMLRK_DESC rmlrkDesc /* 적요 */
+			, D.EXAM_NEED_YN examNeedYn /* 검수필요여부 */
+			, M.EXAM_CFRM_YN examCfrmYn /* 검수확정여부 */
+			, (SELECT CHGR_NM 
+				FROM T_PMS002 B 
+		        WHERE B.TR_ACCT_CD AND B.CHG_SECT_CD='003')  chgrNm /* 담당자 */
+			, (SELECT TEL_NO 
+				FROM T_PMS002 B 
+		        WHERE B.TR_ACCT_CD AND B.CHG_SECT_CD='004')  telNo /* 연락처 */ 
+			, M.BILL_ISSUE_DT billIssueDt /* 계산서발행일 */
+			, A.DPST_EXPCT_DAY_CD dpstExpctDayCd /* 입금예정일 */
+			, M.DPST_DT dpstDt /* 입금일자 */
+			, M.SUPPLY_AMT supplyAmt /* 공급가액 */
+			, M.TAX_AMT taxAmt /* 부가세 */
+			, M.SUPPLY_AMT+M.TAX_AMT totalAmt  /* 합계 */
+		FROM
+			T_PMS010 M /* 매출청구 */ 
+		    ,T_PMS008 D /* 매출계약 */
+		    ,T_PMS006 C /* 프로젝트 */
+		    ,T_PMS001 A /* 거래처 */
+		WHERE
+			D.CNTRCT_CD = M.CNTRCT_CD
+			AND C.PRJT_CD = D.PRJT_CD
+			AND A.TR_ACCT_CD = C.TR_ACCT_CD
+ 			<include refid="listWhere"/>
+		ORDER BY
+		<if test="orderElement == null or ''.equals(orderElement) == true">
+	    	M.CNTRCT_CD
+    	</if>
+    	<if test="orderElement != null and ''.equals(orderElement) == false">
+	    	${orderElement}
+    	</if>
+    	<if test="orderType != 'ASC'">
+	    	DESC
+    	</if>
+    	<if test="pageSize != null and pageSize != -1">
+		LIMIT ${start}, ${pageSize}
+		</if>
+	</select>	
+</mapper>

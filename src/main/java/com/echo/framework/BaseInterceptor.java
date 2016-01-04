@@ -156,7 +156,7 @@ abstract public class BaseInterceptor implements HandlerInterceptor {
 			Map<String, Object> modelMap = modelAndView.getModel();
 
 			Object resultData = modelMap.get("resultData");
-			System.out.println("#########3" + resultData);
+			System.out.println("#postHandle : " + resultData);
 
 			if ((resultData == null) || (resultData instanceof Map)) {
 				Map<String, Object> result = (Map<String, Object>) resultData;

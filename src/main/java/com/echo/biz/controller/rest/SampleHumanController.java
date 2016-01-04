@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -59,7 +60,7 @@ public class SampleHumanController extends BaseController {
 	}
 
 	@RequestMapping(value = "/{humanId}", method = RequestMethod.PUT)
-	public Model update(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("humanId") Integer humanId, @ModelAttribute SampleHumanDto dto) throws Exception {
+	public Model update(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("humanId") Integer humanId, @RequestBody SampleHumanDto dto) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 
 		setReqUserIdAndUpdUserId(request, dto);

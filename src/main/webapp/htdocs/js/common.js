@@ -17,6 +17,17 @@ Array.prototype.uniqueReplace = function()
 	return this;
 }
 
+
+$.fn.serializeObject = function() {
+
+	  var form = {};
+	  $.each($(this).serializeArray(), function (i, field) {
+	    form[field.name] = field.value || "";
+	  });
+
+	  return form;
+	};
+
 var common = {
 	pageSize : 10
 	, isSession : false

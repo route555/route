@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="purchasemanagement">
+
+	<select id="selectCntPurchaseManagement" parameterType="Map" resultType="int">
+		SELECT /* selectCntPurchaseManagement */
+			COUNT(1)
+		FROM
+			T_PMS013 M /* 매입지급 */ 
+		    ,T_PMS011 D /* 매입계약 */
+		    ,T_PMS006 C /* 프로젝트 */
+		    ,T_PMS003 A /* 인력마스터 */
+		WHERE
+			D.CNTRCT_CD = M.CNTRCT_CD
+			AND C.PRJT_CD = D.PRJT_CD
+			AND A.PRSN_NO = D.PRSN_NO
+ 			<include refid="listWhere"/>
+	</select>
+	
+	<sql id="listWhere">
+	
+<!-- 		<if test="searchType == 'equal'">
+	    	<if test="grpCd != null and grpCd != ''">AND grp_cd = #{grpCd}</if>
+	    	<if test="grpCdNm != null and grpCdNm != ''">AND grp_nm = #{grpCdNm}</if>
+    	</if>
+    	<if test="searchType == 'like'">
+	    	<if test="grpCd != null and grpCd != ''">AND grp_cd LIKE CONCAT('%', #{grpCd}, '%')</if>
+	    	<if test="grpCdNm != null and grpCdNm != ''">AND grp_cd_nm LIKE CONCAT('%', #{grpCdNm}, '%')</if>
+    	</if> -->		
+	   
+	</sql>
+	
+	<select id="selectListPurchaseManagement" parameterType="Map" resultType="tMap">
+		SELECT	/* selectListPurchaseManagement */
+			M.cntrct_cd AS cntrctCd
+			, M.dpst_seq_no AS dpstSeqNo
+            , C.PRJT_NM  prjtNm /* 프로젝트명 */
+			, A.PRSN_NM prsnNm /* 계약자명 */
+            , A.CNTRCT_SECT_CD cntrctSectCd /* 계약형태코드 */
+            , A.LAW_BIZ_NM lawBizNm /* 법인(사업자)명 */			
+			, C.WORK_START_DT workStartDt /* 시작일  */
+			, C.WORK_END_DT  workEndDt /* 종료일  */
+            , A.PAY_DAY_CD payDayCd/* 지급일코드  */
+            , A.TR_BANK_NM trBankNm /* 은행명 */
+			, A.TR_ACCT_NO trAcctNo /* 계좌번호 */
+			, A.HP_NO hpNo /* 휴대폰번호 */
+            , M.DPST_DT dpstDt /* 지급일자 */
+			, M.DPST_CD dpstCd /* 지급구분 */			
+			, M.RMLRK_DESC rmlrkDesc /* 적요 */
+			, M.BILL_ISSUE_DT billIssueDt /* 계산서발행일 */
+			, M.DPST_PRCS_DT dpstPrcsDt /* 지급처리일자 */			
+			, M.SUPPLY_AMT supplyAmt /* 공급가액 */
+			, M.TAX_AMT taxAmt /* 부가세 */
+			, M.SUPPLY_AMT+M.TAX_AMT totalAmt  /* 합계 */
+            , M.MEMO_DESC memoDesc /* 비고 */
+		FROM
+			T_PMS013 M /* 매입지급 */ 
+		    ,T_PMS011 D /* 매입계약 */
+		    ,T_PMS006 C /* 프로젝트 */
+		    ,T_PMS003 A /* 인력마스터 */
+		WHERE
+			D.CNTRCT_CD = M.CNTRCT_CD
+			AND C.PRJT_CD = D.PRJT_CD
+			AND A.PRSN_NO = D.PRSN_NO
+ 			<include refid="listWhere"/>
+		ORDER BY
+		<if test="orderElement == null or ''.equals(orderElement) == true">
+	    	M.CNTRCT_CD
+    	</if>
+    	<if test="orderElement != null and ''.equals(orderElement) == false">
+	    	${orderElement}
+    	</if>
+    	<if test="orderType != 'ASC'">
+	    	DESC
+    	</if>
+    	<if test="pageSize != null and pageSize != -1">
+		LIMIT ${start}, ${pageSize}
+		</if>
+	</select>	
+</mapper>
