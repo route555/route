@@ -1,4 +1,4 @@
-package com.echo.biz.controller;
+package com.echo.biz.controller.rest;
 
 import java.io.File;
 

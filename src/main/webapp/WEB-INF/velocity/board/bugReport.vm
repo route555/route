@@ -13,7 +13,7 @@
 
 		// iframe resize
 
-				function autoResize(i)
+				function autoResize1111(i)
 
 					{
 
@@ -65,12 +65,12 @@ that.style.height = that.contentWindow.document.body.scrollHeight;
                     <div class="col-lg-12">
                         <h1 class="page-header">Board</h1>
                         
-                      
+                <!--        
             <iframe src="http://pms.echoit.co.kr/gnuboard5/bbs/board.php?bo_table=bug" width="100%" height="500"
           id="contentFrame"   frameborder="0" scrolling="no" onload="autoResize(this)"></iframe>
+-->
 
-
-
+<iframe id="embeded-content" width="100%" height="800" frameborder="0" marginwidth="0" scrolling="no" src="http://pms.echoit.co.kr/gnuboard5/bbs/board.php?bo_table=bug"></iframe>
 
             
                     </div>
@@ -88,5 +88,22 @@ that.style.height = that.contentWindow.document.body.scrollHeight;
   
 
 </body>
+
+<script type="text/javascript">
+function resize_frame(id) {
+var frm = document.getElementById("embeded-content");
+function resize() {
+frm.style.height = "auto"; // set default height for Opera
+contentHeight = frm.contentWindow.document.documentElement.scrollHeight;
+frm.style.height = contentHeight + 100 + "px"; // 23px for IE7
+}
+if (frm.addEventListener) {
+frm.addEventListener('load', resize, false);
+} else {
+frm.attachEvent('onload', resize);
+}
+}
+resize_frame('embeded-content');
+</script>
 
 </html>
