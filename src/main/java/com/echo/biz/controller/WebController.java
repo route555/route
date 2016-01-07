@@ -190,6 +190,11 @@ System.out.println("###############################");
 		return "/finance/saleMgt";
 	}
 	
+	@RequestMapping(value = "/finance/purchaseMgt", method = RequestMethod.GET)
+	public String purchaseMgt(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+		return "/finance/purchaseMgt";
+	}
+	
 	@RequestMapping(value = "/sample/blank", method = RequestMethod.GET)
 	public String blank(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
 		return "sample/blank";

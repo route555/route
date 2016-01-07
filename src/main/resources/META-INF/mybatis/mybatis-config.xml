@@ -48,6 +48,7 @@
 		<mapper resource="com/echo/biz/dao/mapper/purchasepayment-mapper.xml" />
 		
 		<mapper resource="com/echo/biz/dao/mapper/salemanagement-mapper.xml" />
+		<mapper resource="com/echo/biz/dao/mapper/purchasemanagement-mapper.xml" />
 		<mapper resource="com/echo/biz/dao/mapper/trAcctMgt-mapper.xml" />
 		<mapper resource="com/echo/biz/dao/mapper/prjtMgt-mapper.xml" />
 		<mapper resource="com/echo/biz/dao/mapper/prjtPrsn-mapper.xml" />

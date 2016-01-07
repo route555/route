@@ -14,10 +14,10 @@ public class PurchaseManagementDao extends AbstractDao<Object> {
 	}
 
 	public List selectListPurchaseManagement(Map<String, Object> param) {
-		return echoSlave.selectList("salemanagement.selectListPurchaseManagement", param);
+		return echoSlave.selectList("purchasemanagement.selectListPurchaseManagement", param);
 	}
 	
 	public int selectCntPurchaseManagement(Map<String, Object> param) {
-		return echoSlave.selectOne("salemanagement.selectCntPurchaseManagement", param);
+		return echoSlave.selectOne("purchasemanagement.selectCntPurchaseManagement", param);
 	}
 }
