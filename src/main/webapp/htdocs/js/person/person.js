@@ -1,7 +1,7 @@
 var view = {
 			personTable : '',	
 			codeDatas : '',	
-			codeMap : {"sexCd":"002","acdmcCd":"003","cntrctSectCd":"004","skillSectCd":"006","certCd":"007" },	//성별코드, 학력코드, 계약유형코드, 기술분야코드, 기사자격코드
+			codeMap : {"sexCd":"002","acdmcCd":"003","cntrctSectCd":"004","skillSectCd":"006","certCd":"007", "payDayCd":"015" },	//성별코드, 학력코드, 계약유형코드, 기술분야코드, 기사자격코드, 입금예정일
 			onLoadEvent : function() {
 		
 				view.selectCommonCodes();
@@ -123,7 +123,7 @@ var view = {
 				});
 			}
 			, selectCommonCodesCallBack : function(json) {
-				//codeMap : {"sexCd":"002","acdmcCd":"003","cntrctSectCd":"004","skillSectCd":"006","certCd":"007" },	//성별코드, 학력코드, 계약유형코드, 기술분야코드, 기사자격코드
+				//codeMap : {"sexCd":"002","acdmcCd":"003","cntrctSectCd":"004","skillSectCd":"006","certCd":"007", "payDayCd":"015" },	//성별코드, 학력코드, 계약유형코드, 기술분야코드, 기사자격코드, 입금예정일
 				view.codeDatas=json;
 				
 				$.each(view.codeMap, function(key, value) {
@@ -174,6 +174,12 @@ var view = {
 						var newEl = '<option value="">무관</option>';
 						$("#acdmcCdSf").prepend(newEl);
 						
+					} else if(key=='payDayCd'){
+						var el = '';			
+						$(view.codeDatas[value]).each(function(i, itm){	
+							el += '<option value="' + itm.dtlCd + '">' + itm.dtlCdNm + '</option>';
+						});						
+						$("#payDayCd").append(el);
 					}
 				});
 				view.onLoadForAsync();
@@ -278,6 +284,7 @@ var view = {
 						for ( var i=0; i< dataSplit.length; i++) {
 							$('#skillSectCdTd input:checkbox[name="skillSectCd"][value="' + dataSplit[i] +'"]').prop('checked', true);
 						}
+					
 					}else{
 						$("#"+k).val( v);
 						

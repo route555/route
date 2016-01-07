@@ -281,7 +281,7 @@
                                             </td>
                                             <th width="15%">지급일</th>
                                             <td width="35%">
-                                            	 <input class="input-sm form-control" id="payDayNm" name="payDayNm"> 
+                                            	<select class="input-sm form-control selectWidth" style="width:auto;" id="payDayCd" name="payDayCd"/>
                                              </td>
                                         </tr>
                                     </tbody>
