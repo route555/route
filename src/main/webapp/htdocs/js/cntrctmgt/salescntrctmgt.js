@@ -2,9 +2,14 @@ var trAcctCd;
 var dmndCdList;
 var rowIdx;
 
-var view = {		
+var view = {
+		codeDatas : '',	
+		codeMap : {"cntrctStatusCd":"013", "dmndCd":"016"},	//매출계약코드, 매출청구코드
 		onLoadEvent : function() {
 		
+			view.selectCommonCodes();
+			
+			
 		$("#btnSearch").unbind('click');
 		$("#btnSearch").click( function() {	
 			var table = $('#dataTables-salesCntrctList').dataTable();
@@ -127,33 +132,53 @@ var view = {
 		});
 		
 		
-		view.selectTableData();
 		
-		//검색조건 계약상태코드
-		view.selectSrchCommonCode013();
-		
-		//계약상태코드
-		view.selectCommonCode013();
-		view.selectCommonCode016();
-		view.selectSalesDmndList();
-		
-		//청구정보 목록 조회
-    	table1 = $('#dataTables-salesDmndList').dataTable();
-    	table1.fnReloadAjax();
-
 		
 		}
+		, onLoadForAsync : function() {
+			
+			view.selectTableData();				
+			view.selectSalesDmndList();
+			
+			//청구정보 목록 조회
+	    	table1 = $('#dataTables-salesDmndList').dataTable();
+	    	table1.fnReloadAjax();
 
-		, selectSrchCommonCode013 : function() {
+			
+		}
+		
+		, selectCommonCodes : function() {
+			var reqData = new Object();
+			var array = [];
+			$.each(view.codeMap, function(k, v) {
+				array.push(v);
+			});
+			reqData.codes=array.toString();
 			common.ajax({
-				  		url : G_CONTEXT_PATH+"/codes/013"
+				  		url : G_CONTEXT_PATH+"/multiCodes"
+				  		, data : reqData
 				  		, type : "GET"
-						, success : view.selectSrchCommonCodeCallBack013
+						, success : view.selectCommonCodesCallBack
 			});
 		}
+		, selectCommonCodesCallBack : function(json) {
+			//codeMap : {"cntrctStatusCd":"013", "dmndCd":"016"},	//매출계약코드, 매출청구코드
+			view.codeDatas=json;
+			
+			$.each(view.codeMap, function(key, value) {
+				if(key=='cntrctStatusCd'){
+					view.selectSrchCommonCodeCallBack013(view.codeDatas[value]);
+					view.selectCommonCodeCallBack013(view.codeDatas[value]);
+				}else if(key=='dmndCd'){
+					view.selectCommonCodeCallBack016(view.codeDatas[value]);
+				} 
+			});
+			view.onLoadForAsync();
+		}
+		
 		, selectSrchCommonCodeCallBack013 : function(json) {
 			var el = '';			
-			$(json.list).each(function(i, itm){				
+			$(json).each(function(i, itm){				
 				el += '<option value="' + itm.dtlCd + '">' + itm.dtlCdNm + '</option>';
 				//console.log(el);
 			});
@@ -161,17 +186,10 @@ var view = {
 			$("select:eq(0) option:eq(0)").attr("selected", "selected");
 			$("select:eq(0) option:eq(0)").trigger('change');	
 		}
-		, selectCommonCode013 : function() {
-			common.ajax({
-				  		url : G_CONTEXT_PATH+"/codes/013"
-				  		, type : "GET"
-						, success : view.selectCommonCodeCallBack013
-			});
-		}
-		
+				
 		, selectCommonCodeCallBack013 : function(json) {
 			var el = '';			
-			$(json.list).each(function(i, itm){				
+			$(json).each(function(i, itm){				
 				el += '<option value="' + itm.dtlCd + '">' + itm.dtlCdNm + '</option>';
 				//console.log(el);
 			});
@@ -179,16 +197,9 @@ var view = {
 			$("select:eq(0) option:eq(0)").attr("selected", "selected");
 			$("select:eq(0) option:eq(0)").trigger('change');	
 		}
-		, selectCommonCode016 : function() {			
-			common.ajax({
-				  		url : G_CONTEXT_PATH+"/codes/016"
-				  		, type : "GET"
-						, success : view.selectCommonCodeCallBack016
-			});
-		}
 		, selectCommonCodeCallBack016 : function(json) {
 			dmndCdList = new Array();
-			$(json.list).each(function(i, itm){				
+			$(json).each(function(i, itm){				
 				var array = new Array();
 				array.push(itm.dtlCd);
 				array.push(itm.dtlCdNm);
