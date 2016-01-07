@@ -239,7 +239,7 @@
                                     <thead>
                                         <tr>
                                             <th style="text-align: center;">번호</th>
-                                        	<th style="text-align: center;">선택</th>
+                                        	<th style="text-align: center;" width="30px">선택</th>
                                             <th style="text-align: center;">담당자 구분</th>
                                             <th style="text-align: center;">담당자명</th>
                                             <th style="text-align: center;">직위</th>
@@ -247,7 +247,7 @@
                                             <th style="text-align: center;">휴대폰번호</th>
                                             <th style="text-align: center;">이메일</th>
                                             <th style="text-align: center;">주소</th>
-                                            <th style="text-align: center;">메모</th>
+                                            <th style="text-align: center;" >메모</th>
                                         </tr>
                                     </thead>                                    
                                 </table>

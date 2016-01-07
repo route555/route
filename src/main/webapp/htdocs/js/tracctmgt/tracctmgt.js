@@ -320,7 +320,7 @@ var view = {
 						"processing" : true,
 						"serverSide" : true,
 						"bFilter": false,
-						"autoWidth": true,
+						"autoWidth": false,
 						"ordering": false,
 						"paging": false,
 						"columnDefs": [ { visible: false, targets: [0]  },{ className: "text-center", "targets": [ 0,1 ] } ],
@@ -333,7 +333,7 @@ var view = {
 						        { data: '' , "render": function ( data ) { return '<input type="radio" name="choice" id="choice" style="width:50%;" value="">';} },
 						        { data: 'chgSectCd' , "render": function ( data,  code) {
 						        	//console.log(chgrSectCdList);
-						        	html =  '<select name="chgSectCd" id="chgSectCd" class="form-control" style="width:100px;"><option value="">선택</option>';
+						        	html =  '<select name="chgSectCd" id="chgSectCd" class="form-control" style="width:100px;"><option value="">1AS선택</option>';
 						        	
 						        	for (var i=0; i<chgrSectCdList.length; i++) {
 						        		var val = chgrSectCdList[i];
@@ -353,7 +353,7 @@ var view = {
 						        { data: 'hpNo' , "render": function ( data ) { return '<input type="input" name="hpNo" id="hpNo" class="form-control" style="width:100%;" maxlength="20" value="'+data+'">';} },
 						        { data: 'emailAddr' , "render": function ( data ) { return '<input type="input" name="emailAddr" id="emailAddr" class="form-control" style="width:100%;" maxlength="50" value="'+data+'">';} },
 						        { data: 'addr' , "render": function ( data ) { return '<input type="input" name="addr" id="addr" class="form-control" style="width:100%;" maxlength="100" value="'+data+'">';} },
-						        { data: 'memoDesc' , "render": function ( data ) { return '<input type="input" name="memoDesc" id="memoDesc" class="form-control" style="width:100%;" maxlength="1000" title="'+data+'" value="'+data+'">';} }
+						        { data: 'memoDesc' , "render": function ( data ) { return '<input type="input" name="memoDesc" id="memoDesc" class="form-control" style="waidth:100%;" maxlength="1000" title="'+data+'" value="'+data+'">';} }
 
 						],
 						"sAjaxSource" : G_CONTEXT_PATH+"/trAcctMgt/selectTrAcctChgrList",
@@ -526,8 +526,8 @@ var view = {
 			
 			//담당자 목록 1건 추가
 			var html = "";
-			html += '<tr><td><input type="radio" name="choice" id="choice" class="form-control" style="width:100%;" value=""/></td>';
-			html +=  '<td><select name="chgSectCd" id="chgSectCd" class="form-control" style="width:100%;"><option value="">선택</option>';
+			html += '<tr><td><input type="radio" name="choice" id="choice" style="width:100%;" value=""/></td>';
+			html +=  '<td><select name="chgSectCd" id="chgSectCd" class="form-control" style="width:100px;"><option value="">선택</option>';
         	
         	for (var i=0; i<chgrSectCdList.length; i++) {
         		var val = chgrSectCdList[i];
