@@ -50,6 +50,14 @@ var view = {
 					//$('#prflAtchtFlNo').val('');
 				});	
 					
+				$("#btnSearchInit").unbind('click');
+				$("#btnSearchInit").click( function() {			
+					$('form[name="sf"]').each(function() {
+						this.reset();  
+					}); 
+				});
+				
+				
 				
 				$("#f").submit(function(e) {
 					var formData = new FormData(this);
@@ -274,13 +282,22 @@ var view = {
 						$("#"+k).val( v);
 						
 						if(k=='fileName'){
-							$("#"+k).html( v);
+							var fv = '<a id="aFileName">' +v +'</a>';
+							$("#"+k).html( fv);
 						}
 						
 					}
 				});
 			});
 			$("#detail").show();
+			
+			$('#aFileName').unbind('click');
+			$('#aFileName').bind('click', function(e) {
+				e.preventDefault();  //stop the browser from following
+				window.location.href = G_CONTEXT_PATH + '/download/'+ $('#prflAtchtFlNo').val();
+    
+			});	
+			
 		}
 		, insertData : function() {
 			

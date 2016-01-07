@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="saledemand">
+
+	
+	
+	<update id="updatePurchasePayment" parameterType="purchasePayment">
+		UPDATE  /* updatePurchasePayment */
+			T_PMS013 
+		SET
+			<if test="dpstDt != null and dpstDt !=''">dpst_dt = #{dpstDt},</if>
+			<if test="dpstCd != null and dpstCd !=''">dpst_cd = #{dpstCd},</if>
+			<if test="rmlrkDesc != null and rmlrkDesc !=''">rmlrk_desc = #{rmlrkDesc},</if>
+			<if test="supplyAmt != null and supplyAmt !=''">supply_amt = #{supplyAmt},</if>
+			<if test="taxAmt != null and taxAmt !=''">tax_amt = #{taxAmt},</if>
+			<if test="memoDesc != null and memoDesc !=''">memo_desc = #{memoDesc},</if>
+	
+			<if test="billIssueDt != null and billIssueDt !=''">bill_issue_yn = 'Y',</if>
+			<if test="billIssueDt == null or billIssueDt ==''">bill_issue_yn = 'N',</if>
+			bill_issue_dt = #{billIssueDt},
+			<if test="dpstPrcsDt != null and dpstPrcsDt !=''">dpst_yn = 'Y',</if>
+			<if test="dpstPrcsDt == null or dpstPrcsDt ==''">dpst_yn = 'N',</if>
+			dpst_prcs_dt = #{dpstPrcsDt},
+			upt_tm =  NOW(),
+			uptr_id = #{uptrId}
+		WHERE	cntrct_cd = #{cntrctCd}
+		AND	dpst_seq_no = #{dpstSeqNo}		
+	</update>
+
+</mapper>
+

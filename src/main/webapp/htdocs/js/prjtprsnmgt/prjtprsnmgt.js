@@ -17,7 +17,7 @@ var view = {
 				}
 				
 				var html = "";
-				html += '<tr><td><input type="radio" name="choice" id="choice" class="form-control" style="width:100%;" value=""/></td>';
+				html += '<tr><td><input type="radio" name="choice" id="choice" style="width:100%;" value=""/></td>';
 				html += '<td><input type="text" name="prsnNo" id="prsnNo" readonly="readonly" style="width:50px;" class="form-control" value=""/></td>';
 				html +=  '<td><select name="dstrbtSectCd" id="dstrbtSectCd" class="form-control" style="width:120px;"><option value="">선택</option>';
 	        	
@@ -40,10 +40,12 @@ var view = {
 	        	}
 				html += '</select></td>';
 				
-				html += '<td><input type="input" name="_workStartDt" id="_workStartDt" class="form-control" style="width:100%;" maxlength="8" value="" onBlur="javascript:fnCalMm();"></td><td><input type="input" name="_workEndDt" id="_workEndDt" class="form-control" style="width:100%;" maxlength="8" value="" onBlur="javascript:fnCalMm();"></td><td><input type="input" name="prsnMm" id="prsnMm" class="form-control" style="width:60px;" maxlength="5" value=""></td><td><input type="input" name="salesUnitCostAmt" id="salesUnitCostAmt" class="form-control" style="width:80px;" maxlength="9" value=""></td><td><input type="input" name="ordrUnitCstAmt" id="ordrUnitCstAmt" class="form-control" style="width:80px;" maxlength="9" value=""></td><td><input type="input" name="_memoDesc" id="_memoDesc" class="form-control" style="width:100%;" maxlength="1000" value=""></td><td><input type="input" name="prjtPrsnCnt" id="prjtPrsnCnt" class="form-control" style="width:100%;" maxlength="10" value="N"></td><td><button type="button" style="align:center;" class="btn btn-success" id="btnPrsnPop">선택</button></td></tr>';
+				html += '<td><input type="input" name="_workStartDt" id="_workStartDt" class="form-control" style="width:100%;" maxlength="8" value="" onBlur="javascript:fnCalMm();"></td><td><input type="input" name="_workEndDt" id="_workEndDt" class="form-control" style="width:100%;" maxlength="8" value="" onBlur="javascript:fnCalMm();"></td><td><input type="input" name="prsnMm" id="prsnMm" class="form-control" style="width:60px;" maxlength="5" value=""></td><td><input type="input" name="salesUnitCostAmt" id="salesUnitCostAmt" class="form-control" style="width:80px;" maxlength="9" value=""></td><td><input type="input" name="ordrUnitCstAmt" id="ordrUnitCstAmt" class="form-control" style="width:80px;" maxlength="9" value=""></td><td><input type="input" name="_memoDesc" id="_memoDesc" class="form-control" style="width:100%;" maxlength="1000" value=""></td><td><input type="input" name="prjtPrsnCnt" id="prjtPrsnCnt" class="form-control" style="width:100%;" maxlength="10" value="N"></td>';
+				html += '<td><button type="button" style="align:center;" class="btn btn-success" id="btnPrsnPop1">선택</button></td></tr>';
 				
 				//alert(html);
 				$('#dataTables-prjtPrsnList > tbody:last').append(html);
+				
 			});
 			
 			$("#btnRowDel").click( function() {
@@ -87,19 +89,10 @@ var view = {
 				
 			});
 			
-			$("#btnPrjtPop").unbind('click');
-			$("#btnPrjtPop").click( function() {
-				window.open(G_CONTEXT_PATH+"/web/prjtmgt/prjtpop?prjtCd="+$("#prjtCd").val()+"&trAcctCd="+$("#trAcctCd").val(), "window", "width=1200,height=800");
-				
-			});
-			
 			//프로젝트상세
 			prjtCd = $("#prjtCd").val();
 			trAcctCd = $("#trAcctCd").val();
 			view.selectPrjtDetail(prjtCd);
-			
-			
-			
 			
 			view.selectCommonCode();
 			view.selectCommonCode2();
@@ -109,7 +102,6 @@ var view = {
 			//인력 목록 조회
         	table1 = $('#dataTables-prjtPrsnList').dataTable();
         	table1.fnReloadAjax();
-        	
 			
 		}
 		, selectPrjtDetail : function(pPrjtCd){
@@ -234,9 +226,7 @@ var view = {
 						//"columnDefs": [ { visible: false, targets: [1]  } ],
 						"deferLoading": 0,
 						"iDisplayLength": 10,
-						// "scrollY":        "300px",
-						
-					  //      "scrollCollapse": true,
+						"columnDefs": [ { visible: false, targets: []  },{ className: "text-center", "targets": [ 0,1 ] } ],
 						"aoColumns": [
 						        { data: '' , "render": function ( data ) { return '<input type="radio" name="choice" id="choice" style="width:100%;" class="form-control" value="">';} },
 						        { data: 'prsnNo' , "render": function ( data ) { return '<input type="text" name="prsnNo" id="prsnNo" readonly="readonly" style="width:50px;" class="form-control" value="'+data+'">';} },
@@ -308,18 +298,50 @@ var view = {
 					});
 			
 			$('#dataTables-prjtPrsnList tbody').on('click', 'tr', function () {
-				
+				/*
 				if ( $(this).hasClass('selected') ) {
 		            $(this).removeClass('selected');
 		        }   else {
 		            table.$('tr.selected').removeClass('selected');
 		            $(this).addClass('selected');
 		        }
-				
+				*/
 				rowIdx = $(this).index();
 			      
 			    //alert(rowIdx);
 		    } );
+			
+			
+			$('#dataTables-prjtPrsnList tbody').on('click', 'td', function(e) {
+				console.log('aaaa')
+				if($(this).children(":first").is(':button')){
+					console.log('asdf')
+					
+					window.open(G_CONTEXT_PATH+"/web/person/personPop?prjtCd="+$("#prjtCd").val()+"&trAcctCd="+$("#trAcctCd").val(), "window", "width=1200,height=800");
+					
+					
+					//view.popEvent('a')
+					/*
+					var chk = $(this).closest("tr").find("input:radio").get(0);
+					if (e.target != chk) {
+						chk.checked = !chk.checked;
+					}
+					*/
+				}
+				
+				
+			});
+			
+		}
+		
+		
+		, popEvent : function(data) {
+			
+			console.log(rowIdx,data);
+			$('input[name="prsnNo"]').eq(rowIdx).val(data.prsnNo);
+			$('input[name="prsnNm"]').eq(rowIdx).val(data.prsnNm);
+			$('input[name="cntrctSectCdNm"]').eq(rowIdx).val(data.cntrctSectCdNm);
+			
 		}
 		, insertData : function() {
 			

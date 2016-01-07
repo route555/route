@@ -155,13 +155,18 @@ public class WebController extends BaseController {
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
 		EchoCookie echoCookie = (EchoCookie) request.getAttribute(CommonConst.COOKIE_KEY);
-
+System.out.println("###############################");
 		if (echoCookie != null) {
 			return main(request, response, model);
 		}
 		else {
 			return "index/index";
 		}
+	}
+		
+	@RequestMapping(value = "board/bugReport", method = RequestMethod.GET)
+	public String bugReport(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+		return "board/bugReport";
 	}
 	
 	@RequestMapping(value = "/main", method = RequestMethod.GET)

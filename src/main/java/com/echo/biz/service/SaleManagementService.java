@@ -10,11 +10,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.echo.biz.dao.SaleManagementDao;
-import com.echo.biz.domain.Dummy;
+import com.echo.biz.dto.AttachFileDto;
 import com.echo.biz.dto.DummyDto;
+import com.echo.biz.dto.PersonSkillDto;
+import com.echo.biz.dto.SaleDemandDto;
+import com.echo.biz.dto.SaleManagementDto;
+import com.echo.framework.domain.EchoCookie;
 import com.echo.framework.service.AbstractService;
+import com.echo.framework.util.StringUtils;
 
 @Service("SaleManagementService")
 public class SaleManagementService extends AbstractService<Object, Object> {
@@ -22,10 +29,32 @@ public class SaleManagementService extends AbstractService<Object, Object> {
 
 	@Autowired
 	private SaleManagementDao saleManagementDao;
+	
+	@Autowired
+	private SaleDemandService saleDemandService;
+	
+	
 
 	public SaleManagementService() {
 		super(Object.class, Object.class);
 	}
+	
+	@Transactional
+	public int updateSaleDemand(SaleManagementDto dto) throws Exception {
+
+		int cnt=0;
+		if(dto.getInData() != null &&  dto.getInData().size() !=0){
+			
+			for (SaleDemandDto saleDemandDto : dto.getInData()) {
+				saleDemandService.updateDto(saleDemandDto);
+				cnt++;
+			}
+			
+		}
+
+		return cnt;
+	}
+	
 	
 	
 	public Object selectListSaleManagement(Map<String, Object> param) throws Exception {

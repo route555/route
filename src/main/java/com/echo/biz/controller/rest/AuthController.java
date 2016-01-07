@@ -38,7 +38,7 @@ public class AuthController extends BaseController {
 		String redirect = request.getParameter("redirect");
 
 		if (StringUtils.isEmpty(redirect) == true) {
-			redirect = "/web/index";
+			redirect = "/api/web/index";
 		}
 
 		return "redirect:" + redirect;

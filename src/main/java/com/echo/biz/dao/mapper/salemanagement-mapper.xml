@@ -18,40 +18,13 @@
 	</select>
 	
 	<sql id="listWhere">
-	
-<!-- 		<if test="searchType == 'equal'">
-	    	<if test="grpCd != null and grpCd != ''">AND grp_cd = #{grpCd}</if>
-	    	<if test="grpCdNm != null and grpCdNm != ''">AND grp_nm = #{grpCdNm}</if>
-    	</if>
-    	<if test="searchType == 'like'">
-	    	<if test="grpCd != null and grpCd != ''">AND grp_cd LIKE CONCAT('%', #{grpCd}, '%')</if>
-	    	<if test="grpCdNm != null and grpCdNm != ''">AND grp_cd_nm LIKE CONCAT('%', #{grpCdNm}, '%')</if>
-    	</if> -->		
-	   
+		<if test="prjtNm != null and prjtNm != ''">AND C.PRJT_NM LIKE CONCAT('%', #{prjtNm}, '%')</if>
+	    <if test="trAcctNm != null and trAcctNm != ''">AND A.TR_ACCT_NM LIKE CONCAT('%', #{trAcctNm}, '%')</if>
+	    <!-- <if test="dmndYn != null and dmndYn != ''">AND M.aa = #{dmndYn}</if> -->
+	    <if test="dpstYn != null and dpstYn != ''">AND M.DPST_YN = #{dpstYn}</if>	
+	    <!-- <if test="dpstExpctDay != null and dpstExpctDay != ''">AND M.DPST_YN = #{dpstYn}</if> -->
+	    <if test="dmndCd != null and dmndCd != ''">AND M.DMND_CD = #{dmndCd}</if>	
 	</sql>
-		
-<select id="selectListSaleManagement111" parameterType="Map" resultType="tMap">
-		SELECT	/* selectListSaleManagement */
-			'1' AS cntrctCd
-			, '1' AS dmndSeqNo
-			, '1' trAcctNm /* 거래처명 */
-			, '1' prjtNm /* 프로젝트명 */
-			, '1' workStartDt /* 시작일  */
-			, '1'  workEndDt /* 종료일  */
-			, '1' dmndCd /* 청구구분 */
-			, '1' dmndDate /* 청구일자 */
-			, '1' rmlrkDesc /* 적요 */
-			, '1' examNeedYn /* 검수필요여부 */
-			, '1' examCfrmYn /* 검수확정여부 */
-			, '1' chgrNm /* 담당자 */
-			, '1' telNo /* 연락처 */ 
-			, '1' billIssueDt /* 계산서발행일 */
-			, '1' dpstExpctDayCd /* 입금예정일 */
-			, '1' dpstDt /* 입금일자 */
-			, '1' supplyAmt /* 공급가액 */
-			, '1' taxAmt /* 부가세 */
-			, '1' totalAmt  /* 합계 */
-</select>
 	
 	<select id="selectListSaleManagement" parameterType="Map" resultType="tMap">
 		SELECT	/* selectListSaleManagement */

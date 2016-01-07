@@ -31,6 +31,15 @@
 	fieldset[disabled] .form-control2 {
 	  cursor: not-allowed;
 	}
+	
+	.dataTable_wrapper table> tbody > tr > td {
+		vertical-align: middle;
+	}
+	
+	#prjtPrsnList .panel-heading{
+	 	height: 50px;
+	}
+	
 	</style>                                       
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -191,10 +200,11 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <td><b>배정인력</b>&nbsp;&nbsp;(<font color="#ff0000">*<u>계약형태가 다를면 인력관리 화면에서 동일 인력을 추가하고 계약형태를 변경하세요. MM은 거래처와 계약한 실MM을 입력.</u></font>)</td>
-                            <td style="vertical-align: text-middle;">
-                        		<button type="button" class="btn btn-success pull-right" id="btnRowAdd">추가</button>
-                            	<button type="button" class="btn btn-success pull-right" id="btnRowDel">삭제</button>
-                            </td>
+                            
+                                         <div class="fosrms-group  pull-right">
+                            <button type="button" class="btn btn-success pull-sright" id="btnRowAdd">추가</button>
+                            <button type="button" class="btn btn-success pull-sright" id="btnRowDel">삭제</button>
+                                </div>
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body"> 
@@ -262,19 +272,24 @@
                             <!-- /.col-lg-6 (nested) -->
                         </div>
                         <!-- /.row (nested) -->
+                        
+                         <div class="forms-group  pull-right">
+                              	<button type="button" class="btn btn-primary" id="btnSave">저장</button>
+                        		<button type="button" class="btn btn-warning" id="btnList">목록</button>
+                           </div>
+                        
                     </div>
                     <!-- /.panel-body -->
                 </div>
                 <!-- /.panel -->
             </div>
             <!-- /.col-lg-12 -->
+            
+            
         </div>
         <!--디테일 종료-->
-        
-            <div>
-        		<button type="button" class="btn btn-primary pull-right" id="btnSave">저장</button>
-        		<button type="button" class="btn btn-primary pull-right" id="btnList">목록</button>
-            </div>
+       
+          
          	</form>
     </div>
     <!-- /#wrapper -->

@@ -37,11 +37,77 @@ var view = {
 					if(view.sendData==''){
 						alert('인력을 선택해주세요');
 					}else{
+						view.sendData.cntrctSectCdNm = 	view.converCodeNm(view.sendData.cntrctSectCd, 'cntrctSectCd');
 						window.opener.view.popEvent(view.sendData);  
 						window.close(); 
 					}
 
 				});
+				
+				
+				$("#btnSelect1").unbind('click');
+				$("#btnSelect1").click( function() {
+					if($("#trAcctCd").val() == "" || $("#trAcctNm").val() == "") {
+						//alert("거래처선택하세요");
+						//return;
+					}
+					
+					console.log(view.sendData)
+					
+					/*
+					$(opener.document).find("#chgSeqNo1").val($("#hdnChgSeqNo").val()); //번호
+					$(opener.document).find("#chgrNm1").val($("#hdnChgrNm").val()); //담당자명
+					$(opener.document).find("#pstnNm1").val($("#hdnPstnNm").val()); //직위
+					$(opener.document).find("#telNo1").val($("#hdnTelNo").val()); //연락처
+					$(opener.document).find("#hpNo1").val($("#hdnHpNo").val()); //휴대폰번호
+					$(opener.document).find("#emailAddr1").val($("#hdnEmailAddr").val()); //이메일
+					*/
+					
+					//self.close();
+					
+					
+					/* prsnNo 
+					 * prsnNm
+					 * cntrctSectCd
+					 * 
+					 * acdmcCd: "004"
+bizRgtNo: ""
+ceoNm: "11"
+certCd: "002"
+cntrctSectCd: "003"
+hpNo: "010-2323-1232"
+juminNo1: "1"
+juminNo2: "2"
+lastWorkEndDt: "2015-12-21"
+lastWorkStartDt: "2015-12-21"
+lawBizNm: "9"
+lawRgtNo1: "12"
+lawRgtNo2: "13"
+memoDesc: "메모"
+payDayCd: ""
+prflAtchtFlNo: ""
+prsnEmailAddr: "test@echoit.co.kr"
+prsnNm: "나야나"
+prsnNo: 11
+rgtTm: "2015-12-23 11:16:17"
+rgtrId: "temp"
+rnum: 3
+rsdncAddr: "2"
+sexCd: "001"
+skillSectCd: "003,001"
+telNo: "7"
+totalWork: "3년 0개월"
+trAcctNo: "18"
+trBankNm: "17"
+trDpstrNm: ""
+uptTm: "2015-12-24 14:18:33"
+uptrId: "temp"
+workStartDt: "20130102"
+					 */
+					
+				});
+				
+				
 				$('form').find('input[type=text],textarea,select').filter(':visible:first').focus();
 								
 			}

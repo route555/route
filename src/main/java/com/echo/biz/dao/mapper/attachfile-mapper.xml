@@ -17,5 +17,19 @@
 			atcht_fl_no = #{atchtFlNo}		
 	</delete>	
 	
-	
+		<select id="selectAttachFile" parameterType="attachFile" resultType="attachFile">
+		SELECT	 /* selectAttachFile */
+			atcht_fl_no AS atchtFlNo,
+			atcht_fl_path_nm AS atchtFlPathNm,
+			atcht_fl_nm AS atchtFlNm,
+			atcht_fl_orgnl_nm AS atchtFlOrgnlNm,
+			rgt_tm AS rgtTm,
+			rgtr_id AS rgtrId,
+			upt_tm AS uptTm,
+			uptr_id AS uptrId
+		FROM
+			T_PMS005
+		WHERE 1 = 1		
+		AND	atcht_fl_no = #{atchtFlNo}
+	</select>
 </mapper>

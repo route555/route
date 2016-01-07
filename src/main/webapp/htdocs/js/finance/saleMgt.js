@@ -23,9 +23,18 @@ var view = {
 					var sendDataArray = new Array();
 					$("input:checked", view.saleMgtTable.fnGetNodes()).each(function(i){
 						 data = view.saleMgtTable.fnGetData($(this).parent().parent());
-						 sendDataArray.push(data);
 						 
+						 sendData = new Object();
 						 
+						 sendData.cntrctCd = data.cntrctCd;
+						 sendData.dmndSeqNo = data.dmndSeqNo;
+						 //sendData.billIssueYn = data.billIssueYn;
+						 sendData.billIssueDt = data.billIssueDt;
+						 //sendData.dpstYn = data.dpstYn;
+						 sendData.dpstDt = data.dpstDt;
+						 sendData.memoDesc = data.memoDesc;
+						 
+						 sendDataArray.push(sendData);
 					});
 					console.log(sendDataArray);
 					if(sendDataArray.length==0){
@@ -35,18 +44,14 @@ var view = {
 					var sendData = new Object();
 					
 					sendData.inData=sendDataArray;
-					sendData.cntrctCd='1';
-					sendData.dmndSeqNo=1;
-					sendData.billIssueDt='1';
-					
-					
+									
 					console.log(sendData);
 					view.billIssue(sendData);
 				});
 				
 				$("#btnDpst").unbind('click');
 				$("#btnDpst").click( function() {
-					view.dpst();
+					$("#btnBillIssue").trigger('click');
 				});
 			
 				$("#btnBillIssueCancel").unbind('click');
@@ -148,20 +153,38 @@ var view = {
 			, convertDateInput : function(data, name) {
 				var el='';
 				//el +='<input type="hidden" name="'+name+'Array" value="'+data+'">';
-				el +='<input type="text" class="input-sm form-control grid-mask" style="width:86px;" value="'+data+'">';
+				el +='<input type="text" class="input-sm form-control grid-mask" style="width:86px;" value="'+data+'" name="'+name+'">';
 				
 				return el;
 			}
 			, setMask : function() {
 				$('#dataTables-saleMgt .grid-mask').mask('9999-99-99' ,{completed:function(){
-					var numbers = this.val().replace(/-/g,'');
-					data = view.saleMgtTable.fnGetData($(this).parent().parent());
-					data.billIssueDt=numbers;
+					//this.get(0).setSelectionRange(0,0);
 				}});
 				
-				$("#dataTables-saleMgt .grid-mask").click( function() {			
-					this.select(); 
+				$("#dataTables-saleMgt .grid-mask").click( function() {
+					if($(this).val()=='____-__-__'){
+						$(this).val(common.getAgoDate(0,0,0));
+						this.setSelectionRange(0,0);
+						//$(this).trigger('input');
+					}
 				});
+				
+				$("#dataTables-saleMgt .grid-mask").blur( function() {
+					var numbers = $(this).val().replace(/-/g,'');
+					data = view.saleMgtTable.fnGetData($(this).parent().parent());
+					
+					//console.log($(this).get(0).name)
+					
+					if($(this).get(0).name=='billIssueDt'){
+						data.billIssueDt=numbers;
+					}else if($(this).get(0).name=='dpstDt'){
+						data.dpstDt=numbers;
+					}
+								
+				});
+				
+				
 			}
 			, selectTableData : function() {
 				var table = $('#dataTables-saleMgt').DataTable(
@@ -273,7 +296,7 @@ var view = {
 			common.ajax({
 			  			url : G_CONTEXT_PATH+"/saleMgt"
 			  			, contentType : "application/json; charset=UTF-8"
-				  		, type : "POST"
+				  		, type : "PUT"
 						, data  : serializedMyObj 
 						, success : view.modifyDataCallBack
 			});	
@@ -281,7 +304,7 @@ var view = {
 		, modifyDataCallBack : function(json){
 			try {
 				if ( json.status == 200 ) {
-					view.personTable.fnReloadAjax();
+					view.saleMgtTable.fnReloadAjax();
 				} else {
 					alert(json.msg);
 				}	

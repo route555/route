@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	#parse("common/commonScript.vm") 
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+<script type="text/javascript">
+
+		// iframe resize
+
+				function autoResize(i)
+
+					{
+
+				    var iframeHeight= (i).contentWindow.document.body.scrollHeight;
+console.log('@@',iframeHeight);
+console.log('@@',i);
+					(i).height=iframeHeight+20;
+
+					}
+function autoResize11(that) {
+that.style.height = that.contentWindow.document.body.scrollHeight;
+}
+		</script>		
+
+  <script>
+
+  
+
+      document.oncontextmenu = function (e) {
+
+      return false;
+
+  }
+
+ 
+
+  </script>
+
+
+
+            
+</head>
+
+<body>
+
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        
+		#parse("common/header.vm")
+		#parse("common/menu.vm")
+
+        </nav>     
+
+        <!-- Page Content -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">Board</h1>
+                        
+                      
+            <iframe src="http://pms.echoit.co.kr/gnuboard5/bbs/board.php?bo_table=bug" width="100%" height="500"
+          id="contentFrame"   frameborder="0" scrolling="no" onload="autoResize(this)"></iframe>
+
+
+
+
+            
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+  
+
+</body>
+
+</html>

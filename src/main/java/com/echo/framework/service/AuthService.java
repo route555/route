@@ -176,6 +176,7 @@ public class AuthService extends AbstractService<Auth, BaseDto> {
 			echoCookie = new EchoCookie(CommonConst.COOKIE_KEY, auth);
 
 			request.setAttribute(CommonConst.COOKIE_KEY, echoCookie);
+			System.out.println("!@!@!@");
 		} else if (!CookieUtil.hasCookieInRequest(request, CommonConst.COOKIE_KEY)) {
 			throw new EchoException(HttpServletResponse.SC_UNAUTHORIZED, new Object[] { "error.auth.require.signin" });
 		} else {
@@ -252,7 +253,7 @@ public class AuthService extends AbstractService<Auth, BaseDto> {
 		if (request.getHeader(X_ECHO_DEVICEID) != null) {
 			checkDeviceAuth(request);
 		} else {
-			//checkUserAuth(request, contextPath);
+			checkUserAuth(request, contextPath);
 		}
 	}
 

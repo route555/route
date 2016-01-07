@@ -16,107 +16,127 @@
                         
                         
                         <li>
-                            <a href="/${contextPath}/web/sample/index"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a href="/${apiPath}/web/main"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         
-                                         
+                        <li>
+                            <a href="/${apiPath}/web/tracctmgt/tracctmgt"><i class="fa fa-thumbs-up fa-fw"></i> 거래처관리</a>
+                        </li>                     
                         
                         <li>
-                            <a href="/${contextPath}/web/person/person"><i class="fa fa-user fa-fw"></i> 인력관리</a>
+                            <a href="/${apiPath}/web/person/person"><i class="fa fa-user fa-fw"></i> 인력관리</a>
                         </li> 
+                        
+                        <li>
+                            <a href="/${apiPath}/web/prjtmgt/prjtmgt"><i class="fa  fa-folder-open fa-fw"></i> 프로젝트관리</a>
+                        </li> 
+                        
+                        
+                         <li>
+                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> 계약관리<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="/${apiPath}/web/cntrctmgt/salescntrctmgt"> 매출계약관리</a>
+                                </li>
+                                <li>
+                                    <a href="/${apiPath}/web/cntrctmgt/ordercntrctmgt"> 매입계약관리</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>  
+                        
+                        
+                         <li>
+                            <a href="#"><i class="fa fa-won fa-fw"></i> 재무관리<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="/${apiPath}/web/finance/saleMgt"> 매출관리</a>
+                                </li>
+                                <li>
+                                    <a href="/${apiPath}/web/finance/purchaseMgt"> 매입관리</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li> 
+                        
+                    
+                        
                         
                         <li>
                             <a href="#"><i class="fa fa-wrench fa-fw"></i> 시스템관리<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="/${contextPath}/web/system/commonCode">공통코드관리</a>
+                                    <a href="/${apiPath}/web/system/commonCode">공통코드관리</a>
                                 </li>
                                 <li>
-                                    <a href="/${contextPath}/web/system/user">유저관리</a>
+                                    <a href="/${apiPath}/web/system/user">유저관리</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         
-                        <li>
-                            <a href="/${contextPath}/web/finance/saleMgt"><i class="fa fa-won fa-fw"></i> 매출관리</a>
+                      
+                      
+                      
+                      
+                      <li>
+                            <a href="/${apiPath}/web/board/bugReport"><i class="fa fa-codepen fa-fw"></i> 버그리포트</a>
                         </li> 
-                  
+                      
+                      
+                      
+                        <!-- 
                        <li>
-                            <a href="/${contextPath}/web/sample/human"><i class="fa fa-codepen fa-fw"></i> Sample</a>
+                            <a href="/${apiPath}/web/sample/human"><i class="fa fa-codepen fa-fw"></i> Sample</a>
                         </li>   
                         
-                         <li>
-                            <a href="/${contextPath}/web/tracctmgt/tracctmgt"><i class="fa fa-user fa-fw"></i> 거래처관리</a>
-                        </li>                  
-                                                
-                        <li>
-                            <a href="/${contextPath}/web/prjtmgt/prjtmgt"><i class="fa fa-user fa-fw"></i> 프로젝트관리</a>
-                        </li> 
-  
-  						 <li>
-                            <a href="#"><i class="fa fa-wrench fa-fw"></i> 계약관리<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="/${contextPath}/web/cntrctmgt/salescntrctmgt"><i class="fa fa-user fa-fw"></i> 매출계약관리</a>
-                                </li>
-                                <li>
-                                    <a href="/${contextPath}/web/cntrctmgt/ordercntrctmgt"><i class="fa fa-user fa-fw"></i> 매입계약관리</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>  
-  
-  
-                     
+                           
                         <li>
                             <a href="#"><i class="fa fa-linux fa-fw"></i> UI Elements<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="/${contextPath}/web/sample/panels-wells">Panels and Wells</a>
+                                    <a href="/${apiPath}/web/sample/panels-wells">Panels and Wells</a>
                                 </li>
                                 <li>
-                                    <a href="/${contextPath}/web/sample/buttons">Buttons</a>
+                                    <a href="/${apiPath}/web/sample/buttons">Buttons</a>
                                 </li>
                                 <li>
-                                    <a href="/${contextPath}/web/sample/notifications">Notifications</a>
+                                    <a href="/${apiPath}/web/sample/notifications">Notifications</a>
                                 </li>
                                 <li>
-                                    <a href="/${contextPath}/web/sample/typography">Typography</a>
+                                    <a href="/${apiPath}/web/sample/typography">Typography</a>
                                 </li>
                                 <li>
-                                    <a href="/${contextPath}/web/sample/icons"> Icons</a>
+                                    <a href="/${apiPath}/web/sample/icons"> Icons</a>
                                 </li>
                                 <li>
-                                    <a href="/${contextPath}/web/sample/grid">Grid</a>
+                                    <a href="/${apiPath}/web/sample/grid">Grid</a>
                                 </li>
                                 <li>
-                                    <a href="/${contextPath}/web/sample/blank">Blank Page</a>
+                                    <a href="/${apiPath}/web/sample/blank">Blank Page</a>
                                 </li>
                                 <li>
-                                    <a href="/${contextPath}/web/sample/login">Login Page</a>
+                                    <a href="/${apiPath}/web/sample/login">Login Page</a>
                                 </li>
                                 <li>
-                                    <a href="/${contextPath}/web/sample/tables">Tables</a>
+                                    <a href="/${apiPath}/web/sample/tables">Tables</a>
                                 </li>
                                 <li>
-                                    <a href="/${contextPath}/web/sample/forms">Forms</a>
+                                    <a href="/${apiPath}/web/sample/forms">Forms</a>
                                 </li>
                             </ul>
-                            <!-- /.nav-second-level -->
+                          
                         </li>
-                        
-                                              <li>
+                         <li>
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="/${contextPath}/web/sample/flot">Flot Charts</a>
+                                    <a href="/${apiPath}/web/sample/flot">Flot Charts</a>
                                 </li>
                                 <li>
-                                    <a href="/${contextPath}/web/sample/morris">Morris.js Charts</a>
+                                    <a href="/${apiPath}/web/sample/morris">Morris.js Charts</a>
                                 </li>
                             </ul>
-                            <!-- /.nav-second-level -->
                         </li>
                         
                         <li>
@@ -144,12 +164,10 @@
                                             <a href="#">Third Level Item</a>
                                         </li>
                                     </ul>
-                                    <!-- /.nav-third-level -->
                                 </li>
                             </ul>
-                            <!-- /.nav-second-level -->
                         </li>
-                        
+                         -->
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->

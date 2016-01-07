@@ -17,12 +17,20 @@
 				$("#btnSubmit").click( function() {
 					login.loginEvent();
 				});
+				
+				$('input').keypress(function(e) {
+				    if (e.keyCode == 13){			    	
+				    	$("#btnSubmit").click();
+						return false;
+				    }         
+				});
+				
 			}
 			
 			, loginEvent : function(){
 				var reqData = $('form[name="f"]').serializeArray();
 				common.ajax({
-					  		url:"/${contextPath}/auth/login"
+					  		url:"/${apiPath}/auth/login"
 					  		, type : "POST" 
 							, data  : reqData 
 							, success : login.loginEventCallBack
@@ -31,7 +39,7 @@
 			
 			, loginEventCallBack : function(json) {
 				if ( json.status == 200 ) {
-					location.href =  '/${contextPath}/web/main';
+					location.href =  '/${apiPath}/web/main';
 				}
 				else {
 					alert(json.msg);
@@ -63,11 +71,13 @@
                                 <div class="form-group">
                                     <input class="form-control" placeholder="Password" name="loginPw" type="password" value="">
                                 </div>
-                                <div class="checkbox">
+                                
+                                <!--<div class="checkbox">
                                     <label>
                                         <input name="remember" type="checkbox" value="Remember Me">Remember Me
                                     </label>
-                                </div>
+                                </div>-->
+                                
                                 <!-- Change this to a button or input when using this as a form -->
                                 <button type="button" id = "btnSubmit" class="btn btn-lg btn-success btn-block">Login</a>
                             </fieldset>

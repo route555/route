@@ -11,6 +11,7 @@
 <meta content="" name="author"/>
 
 #set($contextPath = ${propsUtil.getValue("context.web.path")})
+#set($apiPath = ${propsUtil.getValue("context.api.path")})
 #set($loginId = "$!{signage.getValue('loginId')}")
 #set($rightsType = "$!{signage.getValue('rightsType')}")
 #set($businessId = "$!{signage.getValue('businessId')}")
@@ -78,7 +79,7 @@
 
 <script src="/${contextPath}/assets/mask/jquery.maskedinput.min.js"></script>
    <script type="text/javascript">
-		var G_CONTEXT_PATH = "/${contextPath}";
+		var G_CONTEXT_PATH = "/${apiPath}";
    </script>
 
    	<script src="https://cdn.datatables.net/buttons/1.1.0/js/dataTables.buttons.min.js"></script>
@@ -111,4 +112,5 @@
    	 background-color: rgba(255,255,255,0.9);
 	}
 
+	
 	</style>

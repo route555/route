@@ -54,7 +54,7 @@
                                             <td width="35%"><input type="text" class="input-sm form-control" placeholder="" name="trAcctNm"></td>
                                         </tr>
                                         <tr>
-                                            <th width="15%">청구여부</th>
+                                            <th width="15%">청구여부(작동안함-협의)</th>
                                             <td width="35%">
                                             	<label class="radio-inline"><input type="radio" name="dmndYn" value="">전체</label>
                                             	<label class="radio-inline"><input type="radio" name="dmndYn" value="Y">Yes</label>
@@ -68,7 +68,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th width="15%">입금예정일</th>
+                                            <th width="15%">입금예정일(작동안함-협의)</th>
                                             <td width="35%">
 											<input type="hidden" id="dpstExpctDay" name="dpstExpctDay">
                                             <input type="text" class="input-sm form-control" placeholder="" id="dpstExpctDayView"></td>

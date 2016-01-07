@@ -1,2 +1,2 @@
 <%@ page contentType="text/html; charset=utf-8" %> 
-<jsp:forward page="/web/index" />
+<jsp:forward page="/api/web/index" />

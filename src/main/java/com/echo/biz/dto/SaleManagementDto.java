@@ -14,13 +14,13 @@ public class SaleManagementDto extends BasePmsDto {
 	private Integer dmndSeqNo;
 	private String billIssueDt;
 	
-	private List<TestDto> inData = new ArrayList<TestDto>();
+	private List<SaleDemandDto> inData = new ArrayList<SaleDemandDto>();
 
-	public List<TestDto> getInData() {
+	public List<SaleDemandDto> getInData() {
 		return inData;
 	}
 
-	public void setInData(List<TestDto> inData) {
+	public void setInData(List<SaleDemandDto> inData) {
 		this.inData = inData;
 	}
 

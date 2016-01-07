@@ -34,7 +34,7 @@ abstract public class BaseInterceptor implements HandlerInterceptor {
 	protected static Set<String> URI_STATIC_RESOURCE_REGEX = new HashSet<String>();
 
 	private static String CONTEXT_WEB_PREFIX = "web";
-	private static String INDEX = "/web/index";
+	private static String INDEX = "/api/web/index";
 	private static String REGEX_LOGOUT = ".*logout.*";
 
 	@Autowired

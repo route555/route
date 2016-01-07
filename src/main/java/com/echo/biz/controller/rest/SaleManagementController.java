@@ -54,15 +54,12 @@ public class SaleManagementController extends BaseController {
 	@RequestMapping(method = RequestMethod.PUT)
 	public Model update(HttpServletRequest request, HttpServletResponse response, Model model, @RequestBody SaleManagementDto dto) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
-		//'1' AS cntrctCd
-		//, '1' AS dmndSeqNo
-		//setReqUserIdAndUpdUserId(request, dto);
+		setReqUserIdAndUpdUserId(request, dto);
 
 		log.debug("@@##" + dto);
-		//dto.setDtlCd(dtlCd);
-
+		
 		//result.put("dtlCd", dtlCd);
-		//result.put("updCnt", detailCodeService.updateDto(dto));
+		result.put("updCnt", saleManagementService.updateSaleDemand(dto));
 
 		model.addAttribute("resultData", result);
 

@@ -1,7 +1,9 @@
 var trAcctCd;
 var chgrSectCdList;
 
-var view = {		
+var view = {
+		codeDatas : '',	
+		codeMap : {"chgrSectCd":"001","dpstExpctDayCd":"015"},	//담당유형코드, 입급예정일코드
 		onLoadEvent : function() {
 		
 		$("#btnSearch").unbind('click');
@@ -10,6 +12,21 @@ var view = {
 			table.fnReloadAjax();
 		});
 
+		$("#btnSearchInit").unbind('click');
+		$("#btnSearchInit").click( function() {	
+			$('form[name="sf"]').each(function() {
+				this.reset();  
+			}); 
+		});
+		
+		$('#sf input').keypress(function(e) {
+		    if (e.keyCode == 13){			    	
+		    	$("#btnSearch").click();
+				return false;
+		    }         
+		});
+
+		
 		$("#btnSave").unbind('click');
 		$("#btnSave").click( function() {
 			
@@ -50,13 +67,7 @@ var view = {
 			}
 			view.deleteData();
 		});
-		
-		$("#btnNew").unbind('click');
-		$("#btnNew").click( function() {			
-			view.initDetail();
-			//$("#detail").show();
-			//$("#tracctChgrList").show();
-		});
+
 		
 		$("#btnRowAdd").click( function() {
 			var $obj = $("input[name='choice']");
@@ -66,7 +77,7 @@ var view = {
 			}
 			
 			var html = "";
-			html += '<tr><td><input type="radio" name="choice" id="choice" class="form-control" style="width:100%;" value=""/></td>';
+			html += '<tr><td><input type="radio" name="choice" id="choice"  style="width:100%;" value=""/></td>';
 			html +=  '<td><select name="chgSectCd" id="chgSectCd" class="form-control" style="width:100%;"><option value="">선택</option>';
         	
         	for (var i=0; i<chgrSectCdList.length; i++) {
@@ -81,6 +92,8 @@ var view = {
 			
 			//alert(html);
 			$('#dataTables-tracctChgrList > tbody:last').append(html);
+			
+			//$('#dataTables-tracctChgrList').dataTable().fnUpdate(  );
 		});
 
 		$("#btnRowDel").click( function() {
@@ -94,22 +107,72 @@ var view = {
 			}
 		});
 		
-		view.selectTableData();
-		view.selectTracctChgrList();
-		view.selectCommonCode();
-		view.selectCommonCode2();
+		view.selectCommonCodes();
 		
-
 		
 		}
-		, selectCommonCode : function() {			
+		, onLoadForAsync : function() {
+			$.fn.dataTable.ext.buttons.newTracct = {
+				    text: '신규등록',
+				    action: function ( e, dt, node, config ) {	
+				    	$("#detail").show(0, view.initDetail);
+				    }
+				};
+			view.selectTableData();
+			view.selectTracctChgrList();
+			
+			
+		}
+		, selectCommonCodes : function() {
+			var reqData = new Object();
+			var array = [];
+			$.each(view.codeMap, function(k, v) {
+				array.push(v);
+			});
+			reqData.codes=array.toString();
+			common.ajax({
+				  		url : G_CONTEXT_PATH+"/multiCodes"
+				  		, data : reqData
+				  		, type : "GET"
+						, success : view.selectCommonCodesCallBack
+			});
+		}
+		, selectCommonCodesCallBack : function(json) {
+			//codeMap : {"chgrSectCd":"001","dpstExpctDayCd":"015"},	//담당유형코드, 입급예정일코드
+			view.codeDatas=json;
+			
+			$.each(view.codeMap, function(key, value) {
+				if(key=='chgrSectCd'){
+					chgrSectCdList = new Array();	
+					
+					$(view.codeDatas[value]).each(function(i, itm){	
+						var array = new Array();
+						array.push(itm.dtlCd);
+						array.push(itm.dtlCdNm);
+						chgrSectCdList.push(array);
+					});						
+					
+				} else if(key=='dpstExpctDayCd'){
+					var el = '';			
+					$(view.codeDatas[value]).each(function(i, itm){			
+						el += '<option value="' + itm.dtlCd + '">' + itm.dtlCdNm + '</option>';
+						//console.log(el);
+					});
+					$("#dpstExpctDayDesc").append(el);
+					$("select:eq(0) option:eq(0)").attr("selected", "selected");
+					$("select:eq(0) option:eq(0)").trigger('change');	
+				} 
+			});
+			view.onLoadForAsync();
+		}
+		, selectCommonCode1 : function() {			
 			common.ajax({
 				  		url : G_CONTEXT_PATH+"/codes/001"
 				  		, type : "GET"
 						, success : view.selectCommonCodeCallBack
 			});
 		}
-		, selectCommonCodeCallBack : function(json) {
+		, selectCommonCodeCallBack1 : function(json) {
 			chgrSectCdList = new Array();
 			$(json.list).each(function(i, itm){				
 				var array = new Array();
@@ -139,6 +202,8 @@ var view = {
 		, selectTableData : function() {
 			var table = $('#dataTables-tracctList').DataTable(
 					{
+						dom: 'lBfrtip',
+						buttons: [{extend: 'colvis', postfixButtons: [ 'colvisRestore' ]} , 'newTracct' ],	
 						"processing" : true,
 						"serverSide" : true,
 						"bFilter": false,
@@ -163,6 +228,7 @@ var view = {
 						"fnServerData" : function(sSource, aoData, fnCallback,	oSettings) {
 							//$("#detail").hide();
 							//$("#tracctChgrList").hide();
+							$("#detail").hide(0, view.initDetail);
 							aoData.push({
 								"name" : "srchTrAcctNm",
 								"value" :  $("#srchTrAcctNm").val()
@@ -243,7 +309,7 @@ var view = {
 			});
 			
 			
-			//$("#detail").show();
+			$("#detail").show();
 			//$("#tracctChgrList").show();
 			
 		}
@@ -257,18 +323,17 @@ var view = {
 						"autoWidth": true,
 						"ordering": false,
 						"paging": false,
-						"columnDefs": [ { visible: false, targets: [0]  } ],
+						"columnDefs": [ { visible: false, targets: [0]  },{ className: "text-center", "targets": [ 0,1 ] } ],
 						"deferLoading": 0,
 						"iDisplayLength": 10,
 						// "scrollY":        "300px",
-						
 					  //      "scrollCollapse": true,
 						"aoColumns": [
 						        { data: 'chgrSeqNo' , "render": function ( data ) { return '<input type="text" name="chgrSeqNo" id="chgrSeqNo" readonly="readonly" value="'+data+'">';} },
-						        { data: '' , "render": function ( data ) { return '<input type="radio" name="choice" id="choice" class="form-control" style="width:100%;" value="">';} },
+						        { data: '' , "render": function ( data ) { return '<input type="radio" name="choice" id="choice" style="width:50%;" value="">';} },
 						        { data: 'chgSectCd' , "render": function ( data,  code) {
 						        	//console.log(chgrSectCdList);
-						        	html =  '<select name="chgSectCd" id="chgSectCd" class="form-control" style="width:100%;"><option value="">선택</option>';
+						        	html =  '<select name="chgSectCd" id="chgSectCd" class="form-control" style="width:100px;"><option value="">선택</option>';
 						        	
 						        	for (var i=0; i<chgrSectCdList.length; i++) {
 						        		var val = chgrSectCdList[i];
@@ -315,16 +380,30 @@ var view = {
 					});
 			
 			$('#dataTables-tracctChgrList tbody').on('click', 'tr', function () {
-				
+				/*
 				if ( $(this).hasClass('selected') ) {
 		            $(this).removeClass('selected');
 		        }   else {
 		            table.$('tr.selected').removeClass('selected');
 		            $(this).addClass('selected');
 		        }
+		        */
 				
 		   
 		    } );
+			
+			$('#dataTables-tracctChgrList tbody').on('click', 'td', function(e) {
+				
+				if($(this).children(":first").is(':radio')){
+					var chk = $(this).closest("tr").find("input:radio").get(0);
+					if (e.target != chk) {
+						chk.checked = !chk.checked;
+					}
+				}
+				
+				
+			});
+			
 		}
 		, insertData : function() {
 			
@@ -349,6 +428,8 @@ var view = {
 				
 				//담당자 목록 조회
 	        	trAcctCd = "";
+	        	
+	        	
 	        	var table1 = $('#dataTables-tracctChgrList').dataTable();
 	        	table1.fnReloadAjax();
 			}
