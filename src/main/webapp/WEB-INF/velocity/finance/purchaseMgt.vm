@@ -74,8 +74,8 @@
                                         <tr>
                                             <th width="15%">지급일</th>
                                             <td width="35%">
-											<input type="hidden" id="dpstPrcsDt" name="dpstPrcsDt">
-                                            <input type="text" class="input-sm form-control" placeholder="" id="dpstPrcsDtView"></td>
+											<input type="hidden" id="dpstPrcsDt1" name="dpstPrcsDt1">
+                                            <input type="text" class="input-sm form-control" name="dpstPrcsDt" placeholder="" id="dpstPrcsDtView"></td>
                                             <th width="15%"></th>
                                             <td width="35%"></td>
                                         </tr>
