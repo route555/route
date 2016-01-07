@@ -49,33 +49,33 @@
                                             <th width="15%">프로젝트명</th>
                                             <td width="35%"><input type="text" class="input-sm form-control" placeholder="" name="prjtNm"></td>
                                             <th width="15%">계약자명</th>
-                                            <td width="35%"><input type="text" class="input-sm form-control" placeholder="" name="trAcctNm"></td>
+                                            <td width="35%"><input type="text" class="input-sm form-control" placeholder="" name="prsnNm"></td>
                                         </tr>
                                         <tr>
                                             <th width="15%">계산서발행여부</th>
                                             <td width="35%">
-                                            	<label class="radio-inline"><input type="radio" name="dmndYn" value="">전체</label>
-                                            	<label class="radio-inline"><input type="radio" name="dmndYn" value="Y">Yes</label>
-                                            	<label class="radio-inline"><input type="radio" name="dmndYn" value="N">No</label>
+                                            	<label class="radio-inline"><input type="radio" name="billIssueYn" value="">All</label>
+                                            	<label class="radio-inline"><input type="radio" name="billIssueYn" value="Y">Yes</label>
+                                            	<label class="radio-inline"><input type="radio" name="billIssueYn" value="N">No</label>
                                             </td>
                                             <th width="15%">지급여부</th>
                                             <td width="35%">
-                                            	<label class="radio-inline"><input type="radio" name="dpstYn" value="">전체</label>
+                                            	<label class="radio-inline"><input type="radio" name="dpstYn" value="">All</label>
                                             	<label class="radio-inline"><input type="radio" name="dpstYn" value="Y">Yes</label>
                                             	<label class="radio-inline"><input type="radio" name="dpstYn" value="N">No</label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th width="15%">계약형태</th>
-                                            <td width="35%"><select class="input-sm form-control selectWidth" style="width:auto;" id="dmndCdSf" name="dmndCd"/></td>
+                                            <td width="35%"><select class="input-sm form-control selectWidth" style="width:auto;" id="cntrctSectCdSf" name="cntrctSectCd"/></td>
                                             <th width="15%">지급구분</th>
-                                            <td width="35%"><select class="input-sm form-control selectWidth" style="width:auto;" id="dmndCdSf" name="dmndCd"/></td>
+                                            <td width="35%"><select class="input-sm form-control selectWidth" style="width:auto;" id="dpstCdSf" name="dpstCd"/></td>
                                         </tr>
                                         <tr>
                                             <th width="15%">지급일</th>
                                             <td width="35%">
-											<input type="hidden" id="dpstExpctDay" name="dpstExpctDay">
-                                            <input type="text" class="input-sm form-control" placeholder="" id="dpstExpctDayView"></td>
+											<input type="hidden" id="dpstPrcsDt" name="dpstPrcsDt">
+                                            <input type="text" class="input-sm form-control" placeholder="" id="dpstPrcsDtView"></td>
                                             <th width="15%"></th>
                                             <td width="35%"></td>
                                         </tr>

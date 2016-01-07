@@ -18,16 +18,13 @@
 	</select>
 	
 	<sql id="listWhere">
-	
-<!-- 		<if test="searchType == 'equal'">
-	    	<if test="grpCd != null and grpCd != ''">AND grp_cd = #{grpCd}</if>
-	    	<if test="grpCdNm != null and grpCdNm != ''">AND grp_nm = #{grpCdNm}</if>
-    	</if>
-    	<if test="searchType == 'like'">
-	    	<if test="grpCd != null and grpCd != ''">AND grp_cd LIKE CONCAT('%', #{grpCd}, '%')</if>
-	    	<if test="grpCdNm != null and grpCdNm != ''">AND grp_cd_nm LIKE CONCAT('%', #{grpCdNm}, '%')</if>
-    	</if> -->		
-	   
+		<if test="prjtNm != null and prjtNm != ''">AND C.PRJT_NM LIKE CONCAT('%', #{prjtNm}, '%')</if>
+	    <if test="prsnNm != null and prsnNm != ''">AND A.PRSN_NM LIKE CONCAT('%', #{prsnNm}, '%')</if>
+	    <if test="billIssueYn != null and billIssueYn != ''">AND M.BILL_ISSUE_YN = #{billIssueYn}</if>
+	    <if test="dpstYn != null and dpstYn != ''">AND M.DPST_YN = #{dpstYn}</if>	
+	    <if test="dpstCd != null and dpstCd != ''">AND M.DPST_CD = #{dpstCd}</if>
+	    <if test="cntrctSectCd != null and cntrctSectCd != ''">AND A.CNTRCT_SECT_CD = #{cntrctSectCd}</if>
+	    <!-- <if test="dpstExpctDay != null and dpstExpctDay != ''">AND M.DPST_YN = #{dpstYn}</if> -->	
 	</sql>
 	
 	<select id="selectListPurchaseManagement" parameterType="Map" resultType="tMap">

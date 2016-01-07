@@ -124,17 +124,27 @@ var view = {
 				});
 			}
 			, selectCommonCodesCallBack : function(json) {
-				//{"dmndCd":"016"},	//청구구분
+				//codeMap : {"cntrctSectCd":"004", "payDayCd":"015", "dpstCd":"016"},	//계약형태코드, 입급일코드, 지급구분
 				view.codeDatas=json;
 				
 				$.each(view.codeMap, function(key, value) {
-					if(key=='dmndCd'){
-						var el = '<option value="">전체</option>';			
+					if(key=='cntrctSectCd'){
+						var el = '';			
 						$(view.codeDatas[value]).each(function(i, itm){	
 							el += '<option value="' + itm.dtlCd + '">' + itm.dtlCdNm + '</option>';
 						});						
-						$("#dmndCdSf").append(el);
-					} 
+						$("#cntrctSectCdSf").append(el);
+						var newEl = '<option value="">전체</option>';
+						$("#cntrctSectCdSf").prepend(newEl);
+					} else if(key=='dpstCd'){
+						var el = '';			
+						$(view.codeDatas[value]).each(function(i, itm){	
+							el += '<option value="' + itm.dtlCd + '">' + itm.dtlCdNm + '</option>';
+						});						
+						$("#dpstCdSf").append(el);
+						var newEl = '<option value="">전체</option>';
+						$("#dpstCdSf").prepend(newEl);
+					}
 				});
 				view.onLoadForAsync();
 			}
