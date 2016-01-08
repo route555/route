@@ -18,9 +18,11 @@ var view = {
 				
 				var html = "";
 				html += '<tr><td><input type="radio" name="choice" id="choice" style="width:100%;" value=""/></td>';
-				html += '<td><input type="text" name="prsnNo" id="prsnNo" readonly="readonly" style="width:50px;" class="form-control" value=""/></td>';
+				html += '<td><input type="text" name="prsnNo" id="prsnNo" readonly="readonly" style="width:50px;" class="form-control text-center" value=""/></td>';
 				html +=  '<td><select name="dstrbtSectCd" id="dstrbtSectCd" class="form-control" style="width:120px;"><option value="">선택</option>';
 	        	
+				
+				
 	        	for (var i=0; i<dstrbtSectCdList.length; i++) {
 	        		var val = dstrbtSectCdList[i];
 	        		 //console.log(chgrSectCdList[0][i]);
@@ -226,9 +228,9 @@ var view = {
 						//"columnDefs": [ { visible: false, targets: [1]  } ],
 						"deferLoading": 0,
 						"iDisplayLength": 10,
-						"columnDefs": [ { visible: false, targets: []  },{ className: "text-center", "targets": [ 0,1 ] } ],
+						"columnDefs": [ { visible: false, targets: []  },{ className: "text-center", "targets": [ 0 ] } ],
 						"aoColumns": [
-						        { data: '' , "render": function ( data ) { return '<input type="radio" name="choice" id="choice" style="width:100%;" class="form-control" value="">';} },
+						        { data: '' , "render": function ( data ) { return '<input type="radio" name="choice" id="choice" style="width:100%;" class="" value="">';} },
 						        { data: 'prsnNo' , "render": function ( data ) { return '<input type="text" name="prsnNo" id="prsnNo" readonly="readonly" style="width:50px;" class="form-control" value="'+data+'">';} },
 						        { data: 'dstrbtSectCd' , "render": function ( data,  code) {
 						        	//console.log(dstrbtSectCdList);
@@ -245,7 +247,7 @@ var view = {
 						        	
 						        	return html;
 						        } },
-						        { data: 'prsnNm' , "render": function ( data ) { return '<input type="input" name="prsnNm" id="prsnNm" class="form-control" style="width:60px;" readonly="readonly" value="'+data+'">';} },
+						        { data: 'prsnNm' , "render": function ( data ) { return '<input type="input" name="prsnNm" id="prsnNm" class="form-control" style="width:100%;" readonly="readonly" value="'+data+'">';} },
 						        { data: 'cntrctSectCdNm' , "render": function ( data ) { return '<input type="input" name="cntrctSectCdNm" id="cntrctSectCdNm" style="width:100%;" class="form-control" readonly="readonly" value="'+data+'">';} },
 						        { data: 'skillSectCd' , "render": function ( data,  code) {
 						        	//console.log(skillSectCdList);
@@ -381,7 +383,8 @@ function fnCalMm() {
 	var eDate;
 	
 	//alert($("#f select[name='dstrbtSectCd']").eq(rowIdx).val());
-	
+	//console.log($("#f select[name='dstrbtSectCd']"));
+	//console.log(rowIdx);
 	if($("#f select[name='dstrbtSectCd']").eq(rowIdx).val() != "001") {
 		return;
 	}
