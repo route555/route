@@ -88,7 +88,7 @@ var view = {
 			}
 			
 			var html = "";
-			html += '<tr><td><input type="radio" name="choice" id="choice" class="form-control" style="width:100%;" value=""/></td>';
+			html += '<tr><td><input type="radio" name="choice" id="choice" class="" style="width:100%;" value=""/></td>';
 			html += '<td><input type="text" name="dmndDate" id="dmndDate" style="width:100%;" class="form-control" maxlength="8" numberonly="true" value=""/></td>';
 			html +=  '<td><select name="dmndCd" id="dmndCd" class="form-control" style="width:100%;"><option value="">선택</option>';
         	for (var i=0; i<dmndCdList.length; i++) {
@@ -356,7 +356,7 @@ var view = {
 						
 					  //      "scrollCollapse": true,
 						"aoColumns": [
-						        { data: '' , "render": function ( data ) { return '<input type="radio" name="choice" id="choice" style="width:100%;" class="form-control" value="">';} },
+						        { data: '' , "render": function ( data ) { return '<input type="radio" name="choice" id="choice" style="width:100%;" class="" value="">';} },
 						        { data: 'dmndDate' , "render": function ( data ) { return '<input type="text" name="dmndDate" id="dmndDate" class="form-control" style="width:100%;" maxlength="8" numberonly="true" value="'+data+'">';} },
 						        { data: 'dmndCd' , "render": function ( data,  code) {
 						        	//console.log(dmndCdList);
@@ -421,22 +421,11 @@ var view = {
 					});
 			
 			$('#dataTables-salesDmndList tbody').on('click', 'tr', function () {
-				
-				if ( $(this).hasClass('selected') ) {
-		            $(this).removeClass('selected');
-		        }   else {
-		            table.$('tr.selected').removeClass('selected');
-		            $(this).addClass('selected');
-		        }
-				
 				rowIdx = $(this).index();
-				
 				fnCtrlExamCfrmYn();
-			      
 				//청구처리건 비활성화 처리
 				if($("#f input[name='dpstYn']").eq(rowIdx).val() == "Y") {
 					alert("청구처리 건은 수정/삭제할 수 없습니다.");
-
 					$("input[name=choice]").eq(rowIdx).attr("disabled", true);  
 					$("#f input[name='dmndDate']").eq(rowIdx).attr('disabled', 'disabled');
 					$("#f select[name='dmndCd']").eq(rowIdx).attr('disabled', 'disabled');
@@ -449,6 +438,18 @@ var view = {
 					$("#f input[name='memoDesc']").eq(rowIdx).attr('disabled', 'disabled');
 				}
 		    } );
+			
+			$('#dataTables-salesDmndList tbody').on('click', 'td', function(e) {
+				
+				if($(this).children(":first").is(':radio')){
+					var chk = $(this).closest("tr").find("input:radio").get(0);
+					if (e.target != chk) {
+						chk.checked = !chk.checked;
+					}
+				}
+				
+				
+			});
 		}
 		
 		, insertData : function() {

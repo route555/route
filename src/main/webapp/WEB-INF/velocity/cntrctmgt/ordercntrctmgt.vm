@@ -40,6 +40,14 @@
 	.a-right {
 		text-align: right;
 	}
+	
+	.dataTable_wrapper table> tbody > tr > td {
+		vertical-align: middle;
+	}
+	
+	#prjtPrsnList .panel-heading{
+	 	height: 50px;
+	}	
 	</style>                                       
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -221,8 +229,10 @@
                         <div class="panel-heading">
                             <td><b>지급정보</b>&nbsp;&nbsp;(<font color="#ff0000">*<u>처리여부가 'Y'인 건은 삭제 불가. 매입관리 화면에서 지급처리 하였음.용역비만 부가세 10% 자동계산함.</u></font>)</td>
                             <td style="vertical-align: text-middle;">
-                        		<button type="button" class="btn btn-success pull-right" id="btnRowAdd">추가</button>
-                            	<button type="button" class="btn btn-success pull-right" id="btnRowDel">삭제</button>
+                        		  <div class="fosrms-group  pull-right">
+                            <button type="button" class="btn btn-success pull-sright" id="btnRowAdd">추가</button>
+                            <button type="button" class="btn btn-success pull-sright" id="btnRowDel">삭제</button>
+                                </div>
                             </td>
                         </div>
                         <!-- /.panel-heading -->

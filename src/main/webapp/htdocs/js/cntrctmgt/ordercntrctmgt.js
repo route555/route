@@ -78,7 +78,7 @@ var view = {
 			}
 			
 			var html = "";
-			html += '<tr><td><input type="radio" name="choice" id="choice" class="form-control" style="width:100%;" value=""/></td>';
+			html += '<tr><td><input type="radio" name="choice" id="choice" class="" style="width:100%;" value=""/></td>';
 			html += '<td><input type="text" name="dpstDt" id="dpstDt" style="width:100%;" class="form-control" maxlength="8" numberonly="true" value=""/></td>';
 			html +=  '<td><select name="dpstCd" id="dpstCd" class="form-control" style="width:100%;"><option value="">선택</option>';
         	for (var i=0; i<dpstCdList.length; i++) {
@@ -390,7 +390,7 @@ var view = {
 						
 					  //      "scrollCollapse": true,
 						"aoColumns": [
-						        { data: '' , "render": function ( data ) { return '<input type="radio" name="choice" id="choice" style="width:100%;" class="form-control" value="">';} },
+						        { data: '' , "render": function ( data ) { return '<input type="radio" name="choice" id="choice" style="width:100%;" class="" value="">';} },
 						        { data: 'dpstDt' , "render": function ( data ) { return '<input type="text" name="dpstDt" id="dpstDt" class="form-control" style="width:100%;" maxlength="8" numberonly="true" value="'+data+'">';} },
 						        { data: 'dsptCd' , "render": function ( data,  code) {
 						        	//console.log(dpstCdList);
@@ -472,6 +472,18 @@ var view = {
 				}
 			    
 		    } );
+			
+			$('#dataTables-orderDpstList tbody').on('click', 'td', function(e) {
+				
+				if($(this).children(":first").is(':radio')){
+					var chk = $(this).closest("tr").find("input:radio").get(0);
+					if (e.target != chk) {
+						chk.checked = !chk.checked;
+					}
+				}
+				
+				
+			});
 		}
 		
 		, insertData : function() {
