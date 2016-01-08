@@ -248,7 +248,7 @@
 	</dependencies>
 
 	<build>
-	<finalName>www</finalName>
+		<finalName>www</finalName>
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -284,6 +284,8 @@
 						</includes>
 					</configuration>
 				</plugin>
+				
+				<!-- 
 				<plugin>
 					<artifactId>maven-war-plugin</artifactId>
 					<version>2.4</version>
@@ -298,6 +300,11 @@
 						</execution>
 					</executions>
 				</plugin>
+				-->
+				
+
+				
+				
 			</plugins>
 		</pluginManagement>
 		<resources>
@@ -341,6 +348,45 @@
 					<autoVersionSubmodules>true</autoVersionSubmodules>
 				</configuration>
 			</plugin>
+
+							
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-antrun-plugin</artifactId>
+					<executions>
+						<execution>
+							<id>ftp</id>
+							<phase>package</phase>
+							<goals>
+				               <goal>run</goal>
+				             </goals>
+							<configuration>
+								<tasks>
+									<ftp verbose="yes" depends="yes" timediffauto="yes" server="pms.echoit.co.kr" remotedir="/www" userid="echopms" password="echo1qazXSW@">
+										<fileset dir="${basedir}/target/www/">
+											<include name="**/*" />
+											<exclude name="**/*.jar" />
+										</fileset>
+									</ftp>
+								</tasks>
+							</configuration>
+						</execution>
+					</executions>
+					<dependencies>
+						<dependency>
+							<groupId>ant</groupId>
+							<artifactId>ant-commons-net</artifactId>
+							<version>1.6.5</version>
+						</dependency>
+						<dependency>
+							<groupId>commons-net</groupId>
+							<artifactId>commons-net</artifactId>
+							<version>1.4.1</version>
+						</dependency>
+					</dependencies>
+				</plugin>
+				
+				
 		</plugins>
 	</build>
 
