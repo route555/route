@@ -2,7 +2,9 @@ var trAcctCd;
 var dpstCdList;
 var rowIdx;
 
-var view = {		
+var view = {
+		codeDatas : '',	
+		codeMap : {"cntrctStatusCd":"004", "dmndCd":"014", "dmndCd":"011", "dmndCd":"017"},	//계약구분코드, 계약상태코드, 검색조건구분코드, 지급정보구분코드
 		onLoadEvent : function() {
 		
 		$("#btnSearch").unbind('click');
@@ -113,44 +115,75 @@ var view = {
 		});
 		
 		
-		view.selectTableData();
+		view.selectCommonCodes();
 		
 		//검색조건 계약구분코드
-		view.selectSrchCommonCode004();
+		//view.selectSrchCommonCode004();
 		
 		//검색조건 계약상태코드
-		view.selectSrchCommonCode014();
+		//view.selectSrchCommonCode014();
 		
 		//검색조건 구분코드
-		view.selectSrchCommonCode011();
+		//view.selectSrchCommonCode011();
 		
 		//검색조건 지급정보구분코드 
-		view.selectSrchCommonCode017();
+		//view.selectSrchCommonCode017();
 		
 		//지급정보구분코드
-		view.selectCommonCode017();
+		//view.selectCommonCode017();
 		
 		//상세조회 계약상태코드
-		view.selectCommonCode014();
-		view.selectOrderDpstList();
+		//view.selectCommonCode014();
 		
-		//청구정보 목록 조회
-    	table1 = $('#dataTables-orderDpstList').dataTable();
-    	table1.fnReloadAjax();
 
 		
 		}
-
-		, selectSrchCommonCode004 : function() {
+		, onLoadForAsync : function() {
+			view.selectTableData();
+			view.selectOrderDpstList();
+			
+			//청구정보 목록 조회
+	    	table1 = $('#dataTables-orderDpstList').dataTable();
+	    	table1.fnReloadAjax();
+			
+		}
+		, selectCommonCodes : function() {
+			var reqData = new Object();
+			var array = [];
+			$.each(view.codeMap, function(k, v) {
+				array.push(v);
+			});
+			reqData.codes=array.toString();
 			common.ajax({
-				  		url : G_CONTEXT_PATH+"/codes/004"
+				  		url : G_CONTEXT_PATH+"/multiCodes"
+				  		, data : reqData
 				  		, type : "GET"
-						, success : view.selectSrchCommonCodeCallBack004
+						, success : view.selectCommonCodesCallBack
 			});
 		}
+		, selectCommonCodesCallBack : function(json) {
+			//codeMap : {"cntrctStatusCd":"013", "dmndCd":"016"},	//매출계약코드, 매출청구코드
+			view.codeDatas=json;
+			
+			$.each(view.codeMap, function(key, value) {
+				if(value=='004'){
+					view.selectSrchCommonCodeCallBack004(view.codeDatas[value]);
+				}else if(value=='014'){
+					view.selectSrchCommonCodeCallBack014(view.codeDatas[value]);
+					view.selectCommonCodeCallBack014(view.codeDatas[value]);
+				}else if(value=='011'){
+					view.selectCommonCodeCallBack011(view.codeDatas[value]);
+				}else if(value=='017'){
+					view.selectSrchCommonCodeCallBack017(view.codeDatas[value]);
+					view.selectCommonCodeCallBack017(view.codeDatas[value]);
+				} 
+			});
+			view.onLoadForAsync();
+		}
+	
 		, selectSrchCommonCodeCallBack004 : function(json) {
 			var el = '';			
-			$(json.list).each(function(i, itm){				
+			$(json).each(function(i, itm){				
 				el += '<option value="' + itm.dtlCd + '">' + itm.dtlCdNm + '</option>';
 				//console.log(el);
 			});
@@ -159,16 +192,10 @@ var view = {
 			$("select:eq(0) option:eq(0)").trigger('change');	
 		}
 		
-		, selectSrchCommonCode014 : function() {
-			common.ajax({
-				  		url : G_CONTEXT_PATH+"/codes/014"
-				  		, type : "GET"
-						, success : view.selectSrchCommonCodeCallBack014
-			});
-		}
+		
 		, selectSrchCommonCodeCallBack014 : function(json) {
 			var el = '';			
-			$(json.list).each(function(i, itm){				
+			$(json).each(function(i, itm){				
 				el += '<option value="' + itm.dtlCd + '">' + itm.dtlCdNm + '</option>';
 				//console.log(el);
 			});
@@ -176,16 +203,10 @@ var view = {
 			$("select:eq(0) option:eq(0)").attr("selected", "selected");
 			$("select:eq(0) option:eq(0)").trigger('change');	
 		}
-		, selectSrchCommonCode011 : function() {
-			common.ajax({
-				  		url : G_CONTEXT_PATH+"/codes/011"
-				  		, type : "GET"
-						, success : view.selectSrchCommonCodeCallBack011
-			});
-		}
+		
 		, selectSrchCommonCodeCallBack011 : function(json) {
 			var el = '';			
-			$(json.list).each(function(i, itm){				
+			$(json).each(function(i, itm){				
 				el += '<option value="' + itm.dtlCd + '">' + itm.dtlCdNm + '</option>';
 				//console.log(el);
 			});
@@ -193,16 +214,10 @@ var view = {
 			$("select:eq(0) option:eq(0)").attr("selected", "selected");
 			$("select:eq(0) option:eq(0)").trigger('change');	
 		}
-		, selectSrchCommonCode017 : function() {
-			common.ajax({
-				  		url : G_CONTEXT_PATH+"/codes/017"
-				  		, type : "GET"
-						, success : view.selectSrchCommonCodeCallBack017
-			});
-		}
+	
 		, selectSrchCommonCodeCallBack017 : function(json) {
 			var el = '';			
-			$(json.list).each(function(i, itm){				
+			$(json).each(function(i, itm){				
 				el += '<option value="' + itm.dtlCd + '">' + itm.dtlCdNm + '</option>';
 				//console.log(el);
 			});
@@ -210,17 +225,10 @@ var view = {
 			$("select:eq(0) option:eq(0)").attr("selected", "selected");
 			$("select:eq(0) option:eq(0)").trigger('change');	
 		}
-		, selectCommonCode014 : function() {
-			common.ajax({
-				  		url : G_CONTEXT_PATH+"/codes/014"
-				  		, type : "GET"
-						, success : view.selectCommonCodeCallBack014
-			});
-		}
-		
+				
 		, selectCommonCodeCallBack014 : function(json) {
 			var el = '';			
-			$(json.list).each(function(i, itm){				
+			$(json).each(function(i, itm){				
 				el += '<option value="' + itm.dtlCd + '">' + itm.dtlCdNm + '</option>';
 				//console.log(el);
 			});
@@ -228,16 +236,10 @@ var view = {
 			$("select:eq(0) option:eq(0)").attr("selected", "selected");
 			$("select:eq(0) option:eq(0)").trigger('change');	
 		}
-		, selectCommonCode017 : function() {			
-			common.ajax({
-				  		url : G_CONTEXT_PATH+"/codes/017"
-				  		, type : "GET"
-						, success : view.selectCommonCodeCallBack017
-			});
-		}
+	
 		, selectCommonCodeCallBack017 : function(json) {
 			dpstCdList = new Array();
-			$(json.list).each(function(i, itm){				
+			$(json).each(function(i, itm){				
 				var array = new Array();
 				array.push(itm.dtlCd);
 				array.push(itm.dtlCdNm);
@@ -442,14 +444,14 @@ var view = {
 					});
 			
 			$('#dataTables-orderDpstList tbody').on('click', 'tr', function () {
-				
+				/*
 				if ( $(this).hasClass('selected') ) {
 		            $(this).removeClass('selected');
 		        }   else {
 		            table.$('tr.selected').removeClass('selected');
 		            $(this).addClass('selected');
 		        }
-				
+				*/
 				rowIdx = $(this).index();
 				
 				
