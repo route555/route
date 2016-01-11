@@ -131,10 +131,13 @@
 			
 			CAST(CONCAT( (TIMESTAMPDIFF(MONTH, max(work_start_dt), now()) DIV 12) ,'년 ', (TIMESTAMPDIFF(MONTH, max(work_start_dt), now()) % 12) , '개월') AS CHAR) AS totalWork,
 			
-            DATE_FORMAT('20151221', '%Y-%m-%d')  as lastWorkStartDt,
-            DATE_FORMAT('20151221', '%Y-%m-%d')  as lastWorkEndDt 
-<!--        (SELECT max(WORK_START_DT) FROM C.T_PMS008 WHERE C.prsn_no = AA.prsn_no),
-            (SELECT max(WORK_END_DT) FROM C.T_PMS008 WHERE C.prsn_no = AA.prsn_no) -->
+
+       		(SELECT DATE_FORMAT(max(WORK_START_DT), '%Y-%m-%d')  FROM T_PMS007 WHERE prsn_no = AA.prsn_no)   as lastWorkStartDt,
+            (SELECT DATE_FORMAT(max(WORK_END_DT), '%Y-%m-%d') FROM T_PMS007 WHERE prsn_no = AA.prsn_no) as lastWorkEndDt 
+            
+                        <!-- DATE_FORMAT('20151221', '%Y-%m-%d')  as lastWorkStartDt,
+            DATE_FORMAT('20151221', '%Y-%m-%d')  as lastWorkEndDt -->
+            
 	FROM
         (
         SELECT	
@@ -186,6 +189,32 @@
 			 #{item}
 			 </foreach>
 		</if>
+		<if test="actYn != null and actYn.equalsIgnoreCase('Y')==true">
+			<![CDATA[ AND (SELECT ifnull(MAX(WORK_END_DT),0) FROM  T_PMS007  WHERE prsn_no = A.prsn_no) > now() ]]>
+		</if>
+		<if test="actYn != null and actYn.equalsIgnoreCase('N')==true">
+			<![CDATA[ AND (SELECT ifnull(MAX(WORK_END_DT),0) FROM  T_PMS007  WHERE prsn_no = A.prsn_no) < now() ]]>
+		</if>
+		<if test="cntrctSectCd != null and cntrctSectCd != ''">AND CNTRCT_SECT_CD = #{cntrctSectCd}</if>
+
 	</sql>
+
+
+	<select id="selectPersonLastPrjt" parameterType="Map" resultType="tMap">
+	SELECT 
+	    A.PRJT_NM prjtNm,
+	    CONCAT(DATE_FORMAT(B.WORK_START_DT, '%Y-%m-%d') , ' - ' , DATE_FORMAT(B.WORK_END_DT, '%Y-%m-%d') ) prjtDt,
+	    B.ORDR_UNIT_CST_AMT prjtAmt
+	FROM
+	    T_PMS006 A,
+	    T_PMS007 B
+	WHERE
+	    A.PRJT_CD = B.PRJT_CD
+	        AND DSTRBT_SECT_CD = '001'
+	        AND PRSN_NO = #{prsnNo}
+	ORDER BY B.WORK_START_DT DESC
+	LIMIT 1
+	
+	</select>
 
 </mapper>

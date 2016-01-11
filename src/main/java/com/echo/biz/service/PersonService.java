@@ -1,6 +1,7 @@
 package com.echo.biz.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -135,6 +136,18 @@ public class PersonService extends AbstractService<Person, PersonDto> {
 		return s;
 	}
 
+	public Object selectPersonLastPrjt(PersonDto dto) throws Exception {
+
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("prsnNo", dto.getPrsnNo());
+
+		log.debug("#$#$#" + param);
+		Map<String, Object> rtn = personDao.selectPersonLastPrjt(param);
+
+		return rtn;
+	}
+	
+	
 	@PostConstruct
 	public void setDao() {
 		setDao(personDao);

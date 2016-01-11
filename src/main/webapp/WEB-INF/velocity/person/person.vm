@@ -77,6 +77,16 @@
                                             <th width="15%">거주지</th>
                                             <td width="35%"><input type="text" class="input-sm form-control" placeholder="" name="rsdncAddr"></td>
                                         </tr>
+                                        <tr>
+                                            <th width="15%">현재수행여부</th>
+                                            <td width="35%">
+                                            	<label class="radio-inline"><input type="radio" name="actYn" value="">전체</label>
+                                            	<label class="radio-inline"><input type="radio" name="actYn" value="Y">Yes</label>
+                                            	<label class="radio-inline"><input type="radio" name="actYn" value="N">No</label>
+                                            </td>
+                                            <th width="15%">계약구분</th>
+                                            <td width="35%"><select class="input-sm form-control selectWidth" style="width:auto;" id="cntrctSectCdSf" name="cntrctSectCd"/></td>
+                                        </tr>                                        
                                     </tbody>
                                 </table>
                             </div> 
@@ -290,18 +300,18 @@
                         	
                         	<h5 class="text-primary">최종프로젝트정보</h5>
                          	<div class="table-responsive">
-                                <table class="table table-bordered table-striped" id="ttt">
+                                <table class="table table-bordered table-striped" id="lastPrjt">
                                     <tbody>
                                         <tr>
                                             <th width="15%">프로젝트명</th>
-                                            <td width="35%" ><label id="b"></label></td>
+                                            <td width="35%" ><span id="prjtNm"></span></td>
                                             <th width="15%">수행기간</th>
-                                            <td width="35%"><label id="b"></label></td>
+                                            <td width="35%"><span id="prjtDt"></span></td>
                                         </tr>
                                         <tr>
                                             <th width="15%">매입용역비(단가)</th>
                                             <td width="35%" colspan="3">
-                                            	 <label id="b"></label>                                     
+                                            	 <span id="prjtAmt"></span>                                     
                                             </td>
                                            
                                         </tr>

@@ -1,5 +1,7 @@
 package com.echo.biz.dao;
 
+import java.util.Map;
+
 import org.springframework.stereotype.Repository;
 
 import com.echo.biz.domain.Person;
@@ -11,9 +13,9 @@ public class PersonDao extends AbstractDao<Person> {
 		super(Person.class);
 	}
 
-	/*
-	public List selectListCommonCode(Map<String, Object> param) {
-		return echoSlave.selectList("groupcode.selectListCommonCode", param);
+	
+	public Map<String, Object> selectPersonLastPrjt(Map<String, Object> param) {
+		return echoSlave.selectOne("person.selectPersonLastPrjt", param);
 	}
-	*/
+	
 }

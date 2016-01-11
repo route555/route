@@ -103,6 +103,8 @@ public class PersonController extends BaseController {
 		log.debug("@@@@@@@2" + param);
 		dto.setPrsnNo(prsnNo);
 		result.put("detail", personService.selectDto(dto));
+		result.put("prjtInfo", personService.selectPersonLastPrjt(dto));
+		
 		
 		model.addAttribute("resultData", result);		
 		return model;

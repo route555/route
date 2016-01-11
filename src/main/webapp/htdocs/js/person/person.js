@@ -162,6 +162,11 @@ var view = {
 							el += '<option value="' + itm.dtlCd + '">' + itm.dtlCdNm + '</option>';
 						});						
 						$("#cntrctSectCd").append(el);
+						$("#cntrctSectCdSf").append(el);
+						
+						var newEl = '<option value="">무관</option>';
+						$("#cntrctSectCdSf").prepend(newEl);
+						
 					} else if(key=='acdmcCd'){
 						var el = '';			
 						$(view.codeDatas[value]).each(function(i, itm){	
@@ -296,6 +301,16 @@ var view = {
 					}
 				});
 			});
+			
+			$(json.prjtInfo).each(function(idx, itm) {
+				$.each(itm, function(k, v) {
+					//console.log(k,v);
+					$("#"+k).html(v);
+				});
+			});
+			
+			
+			
 			$("#detail").show();
 			
 			$('#aFileName').unbind('click');
@@ -386,6 +401,10 @@ var view = {
 			$('form[name="f"]').each(function() {
 				this.reset();  
 			}); 
+			$("#prjtNm").html('');
+			$("#prjtDt").html('');
+			$("#prjtAmt").html('');
+			
 		}
 	};
 
