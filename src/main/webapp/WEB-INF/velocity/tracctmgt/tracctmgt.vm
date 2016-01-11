@@ -73,32 +73,48 @@
                 <!-- /.col-lg-12 -->
          </div>
          
-         <!-- 검색박스 -->
-            <nav class="navbar navbar-default" role="navigation">             
-	            <div class="navbar-header">                
-	                <a class="navbar-brand" href="#">거래처(법인)명</a>
-	            </div>
-	            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">       
-	             <form class="navbar-form" id="sf"  name="sf"  role="search">              
-	                <div class="col-sm-3 col-md-3 pull-left">
-	                                  	
-	                        <div class="input-group">
-	                            <input type="text" class="form-control" placeholder="거래처명" id="srchTrAcctNm" name="srchTrAcctNm">
-	                        </div>
-	                   
-	                </div>	                
-	                <div class="col-sm-3 col-md-3 pull-right">
-	                
-	               			<div class="forms-group  pull-right">
+         
+           <!-- 검색박스 -->
+            <div class="row"  id="searchBox">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Search Form Elements
+                        </div>
+                        <div class="panel-body">
+                        	<form class="navbar-form" id="sf"  name="sf"  role="search">
+                        		<div class="table-responsive">
+                                <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <th width="15%">거래처(법인)명</th>
+                                    <td width="35%" colspan="3"><input type="text" class="form-control" placeholder="" id="srchTrAcctNm" name="srchTrAcctNm"></td>
+                                </tr>
+                                
+                                <tr>
+                                    <th width="15%">담당자명</th>
+                                    <td width="35%"><input type="text" class="form-control" placeholder="" id="srchChgrNm" name="srchChgrNm"> </td>
+                                    <th width="15%">담당자구분</th>
+                                    <td width="35%"><select class="form-control" id="srchChgSectCd" name="srchChgSectCd"><option value="">전체</option></select></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                            </div> 
+                        		
+                        	<div class="forms-group  pull-right">
                               	<button type="button" class="btn btn-warning" id="btnSearchInit">조건초기화</button>
                         		<button type="button" class="btn btn-primary" id="btnSearch">조회</button>
                            </div>
-	                </div>	  
-	                 </form>              
-	            </div>	           
-	        </nav>            
-	        <!-- 검색박스 종료-->
-	        
+	                            
+                         	</form>
+                        </div>                       
+                    </div>                   
+                </div>               
+            </div>
+            <!-- 검색박스 종료-->         
+
+       
+       
 	        <!-- 테이블 -->
             <div class="row">
                 <div class="col-lg-12">
@@ -203,10 +219,7 @@
                                         	<option value="">선택</option>
                                         </select>
                                     </div>
-                                   <div class="forms-group  pull-right">
-                              	<button type="button" class="btn btn-primary" id="btnSave">저장</button>
-                        		<button type="button" class="btn btn-danger" id="btnDelete">삭제</button>
-                           </div>
+                                
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->
                             </div>
@@ -251,7 +264,12 @@
                                     </thead>                                    
                                 </table>
                             </div>
-                            <!-- /.table-responsive -->                            
+                            <!-- /.table-responsive -->     
+                                        
+            	<div class="forms-group  pull-right">
+                  	<button type="button" class="btn btn-primary" id="btnSave">저장</button>
+            		<button type="button" class="btn btn-danger" id="btnDelete">삭제</button>
+               </div>                       
                         </div>
                         <!-- /.panel-body -->
                     </div>
@@ -260,6 +278,8 @@
                 <!-- /.col-lg-12 -->
             </div>
             <!-- 담당자 목록 테이블 종료 -->
+            
+
             
             </div>
             <!--디테일 종료-->

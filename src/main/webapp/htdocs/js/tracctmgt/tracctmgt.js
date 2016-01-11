@@ -151,7 +151,7 @@ var view = {
 						array.push(itm.dtlCdNm);
 						chgrSectCdList.push(array);
 					});						
-					
+					view.selectCommonCodeCallBack001(view.codeDatas[value]);
 				} else if(key=='dpstExpctDayCd'){
 					var el = '';			
 					$(view.codeDatas[value]).each(function(i, itm){			
@@ -165,6 +165,18 @@ var view = {
 			});
 			view.onLoadForAsync();
 		}
+		, selectCommonCodeCallBack001 : function(json) {
+			var el = '';			
+			$(json).each(function(i, itm){				
+				el += '<option value="' + itm.dtlCd + '">' + itm.dtlCdNm + '</option>';
+				//console.log(el);
+			});
+			$("#srchChgSectCd").append(el);
+			$("select:eq(0) option:eq(0)").attr("selected", "selected");
+			$("select:eq(0) option:eq(0)").trigger('change');
+			
+		}
+		
 		, selectCommonCode1 : function() {			
 			common.ajax({
 				  		url : G_CONTEXT_PATH+"/codes/001"
@@ -229,10 +241,20 @@ var view = {
 							//$("#detail").hide();
 							//$("#tracctChgrList").hide();
 							$("#detail").hide(0, view.initDetail);
+							
 							aoData.push({
 								"name" : "srchTrAcctNm",
 								"value" :  $("#srchTrAcctNm").val()
+							},
+							{
+								"name" : "srchChgSectCd",
+								"value" :  $("#srchChgSectCd").val()
+							},
+							{
+								"name" : "srchChgrNm",
+								"value" :  $("#srchChgrNm").val()
 							});
+							
 							oSettings.jqXHR = $.ajax({
 								"dataType" : 'json',
 								"type" : "GET",
