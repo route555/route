@@ -1,3 +1,16 @@
+
+var buttonCommon = {
+		exportOptions: {
+			format: {
+				body: function ( data, column, row ) {
+					// Strip $ from salary column to make it numeric
+					console.log(data)
+					return data;
+				}
+			}
+		}
+	};
+
 var view = {
 			saleMgtTable : '',	
 			codeDatas : '',	
@@ -190,7 +203,9 @@ var view = {
 				var table = $('#dataTables-saleMgt').DataTable(
 						{
 							dom: 'lBfrtip',
-							buttons: [{extend: 'colvis', postfixButtons: [ 'colvisRestore' ]}  ],				        
+							buttons: [{extend: 'colvis', postfixButtons: [ 'colvisRestore' ]} ,$.extend( true, {}, buttonCommon, {
+								extend: 'excel'
+							} )   ],				        
 							"paging": true,
 							"processing" : true,
 							"serverSide" : true,
