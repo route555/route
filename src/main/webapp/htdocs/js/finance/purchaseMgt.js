@@ -49,20 +49,6 @@ var view = {
 					view.billIssue(sendData);
 				});
 				
-				$("#btnDpst").unbind('click');
-				$("#btnDpst").click( function() {
-					$("#btnBillIssue").trigger('click');
-				});
-			
-				$("#btnBillIssueCancel").unbind('click');
-				$("#btnBillIssueCancel").click( function() {
-					view.billIssueCancel();
-				});
-				
-				$("#btnDpstCancel").unbind('click');
-				$("#btnDpstCancel").click( function() {
-					view.dpstCancel();
-				});
 			
 				$("#btnSearchInit").unbind('click');
 				$("#btnSearchInit").click( function() {			
@@ -227,17 +213,17 @@ var view = {
 							        { data: 'workStartDt'},
 							        { data: 'workEndDt'},
 							        { data: 'payDayCd' , "render": function ( data ) { return view.converCodeNm(data, 'payDayCd');} }, 
-							        { data: 'trBankNm'}, 
-							        { data: 'trAcctNo' },
-							        { data: 'hpNo' },	
 							        { data: 'dpstDt' },
 							        { data: 'dpstCd' , "render": function ( data ) { return view.converCodeNm(data, 'dpstCd');} }, 
-							        { data: 'rmlrkDesc' },
 							        { data: 'billIssueDt', "render": function ( data ) { return view.convertDateInput(data,'billIssueDt');} }, 
 							        { data: 'dpstPrcsDt', "render": function ( data ) { return view.convertDateInput(data,'dpstPrcsDt');} }, 
 							        { data: 'supplyAmt' },
 							        { data: 'taxAmt' },
 							        { data: 'totalAmt' },
+							        { data: 'rmlrkDesc' },
+							        { data: 'trBankNm'}, 
+							        { data: 'trAcctNo' },
+							        { data: 'hpNo' },	
 							        { data: 'memoDesc' }
 							        
 							],

@@ -118,17 +118,17 @@
                                             <th>시작일</th>
                                             <th>종료일</th>
                                             <th>지급일</th>
-                                            <th>은행명</th>
-                                            <th>계좌번호</th>
-                                            <th>휴대폰번호</th>
                                             <th>지급일자</th>
                                             <th>지급구분</th>
-                                            <th>적요</th>
                                             <th>계산서발행일자</th>
-                                            <th>지급일자</th>
+                                            <th>지급처리일자</th>
                                             <th>공급가액</th>
                                             <th>부가세</th>
                                             <th>합계</th>
+                                            <th>적요</th>
+                                            <th>은행명</th>
+                                            <th>계좌번호</th>
+                                            <th>휴대폰번호</th>
                                             <th>비고</th>                                            
                                         </tr>
                                     </thead>                                    
@@ -170,14 +170,10 @@
                                 </table>
                             </div>       
                             
-                 			<div class="forms-group  pull-left">
-                              	<button type="button" class="btn btn-primary" id="btnBillIssueCancel">계산서발행취소</button>
-                        		<button type="button" class="btn btn-info" id="btnDpstCancel">입금취소</button>
-                           </div>
+                 		
                         
                         	<div class="forms-group  pull-right">
-                              	<button type="button" class="btn btn-primary" id="btnBillIssue">계산서발행</button>
-                        		<button type="button" class="btn btn-info" id="btnDpst">입금처리</button>
+                              	<button type="button" class="btn btn-primary" id="btnBillIssue">저장</button>
                            </div>
                         
                         <!-- /.panel-body -->
