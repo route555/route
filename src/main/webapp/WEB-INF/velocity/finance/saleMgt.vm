@@ -41,7 +41,7 @@
                         <div class="panel-body">
                         	<form role="form" class="form-inline"  id="sf"  name="sf"  >
 	                        	<input type="hidden" name="searchType" value="like" />
-		                        <input type="hidden" name="orderElement" value="M.CNTRCT_CD" />
+		                        <input type="hidden" name="orderElement" value="M.DMND_DATE" />
 		                        <input type="hidden" name="orderType" value="ASC" />
                         		
                         		<div class="table-responsive">
@@ -54,11 +54,11 @@
                                             <td width="35%"><input type="text" class="input-sm form-control" placeholder="" name="trAcctNm"></td>
                                         </tr>
                                         <tr>
-                                            <th width="15%">청구여부(작동안함-협의)</th>
+                                            <th width="15%">계산서 발행여부</th>
                                             <td width="35%">
-                                            	<label class="radio-inline"><input type="radio" name="dmndYn" value="">전체</label>
-                                            	<label class="radio-inline"><input type="radio" name="dmndYn" value="Y">Yes</label>
-                                            	<label class="radio-inline"><input type="radio" name="dmndYn" value="N">No</label>
+                                            	<label class="radio-inline"><input type="radio" name="billIssueYn" value="">전체</label>
+                                            	<label class="radio-inline"><input type="radio" name="billIssueYn" value="Y">Yes</label>
+                                            	<label class="radio-inline"><input type="radio" name="billIssueYn" value="N">No</label>
                                             </td>
                                             <th width="15%">입금여부</th>
                                             <td width="35%">
@@ -68,10 +68,14 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th width="15%">입금예정일(작동안함-협의)</th>
+                                            <th width="15%">청구일자</th>
                                             <td width="35%">
 											<input type="hidden" id="dpstExpctDay" name="dpstExpctDay">
-                                            <input type="text" class="input-sm form-control" placeholder="" id="dpstExpctDayView"></td>
+                                            <input type="text" style="width:100px;" class="input-sm form-control datepicker" placeholder="" id="dmndDateSt" name="dmndDateSt">
+                                            
+                                            -
+                                            <input type="text" style="width:100px;" class="input-sm form-control datepicker" placeholder="" id="dmndDateEnd" name="dmndDateEnd">
+                                            </td>
                                             <th width="15%">청구구분</th>
                                             <td width="35%"><select class="input-sm form-control selectWidth" style="width:auto;" id="dmndCdSf" name="dmndCd"/></td>
                                         </tr>
@@ -115,17 +119,17 @@
                                             <th>종료일</th>
                                             <th>청구구분</th>
                                             <th>청구일자</th>
-                                            <th>적요</th>
-                                            <th>검수필요여부</th>
-                                            <th>검수확정여부</th>
-                                            <th>담당자</th>
-                                            <th>연락처</th>
                                             <th>계산서발행일</th>
                                             <th>입금예정일</th>
                                             <th>입금일자</th>
                                             <th>공급가액</th>
                                             <th>부가세</th>
-                                            <th>합계</th>                                            
+                                            <th>합계</th>
+                                            <th>적요</th>
+                                            <th>검수필요여부</th>
+                                            <th>검수확정여부</th>
+                                            <th>담당자</th>
+                                            <th>연락처</th>                                            
                                         </tr>
                                     </thead>                                    
                                 </table>
@@ -165,15 +169,9 @@
                                     </tbody>
                                 </table>
                             </div>       
-                            
-                 			<div class="forms-group  pull-left">
-                              	<button type="button" class="btn btn-primary" id="btnBillIssueCancel">계산서발행취소</button>
-                        		<button type="button" class="btn btn-info" id="btnDpstCancel">입금취소</button>
-                           </div>
-                        
+                                             			
                         	<div class="forms-group  pull-right">
-                              	<button type="button" class="btn btn-primary" id="btnBillIssue">계산서발행</button>
-                        		<button type="button" class="btn btn-info" id="btnDpst">입금처리</button>
+                              	<button type="button" class="btn btn-primary" id="btnBillIssue">저장</button>
                            </div>
                         
                         <!-- /.panel-body -->

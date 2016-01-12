@@ -20,10 +20,15 @@
 	<sql id="listWhere">
 		<if test="prjtNm != null and prjtNm != ''">AND C.PRJT_NM LIKE CONCAT('%', #{prjtNm}, '%')</if>
 	    <if test="trAcctNm != null and trAcctNm != ''">AND A.TR_ACCT_NM LIKE CONCAT('%', #{trAcctNm}, '%')</if>
-	    <!-- <if test="dmndYn != null and dmndYn != ''">AND M.aa = #{dmndYn}</if> -->
+	    <if test="billIssueYn != null and billIssueYn != ''">AND M.BILL_ISSUE_YN = #{billIssueYn}</if> 
 	    <if test="dpstYn != null and dpstYn != ''">AND M.DPST_YN = #{dpstYn}</if>	
 	    <!-- <if test="dpstExpctDay != null and dpstExpctDay != ''">AND M.DPST_YN = #{dpstYn}</if> -->
 	    <if test="dmndCd != null and dmndCd != ''">AND M.DMND_CD = #{dmndCd}</if>	
+	    
+	    <if test="dmndDateSt != '' and dmndDateEnd != ''">
+	    	 AND M.DMND_DATE between #{dmndDateSt} and #{dmndDateEnd}
+	    </if>	
+	    
 	</sql>
 	
 	<select id="selectListSaleManagement" parameterType="Map" resultType="tMap">
@@ -63,7 +68,7 @@
  			<include refid="listWhere"/>
 		ORDER BY
 		<if test="orderElement == null or ''.equals(orderElement) == true">
-	    	M.CNTRCT_CD
+	    	M.DMND_DATE
     	</if>
     	<if test="orderElement != null and ''.equals(orderElement) == false">
 	    	${orderElement}

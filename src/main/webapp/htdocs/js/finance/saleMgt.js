@@ -10,13 +10,34 @@ var buttonCommon = {
 			}
 		}
 	};
-
+//첫날
+function getDt1(){
+var newDt = new Date();
+newDt.setDate(1);
+return converDateString(newDt);
+}
+// 말일
+function getDt2(){
+var newDt = new Date();
+newDt.setMonth( newDt.getMonth() + 1);
+newDt.setDate(0);
+return converDateString(newDt);
+}
+function converDateString(dt){
+	return dt.getFullYear() + "" + addZero(eval(dt.getMonth()+1)) + "" + addZero(dt.getDate());
+	}
+function addZero(i){
+	var rtn = i + 100;
+	return rtn.toString().substring(1,3);
+	}
 var view = {
 			saleMgtTable : '',	
 			codeDatas : '',	
-			codeMap : {"dmndCd":"016"},	//청구구분
+			codeMap : {"dpstExpctDayCd":"015", "dmndCd":"016"},	//입급예정일코드, 청구구분
 			onLoadEvent : function() {
-		
+				$('#dmndDateSt').val(getDt1());
+				$('#dmndDateEnd').val(getDt2());
+				
 				view.selectCommonCodes();
 
 				$('#searchBox input').keypress(function(e) {
@@ -45,7 +66,7 @@ var view = {
 						 sendData.billIssueDt = data.billIssueDt;
 						 //sendData.dpstYn = data.dpstYn;
 						 sendData.dpstDt = data.dpstDt;
-						 sendData.memoDesc = data.memoDesc;
+						 sendData.memoDesc = $("#memoDesc").val();
 						 
 						 sendDataArray.push(sendData);
 					});
@@ -62,20 +83,7 @@ var view = {
 					view.billIssue(sendData);
 				});
 				
-				$("#btnDpst").unbind('click');
-				$("#btnDpst").click( function() {
-					$("#btnBillIssue").trigger('click');
-				});
-			
-				$("#btnBillIssueCancel").unbind('click');
-				$("#btnBillIssueCancel").click( function() {
-					view.billIssueCancel();
-				});
 				
-				$("#btnDpstCancel").unbind('click');
-				$("#btnDpstCancel").click( function() {
-					view.dpstCancel();
-				});
 			
 				$("#btnSearchInit").unbind('click');
 				$("#btnSearchInit").click( function() {			
@@ -85,10 +93,38 @@ var view = {
 					$('#dpstExpctDay').val('');
 				});
 				
+				
+				// $('#datetimepicker12').datetimepicker();
+				
+				 /*
+				  * 
+				  * 
+				  * 
 				$('#dpstExpctDayView').mask('9999-99-99' ,{completed:function(){
 					var numbers = this.val().replace(/-/g,'');
 					$('#dpstExpctDay').val(numbers);
 				}});
+				
+				  * $('#datetimepicker4').datetimepicker({
+				      pickTime: false
+				    });
+				$('#dmndDateSt1').datepicker({
+					
+				})
+				.on('changeDate', function(ev){
+					//$('#dpstExpctDay').datepicker('hide');
+				});
+				
+				$('#dmndDateEnd').datepicker({
+					format: 'yyyy-mm-dd',
+			        todayBtn: 'linked',
+			        autoclose:true
+				})
+				.on('changeDate', function(ev){
+					//$('#dpstExpctDay').datepicker('hide');
+				});
+				*/
+				
 				
 			}
 			, onLoadForAsync : function() {
@@ -137,7 +173,7 @@ var view = {
 				});
 			}
 			, selectCommonCodesCallBack : function(json) {
-				//{"dmndCd":"016"},	//청구구분
+				//codeMap : {"dpstExpctDayCd":"015", "dmndCd":"016"},	//입급예정일코드, 청구구분
 				view.codeDatas=json;
 				
 				$.each(view.codeMap, function(key, value) {
@@ -233,21 +269,22 @@ var view = {
 							        { data: 'workEndDt'},
 							        { data: 'dmndCd' , "render": function ( data ) { return view.converCodeNm(data, 'dmndCd');} }, 
 							        { data: 'dmndDate'}, 
+							        { data: 'billIssueDt', "render": function ( data ) { return view.convertDateInput(data,'billIssueDt');} }, 
+							        { data: 'dpstExpctDayCd' , "render": function ( data ) { return view.converCodeNm(data, 'dpstExpctDayCd');} }, 
+							        { data: 'dpstDt', "render": function ( data ) { return view.convertDateInput(data,'dpstDt');} }, 
+							        { data: 'supplyAmt' },
+							        { data: 'taxAmt' },
+							        { data: 'totalAmt' },
 							        { data: 'rmlrkDesc' },
 							        { data: 'examNeedYn' },	
 							        { data: 'examCfrmYn' },
 							        { data: 'chgrNm' },
-							        { data: 'telNo' },
-							        { data: 'billIssueDt', "render": function ( data ) { return view.convertDateInput(data,'billIssueDt');} }, 
-							        { data: 'dpstExpctDayCd' },
-							        { data: 'dpstDt', "render": function ( data ) { return view.convertDateInput(data,'dpstDt');} }, 
-							        { data: 'supplyAmt' },
-							        { data: 'taxAmt' },
-							        { data: 'totalAmt' }
+							        { data: 'telNo' }
 							],
 							"sAjaxSource" : G_CONTEXT_PATH+"/saleMgt",
 							"fnDrawCallback": function( nRow, aData, iDataIndex ) {
 								view.setMask();
+								$("#memoDesc").val('');
 							},
 							"fnServerData" : function(sSource, aoData, fnCallback,	oSettings) {
 								
