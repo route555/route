@@ -32,34 +32,22 @@
                         </li> 
                         
                         
-                         <li>
-                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> 계약관리<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="/${apiPath}/web/cntrctmgt/salescntrctmgt"> 매출계약관리</a>
+                        <li>
+                                    <a href="/${apiPath}/web/cntrctmgt/salescntrctmgt"><i class="fa   fa-hand-o-right   fa-fw"></i> 매출계약관리</a>
                                 </li>
                                 <li>
-                                    <a href="/${apiPath}/web/cntrctmgt/ordercntrctmgt"> 매입계약관리</a>
+                                    <a href="/${apiPath}/web/cntrctmgt/ordercntrctmgt"><i class="fa   fa-hand-o-left   fa-fw"></i> 매입계약관리</a>
                                 </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>  
+                        
+                      
+                          <li>
+                                    <a href="/${apiPath}/web/finance/saleMgt"><i class="fa  fa-send  fa-fw"></i> 매출관리</a>
+                                </li>
+                                <li>
+                                    <a href="/${apiPath}/web/finance/purchaseMgt"><i class="fa  fa-send-o  fa-fw"></i> 매입관리</a>
+                                </li>
                         
                         
-                         <li>
-                            <a href="#"><i class="fa fa-won fa-fw"></i> 재무관리<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="/${apiPath}/web/finance/saleMgt"> 매출관리</a>
-                                </li>
-                                <li>
-                                    <a href="/${apiPath}/web/finance/purchaseMgt"> 매입관리</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li> 
-                        
-                    
                         
                         
                         <li>

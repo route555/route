@@ -59,6 +59,7 @@ public class PersonService extends AbstractService<Person, PersonDto> {
 			
 			MultipartFile f = dto.getPrflAtchtFile();
 			if (StringUtils.isEmpty(f.getOriginalFilename()) == false) {
+				attachFileDto.setAtchtFlNo(null);
 				attachFileDto.setAtchtFile(f);
 				attachFileService.insert(attachFileDto, "getAtchtFlNo", "setAtchtFlNo");
 			}
