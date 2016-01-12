@@ -40,6 +40,10 @@
 	 	height: 50px;
 	}
 	
+	.hideTr{
+		display:none;
+	}
+	
 	</style>                                       
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -212,20 +216,20 @@
                                 <table cellspacing="0" width="100%" class="display table table-striped table-bordered table-hover" id="dataTables-prjtPrsnList">
                                     <thead>
                                         <tr>
-                                            <th style="text-align: center;">선택</th>
-                                        	<th style="text-align: center;">번호</th>
+                                            <th width="34px" style="text-align: center;">선택</th>
+                                        	<th class="hideTr">번호</th>
                                             <th style="text-align: center;">구분</th>
-                                            <th style="text-align: center;">성명</th>
-                                            <th style="text-align: center;">계약형태</th>
+                                            <th width="90px" style="text-align: center;">성명</th>
+                                            <th width="90px" style="text-align: center;">계약형태</th>
                                             <th style="text-align: center;">분야</th>
-                                            <th style="text-align: center;">시작일</th>
-                                            <th style="text-align: center;">종료일</th>
-                                            <th style="text-align: center;">실MM</th>
-                                            <th style="text-align: center;">매출단가</th>
-                                            <th style="text-align: center;">매입단가</th>
+                                            <th width="80px" style="text-align: center;">시작일</th>
+                                            <th width="80px" style="text-align: center;">종료일</th>
+                                            <th width="40px" style="text-align: center;">실MM</th>
+                                            <th  width="100px" style="text-align: center;">매출단가</th>
+                                            <th width="100px" style="text-align: center;">매입단가</th>
                                             <th style="text-align: center;">메모</th>
-                                            <th style="text-align: center;">계약여부</th>
-                                            <th style="text-align: center;">인력</th>
+                                            <th width="34px" style="text-align: center;">계약여부</th>
+                                            <th width="34px" style="text-align: center;">인력</th>
                                         </tr>
                                     </thead>                                    
                                 </table>

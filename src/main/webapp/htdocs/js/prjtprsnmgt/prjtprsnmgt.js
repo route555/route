@@ -18,7 +18,7 @@ var view = {
 				
 				var html = "";
 				html += '<tr><td><input type="radio" name="choice" id="choice" style="width:100%;" value=""/></td>';
-				html += '<td><input type="text" name="prsnNo" id="prsnNo" readonly="readonly" style="width:50px;" class="form-control text-center" value=""/></td>';
+				html += '<td class="hideTr"><input type="text" name="prsnNo" id="prsnNo" readonly="readonly" style="width:50px;" class="form-control text-center" value=""/></td>';
 				html +=  '<td><select name="dstrbtSectCd" id="dstrbtSectCd" class="form-control" style="width:120px;"><option value="">선택</option>';
 	        	
 				
@@ -33,7 +33,7 @@ var view = {
 	        	html += '</select></td>';
 				html += '<td><input type="input" name="prsnNm" id="prsnNm" class="form-control" style="width:100%;" maxlength="10" value=""></td><td><input type="input" name="cntrctSectCdNm" id="cntrctSectCdNm" class="form-control" style="width:100%;" maxlength="10" value=""></td>';
 				
-				html +=  '<td><select name="skillSectCd" id="skillSectCd" class="form-control" style="width:100px;"><option value="">선택</option>';
+				html +=  '<td><select name="skillSectCd" id="skillSectCd" class="form-control" style="width:120px;"><option value="">선택</option>';
 				for (var i=0; i<skillSectCdList.length; i++) {
 	        		var val = skillSectCdList[i];
 	        		 //console.log(chgrSectCdList[0][i]);
@@ -42,7 +42,7 @@ var view = {
 	        	}
 				html += '</select></td>';
 				
-				html += '<td><input type="input" name="_workStartDt" id="_workStartDt" class="form-control" style="width:100%;" maxlength="8" value="" onBlur="javascript:fnCalMm();"></td><td><input type="input" name="_workEndDt" id="_workEndDt" class="form-control" style="width:100%;" maxlength="8" value="" onBlur="javascript:fnCalMm();"></td><td><input type="input" name="prsnMm" id="prsnMm" class="form-control" style="width:60px;" maxlength="5" value=""></td><td><input type="input" name="salesUnitCostAmt" id="salesUnitCostAmt" class="form-control" style="width:80px;" maxlength="9" value=""></td><td><input type="input" name="ordrUnitCstAmt" id="ordrUnitCstAmt" class="form-control" style="width:80px;" maxlength="9" value=""></td><td><input type="input" name="_memoDesc" id="_memoDesc" class="form-control" style="width:100%;" maxlength="1000" value=""></td><td><input type="input" name="prjtPrsnCnt" id="prjtPrsnCnt" class="form-control" style="width:100%;" maxlength="10" value="N"></td>';
+				html += '<td><input type="input" name="_workStartDt" id="_workStartDt" class="form-control" style="width:100%;" maxlength="8" value="" onBlur="javascript:fnCalMm();"></td><td><input type="input" name="_workEndDt" id="_workEndDt" class="form-control" style="width:100%;" maxlength="8" value="" onBlur="javascript:fnCalMm();"></td><td><input type="input" name="prsnMm" id="prsnMm" class="form-control" style="width:60px;" maxlength="5" value=""></td><td><input type="input" name="salesUnitCostAmt" id="salesUnitCostAmt" class="form-control" style="width:100%;" maxlength="9" value=""></td><td><input type="input" name="ordrUnitCstAmt" id="ordrUnitCstAmt" class="form-control" style="width:100%;" maxlength="9" value=""></td><td><input type="input" name="_memoDesc" id="_memoDesc" class="form-control" style="width:100%;" maxlength="1000" value=""></td><td><input type="input" name="prjtPrsnCnt" id="prjtPrsnCnt" class="form-control" style="width:100%;" maxlength="10" value="N"></td>';
 				html += '<td><button type="button" style="align:center;" class="btn btn-success" id="btnPrsnPop1">선택</button></td></tr>';
 				
 				//alert(html);
@@ -222,13 +222,13 @@ var view = {
 						"processing" : true,
 						"serverSide" : true,
 						"bFilter": false,
-						"autoWidth": true,
+						"autoWidth": false,
 						"ordering": false,
 						"paging": false,
 						//"columnDefs": [ { visible: false, targets: [1]  } ],
 						"deferLoading": 0,
 						"iDisplayLength": 10,
-						"columnDefs": [ { visible: false, targets: []  },{ className: "text-center", "targets": [ 0 ] } ],
+						"columnDefs": [ { visible: false, targets: []  },{ className: "text-center", "targets": [ 0 ] }, { className: "hideTr", "targets": [ 1 ] }],
 						"aoColumns": [
 						        { data: '' , "render": function ( data ) { return '<input type="radio" name="choice" id="choice" style="width:100%;" class="" value="">';} },
 						        { data: 'prsnNo' , "render": function ( data ) { return '<input type="text" name="prsnNo" id="prsnNo" readonly="readonly" style="width:50px;" class="form-control" value="'+data+'">';} },
@@ -269,8 +269,8 @@ var view = {
 						        { data: 'workStartDt' , "render": function ( data ) { return '<input type="input" name="_workStartDt" id="_workStartDt" style="width:100%;" class="form-control" maxlength="8" value="'+data+'" onBlur="javascript:fnCalMm();">';} },
 						        { data: 'workEndDt' , "render": function ( data ) { return '<input type="input" name="_workEndDt" id="_workEndDt" style="width:100%;" class="form-control" maxlength="8" value="'+data+'" onBlur="javascript:fnCalMm();">';} },
 						        { data: 'prsnMm' , "render": function ( data ) { return '<input type="input" name="prsnMm" id="prsnMm" style="width:60px;" class="form-control" maxlength="5" value="'+data+'">';} },
-						        { data: 'salesUnitCostAmt' , "render": function ( data ) { return '<input type="input" name="salesUnitCostAmt" id="salesUnitCostAmt" style="width:80px;" class="form-control" maxlength="9" value="'+data+'">';} },
-						        { data: 'ordrUnitCstAmt' , "render": function ( data ) { return '<input type="input" name="ordrUnitCstAmt" id="ordrUnitCstAmt" style="width:80px;" class="form-control" maxlength="9" value="'+data+'">';} },
+						        { data: 'salesUnitCostAmt' , "render": function ( data ) { return '<input type="input" name="salesUnitCostAmt" id="salesUnitCostAmt" style="width:100%;" class="form-control" maxlength="9" value="'+data+'">';} },
+						        { data: 'ordrUnitCstAmt' , "render": function ( data ) { return '<input type="input" name="ordrUnitCstAmt" id="ordrUnitCstAmt" style="width:100%;" class="form-control" maxlength="9" value="'+data+'">';} },
 						        { data: 'memoDesc' , "render": function ( data ) { return '<input type="input" name="_memoDesc" id="_memoDesc" style="width:100%;" class="form-control" maxlength="1000" title="'+data+'" value="'+data+'">';} },
 						        { data: 'prjtPrsnCnt' , "render": function ( data ) { return '<input type="input" name="prjtPrsnCnt" id="prjtPrsnCnt" style="width:100%;" class="form-control" maxlength="10" value="'+data+'">';} },
 						        { data: '' , "render": function ( data ) { return '<button type="button" style="align:center;" class="btn btn-success" id="btnPrsnPop">선택</button>';} }

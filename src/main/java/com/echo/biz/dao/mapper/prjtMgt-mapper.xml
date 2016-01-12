@@ -20,11 +20,7 @@
 		       (SELECT COUNT(1) FROM T_PMS008 WHERE PRJT_CD=T2.PRJT_CD) prjtCnt
 		FROM T_PMS001 T1, T_PMS006 T2
 		WHERE T1.TR_ACCT_CD=T2.TR_ACCT_CD
-		
-		<if test="srchPrjtNm != null and ''.equals(srchPrjtNm) == false">
-		AND T2.PRJT_NM LIKE CONCAT('%', #{srchPrjtNm}, '%')
-		</if>
-		
+        <include refid="listWhere"/>
 		ORDER BY T2.PRJT_CD DESC
 		
     	<if test="pageSize != null and pageSize != -1">
@@ -32,16 +28,22 @@
 		</if>
 	</select>
 	
+	<sql id="listWhere">	
+		<if test="srchPrjtNm != null and srchPrjtNm != ''">	AND T2.PRJT_NM LIKE CONCAT('%', #{srchPrjtNm}, '%')	</if>
+		<if test="trAcctNm != null and trAcctNm != ''">AND T1.TR_ACCT_NM LIKE CONCAT('%', #{trAcctNm}, '%')</if>
+		<if test="cstmrNm != null and cstmrNm != ''">AND T2.CSTMR_NM LIKE CONCAT('%', #{cstmrNm}, '%')</if>
+		<if test="prjtCondCd != null and prjtCondCd == '001'">AND (T2.PRJT_CFRM_YN is null or T2.PRJT_CFRM_YN='N') AND (T2.PRJT_END_YN is null or T2.PRJT_END_YN='N')</if>
+		<if test="prjtCondCd != null and prjtCondCd == '002'">AND (T2.PRJT_CFRM_YN='Y') AND (T2.PRJT_END_YN is null or T2.PRJT_END_YN='N')</if>
+		<if test="prjtCondCd != null and prjtCondCd == '003'">AND T2.PRJT_END_YN='Y'</if>
+		<if test="workStartDt != null and workStartDt != ''">AND T2.WORK_START_DT = #{workStartDt}</if>	
+	</sql>
 	<select id="selectCntPrjtMgt" parameterType="Map" resultType="int">
 		SELECT /* selectCntPrjtMgt */
 			COUNT(1)
 		FROM T_PMS001 T1, T_PMS006 T2
 		WHERE T1.TR_ACCT_CD=T2.TR_ACCT_CD
-		
-		<if test="srchPrjtNm != null and ''.equals(srchPrjtNm) == false">
-		AND T2.PRJT_NM LIKE CONCAT('%', #{srchPrjtNm}, '%')
-		</if>
-		
+		 <include refid="listWhere"/>
+				
 	</select>
 	
 	<select id="selectPrjtMgt" parameterType="Map" resultType="tMap">

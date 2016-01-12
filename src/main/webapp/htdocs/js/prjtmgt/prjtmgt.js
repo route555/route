@@ -2,15 +2,30 @@ var trAcctCd;
 var chgrSectCdList;
 
 var view = {		
+		codeDatas : '',	
+		codeMap : {"abrdCd":"005","prjtPrptyCd":"012","prjtCondCd":"022"},	//국내외구분코드, 프로젝트특성코드, 프로젝트상태코드
 		onLoadEvent : function() {
 		
-		$("#btnSearch").unbind('click');
-		$("#btnSearch").click( function() {	
-			var table = $('#dataTables-prjtList').dataTable();
-			table.fnReloadAjax();
+			$('#searchBox input').keypress(function(e) {
+			    if (e.keyCode == 13){			    	
+			    	$("#btnSearch").click();
+					return false;
+			    }         
+			});	
 			
-			view.initDetail();
-		});
+			$("#btnSearch").unbind('click');
+			$("#btnSearch").click( function() {	
+				var table = $('#dataTables-prjtList').dataTable();
+				table.fnReloadAjax();
+				view.initDetail();
+			});
+			
+			$("#btnSearchInit").unbind('click');
+			$("#btnSearchInit").click( function() {			
+				$('form[name="sf"]').each(function() {
+					this.reset();  
+				}); 
+			});
 
 		$("#btnSave").unbind('click');
 		$("#btnSave").click( function() {
@@ -217,27 +232,62 @@ var view = {
 		});
 		
 		
-		view.selectTableData();
+		view.selectCommonCodes();
+		
+		//view.selectTableData();
 		
 		//국내외구분코드
-		view.selectCommonCode005();
+		//view.selectCommonCode005();
 		
 		//프로젝트특성코드
-		view.selectCommonCode012();
+		//view.selectCommonCode012();
 
 		
 		}
-
-		, selectCommonCode005 : function() {
+		, onLoadForAsync : function() {
+			view.selectTableData();
+		}
+		, selectCommonCodes : function() {
+			var reqData = new Object();
+			var array = [];
+			$.each(view.codeMap, function(k, v) {
+				array.push(v);
+			});
+			reqData.codes=array.toString();
 			common.ajax({
-				  		url : G_CONTEXT_PATH+"/codes/005"
+				  		url : G_CONTEXT_PATH+"/multiCodes"
+				  		, data : reqData
 				  		, type : "GET"
-						, success : view.selectCommonCodeCallBack005
+						, success : view.selectCommonCodesCallBack
 			});
 		}
+		, selectCommonCodesCallBack : function(json) {
+			//codeMap : {"abrdCd":"005","prjtPrptyCd":"012","prjtCondCd":"022"},	//국내외구분코드, 프로젝트특성코드, 프로젝트상태코드
+			view.codeDatas=json;
+			
+			$.each(view.codeMap, function(key, value) {
+				if(key=='abrdCd'){
+					view.selectCommonCodeCallBack005(view.codeDatas[value]);
+				} else if(key=='prjtPrptyCd'){
+					view.selectCommonCodeCallBack012(view.codeDatas[value]);
+				} else if(key=='prjtCondCd'){
+					var el = '';			
+					$(view.codeDatas[value]).each(function(i, itm){	
+						el += '<option value="' + itm.dtlCd + '">' + itm.dtlCdNm + '</option>';
+					});						
+					
+					$("#prjtCondCdSf").append(el);
+
+					var newEl = '<option value="">전체</option>';
+					$("#prjtCondCdSf").prepend(newEl);
+				} 
+			});
+			view.onLoadForAsync();
+		}
+		
 		, selectCommonCodeCallBack005 : function(json) {
 			var el = '';			
-			$(json.list).each(function(i, itm){				
+			$(json).each(function(i, itm){				
 				el += '<option value="' + itm.dtlCd + '">' + itm.dtlCdNm + '</option>';
 				//console.log(el);
 			});
@@ -245,16 +295,10 @@ var view = {
 			$("select:eq(0) option:eq(0)").attr("selected", "selected");
 			$("select:eq(0) option:eq(0)").trigger('change');	
 		}
-		, selectCommonCode012 : function() {
-			common.ajax({
-				  		url : G_CONTEXT_PATH+"/codes/012"
-				  		, type : "GET"
-						, success : view.selectCommonCodeCallBack012
-			});
-		}
+	
 		, selectCommonCodeCallBack012 : function(json) {
 			var el = '';			
-			$(json.list).each(function(i, itm){				
+			$(json).each(function(i, itm){				
 				el += '<option value="' + itm.dtlCd + '">' + itm.dtlCdNm + '</option>';
 				//console.log(el);
 			});
@@ -290,10 +334,15 @@ var view = {
 						"fnServerData" : function(sSource, aoData, fnCallback,	oSettings) {
 							//$("#detail").hide();
 							//$("#tracctChgrList").hide();
+							/*
 							aoData.push({
 								"name" : "srchPrjtNm",
 								"value" :  $("#srchPrjtNm").val()
 							});
+							*/
+							var reqData = $('form[name="sf"]').serializeArray();
+							$.merge(aoData,reqData);
+							
 							oSettings.jqXHR = $.ajax({
 								"dataType" : 'json',
 								"type" : "GET",
