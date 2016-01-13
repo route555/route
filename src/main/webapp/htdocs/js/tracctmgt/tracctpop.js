@@ -19,6 +19,26 @@ var view = {
 				return;
 			}
 			
+			view.confirmAction();
+			
+			
+		});
+		
+		$("#btnClose").unbind('click');
+		$("#btnClose").click( function() {
+			self.close();
+			
+		});
+		
+		view.selectTableData();
+		view.selectTracctChgrList();
+		view.selectCommonCode001();
+		
+
+		
+		}
+
+		, confirmAction : function() {			
 			if($("#srchType").val() == "T") {
 				$(opener.document).find("#trAcctCd").val($("#trAcctCd").val());
 				$(opener.document).find("#trAcctNm").val($("#trAcctNm").val());
@@ -43,24 +63,8 @@ var view = {
 			}
 			
 			self.close();
-			
-			
-		});
-		
-		$("#btnClose").unbind('click');
-		$("#btnClose").click( function() {
-			self.close();
-			
-		});
-		
-		view.selectTableData();
-		view.selectTracctChgrList();
-		view.selectCommonCode001();
-		
 
-		
 		}
-		
 		, selectCommonCode001 : function() {			
 			common.ajax({
 				  		url : G_CONTEXT_PATH+"/codes/001"
@@ -201,6 +205,14 @@ var view = {
 				$("#hdnEmailAddr").val(data.emailAddr); //이메일
 				
 		    } );
+			
+
+			$('#dataTables-tracctList tbody').on( 'dblclick', 'tr', function () {
+
+			  console.log('dblclick')
+			  view.confirmAction();
+			} );
+			
 			
 		}
 		, selectOneData : function(trAcctCd){

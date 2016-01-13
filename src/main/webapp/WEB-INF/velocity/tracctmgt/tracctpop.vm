@@ -130,8 +130,16 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-            <!-- 테이블종료 -->
+            <!-- 테이블종료-->   
             
+                      
+            <div class="forms-group text-center" >
+                              	<button type="button" class="btn btn-primary btn-primary" id="btnConfirm" name="btnClose">선택</button>
+                        		<button type="button" class="btn btn-outline btn-success" id="btnClose" name="btnConfirm">닫기</button>
+            </div>
+			<br>
+                           
+                           
             <!-- 디테일화면 -->
             <form role="form" name="f" id="f" method="post">
             <input type="hidden" id="srchType" name="srchType" value="${srchType}">
@@ -251,10 +259,7 @@
             </div>
             <!-- 담당자 목록 테이블 종료 -->
             </form>
-            <div sytyle="align:center;">
-            	<button type="button" class="btn btn-primary pull-center" id="btnConfirm" name="btnClose">확인</button>&nbsp;
-            	<button type="button" class="btn btn-primary pull-center" id="btnClose" name="btnConfirm">닫기</button>
-            </div>
+
     </div>
     <!-- /#wrapper -->
 

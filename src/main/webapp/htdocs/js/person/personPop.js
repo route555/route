@@ -124,6 +124,19 @@ workStartDt: "20130102"
 					view.sendData=data;
 					view.selectOneData(data.prsnNo);
 			    } );
+				
+				$('#dataTables-person tbody').on('dblclick', 'tr', function () {
+					
+					 console.log('dblclick')
+					 if(view.sendData==''){
+							alert('인력을 선택해주세요');
+						}else{
+							view.sendData.cntrctSectCdNm = 	view.converCodeNm(view.sendData.cntrctSectCd, 'cntrctSectCd');
+							window.opener.view.popEvent(view.sendData);  
+							window.close(); 
+						}
+					
+			    } );
 			}
 			, selectCommonCodes : function() {
 				var reqData = new Object();
@@ -209,7 +222,7 @@ workStartDt: "20130102"
 							"bFilter": false,
 							"autoWidth": true,
 							"ordering": false,
-							deferLoading: 0, 
+							//deferLoading: 0, 
 							"iDisplayLength": 10,
 							columnDefs: [ { visible: false, targets: [0] } ],
 							select:true,

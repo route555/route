@@ -62,7 +62,7 @@ var view = {
 		$("#btnTrAcctPop").unbind('click');
 		$("#btnTrAcctPop").click( function() {
 
-			window.open(G_CONTEXT_PATH+"/web/tracctmgt/tracctpop?trAcctCd=''&srchType=T&srchChgSectCd=", "window", "width=1000,height=800");
+			window.open(G_CONTEXT_PATH+"/web/tracctmgt/tracctpop?trAcctCd=''&srchType=T&srchChgSectCd=", "window", "width=1200,height=800");
 			
 			
 			
@@ -76,7 +76,7 @@ var view = {
 				return;
 			}
 			
-			window.open(G_CONTEXT_PATH+"/web/tracctmgt/tracctpop?trAcctCd="+$("#trAcctCd").val()+"&srchType=S&srchChgSectCd=002", "window", "width=1000,height=800");
+			window.open(G_CONTEXT_PATH+"/web/tracctmgt/tracctpop?trAcctCd="+$("#trAcctCd").val()+"&srchType=S&srchChgSectCd=002", "window", "width=1200,height=800");
 			
 			
 			
@@ -90,7 +90,7 @@ var view = {
 				return;
 			}
 			
-			window.open(G_CONTEXT_PATH+"/web/tracctmgt/tracctpop?trAcctCd="+$("#trAcctCd").val()+"&srchType=C&srchChgSectCd=004", "window", "width=1000,height=800");
+			window.open(G_CONTEXT_PATH+"/web/tracctmgt/tracctpop?trAcctCd="+$("#trAcctCd").val()+"&srchType=C&srchChgSectCd=004", "window", "width=1200,height=800");
 			
 			
 			
