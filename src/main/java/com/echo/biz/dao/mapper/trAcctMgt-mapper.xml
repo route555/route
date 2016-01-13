@@ -22,7 +22,7 @@
 		(SELECT * 
 		 FROM T_PMS001 
 		 WHERE 1=1
-		 
+		 AND USE_YN='Y'
 		 <if test="srchTrAcctNm != null and ''.equals(srchTrAcctNm) == false">
 		 AND TR_ACCT_NM LIKE CONCAT('%', #{srchTrAcctNm}, '%')  
 		 </if>
@@ -78,7 +78,7 @@
 		(SELECT * 
 		 FROM T_PMS001 
 		 WHERE 1=1
-		 
+		 AND USE_YN='Y'
 		 <if test="srchTrAcctNm != null and ''.equals(srchTrAcctNm) == false">
 		 AND TR_ACCT_NM LIKE CONCAT('%', #{srchTrAcctNm}, '%')  
 		 </if>
@@ -236,7 +236,18 @@
 	WHERE TR_ACCT_CD = #{trAcctCd}
 	</update>
 	
+	
 	<delete id="deleteTrAcct" parameterType="Map">
+		UPDATE  /* deleteTrAcct */
+			T_PMS001 
+		SET	
+			USE_YN='N'
+			,upt_tm =  NOW()
+			,uptr_id = #{uptrId} 
+		WHERE TR_ACCT_CD = #{trAcctCd}
+	</delete>
+	
+	<delete id="deleteTrAcctOrg" parameterType="Map">
 	DELETE FROM T_PMS001 WHERE TR_ACCT_CD = #{trAcctCd}
 	</delete>
 	

@@ -115,6 +115,7 @@ public class TrAcctMgtService extends AbstractService<TrAcctMgt, TrAcctMgtDto>{
 	}
 	
 	public void deleteTrAcct(Map params) throws Exception {
+		params.put("uptrId", "SYSTEM");
 		//거래처정보 삭제
 		trAcctMgtDao.deleteTrAcct(params);
 		

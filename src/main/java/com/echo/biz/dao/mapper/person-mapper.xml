@@ -49,12 +49,24 @@
 	</update>
 		
 	<delete id="deletePerson" parameterType="person">
+		UPDATE  /* deletePerson */
+			T_PMS003 
+		SET	
+			USE_YN='N'
+			,upt_tm =  NOW()
+			,uptr_id = #{uptrId} 
+		WHERE	
+			prsn_no = #{prsnNo}
+	</delete>	
+	
+	<delete id="deletePersonOrg" parameterType="person">
 		DELETE /* deletePerson */
 		FROM
 			T_PMS003 
 		WHERE	
 			prsn_no = #{prsnNo}
-	</delete>	
+	</delete>
+	
 	
 	<select id="selectPerson" parameterType="person" resultType="person">
 		SELECT	 /* selectPerson */
@@ -176,7 +188,8 @@
 	</select>
 	
 	
-	<sql id="listWhere">	
+	<sql id="listWhere">
+		AND USE_YN='Y'	
 		<if test="prsnNm != null and prsnNm != ''">AND prsn_nm LIKE CONCAT('%', #{prsnNm}, '%')</if>
 		<if test="sexCd != null and sexCd != ''">AND sex_cd = #{sexCd}</if>
 		<if test="acdmcCd != null and acdmcCd != ''">AND acdmc_cd = #{acdmcCd}</if>		
