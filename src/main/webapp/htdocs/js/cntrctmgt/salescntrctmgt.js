@@ -1,7 +1,7 @@
 var trAcctCd;
 var dmndCdList;
 var rowIdx;
-
+var prjtCd;
 var view = {
 		codeDatas : '',	
 		codeMap : {"cntrctStatusCd":"013", "dmndCd":"016"},	//매출계약코드, 매출청구코드
@@ -143,7 +143,8 @@ var view = {
 			//청구정보 목록 조회
 	    	table1 = $('#dataTables-salesDmndList').dataTable();
 	    	table1.fnReloadAjax();
-
+	    	
+	    	view.selectPrjtPrsnList();
 			
 		}
 		
@@ -293,6 +294,12 @@ var view = {
 		        //청구정보 목록 조회
 	        	table1 = $('#dataTables-salesDmndList').dataTable();
 	        	table1.fnReloadAjax();
+	        	
+	        	prjtCd = data.prjtCd;
+				
+				//인력 목록 조회
+	        	table1 = $('#dataTables-prjtPrsnList').dataTable();
+	        	table1.fnReloadAjax();
 
 				
 		    } );
@@ -339,6 +346,77 @@ var view = {
 				
 			});
 		}
+		
+		, converCodeNm : function(data, groupCodeNm) {
+			var groupCode = view.codeMap[groupCodeNm];
+			var gData = jQuery.grep(view.codeDatas[groupCode], function(obj) {
+			    return obj.dtlCd === data;
+			});
+			//console.log(data,groupCode, gData[0]);
+			if(gData[0] != undefined){
+				return gData[0].dtlCdNm;
+			}else{
+				return 'N/A';
+			}
+		}
+		
+		, selectPrjtPrsnList : function() {
+			var table = $('#dataTables-prjtPrsnList').DataTable(
+					{
+						"processing" : true,
+						"serverSide" : true,
+						"bFilter": false,
+						"autoWidth": false,
+						"ordering": false,
+						"paging": false,
+						"deferLoading": 0,
+						"iDisplayLength": 10,
+						//"columnDefs": [ { visible: false, targets: []  },{ className: "text-center", "targets": [ 0 ] }, { className: "hideTr", "targets": [ 1 ] }],
+						"aoColumns": [
+						        { data: 'dstrbtSectCd' , "render": function ( data ) { return view.converCodeNm(data, 'dmndCd');} },
+						        { data: 'prsnNm' },
+						        { data: 'cntrctSectCdNm' },
+						        { data: 'workStartDt' },
+						        { data: 'workEndDt' },
+						        { data: 'prsnMm' },
+						        { data: 'salesUnitCostAmt' },
+						        { data: 'ordrUnitCstAmt' },
+						        { data: 'memoDesc' }
+						       
+						],
+						"sAjaxSource" : G_CONTEXT_PATH+"/prjtPrsn/selectPrjtPrsnList",
+						"fnServerData" : function(sSource, aoData, fnCallback,	oSettings) {
+							aoData.push({
+								"name" : "prjtCd",
+								"value" :  prjtCd
+							});
+							oSettings.jqXHR = $.ajax({
+								"dataType" : 'json',
+								"type" : "GET",
+								"url" : sSource,
+								"data" : aoData,
+								"success" : function(json) {
+									var o = {
+											recordsTotal : json.totalCnt,
+											recordsFiltered : json.totalCnt,
+											data : json.list
+									};
+									fnCallback(o);
+								}
+							});
+						}
+					});
+			
+
+			
+		}
+		
+		
+		
+		
+		
+		
+		
 		
 		, selectSalesDmndList : function() {
 			var table = $('#dataTables-salesDmndList').DataTable(
@@ -498,6 +576,7 @@ var view = {
 			$("#examNeedYn").val('');
 			$("#memoDesc0").val('');
 	        $("#prjtEndYn").val('');
+	        prjtCd='';
 		}
 		, initTrAcctChgrList : function() {
 			
