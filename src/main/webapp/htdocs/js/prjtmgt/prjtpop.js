@@ -152,7 +152,7 @@ var view = {
 						"autoWidth": true,
 						"ordering": false,
 						"paging": false,
-						//"columnDefs": [ { visible: false, targets: [1]  } ],
+						"columnDefs": [ { visible: false, targets: [10]  } ],
 						"deferLoading": 0,
 						"iDisplayLength": 10,
 						// "scrollY":        "300px",
@@ -226,14 +226,14 @@ var view = {
 					});
 			
 			$('#dataTables-prjtPrsnList tbody').on('click', 'tr', function () {
-				
+				/*
 				if ( $(this).hasClass('selected') ) {
 		            $(this).removeClass('selected');
 		        }   else {
 		            table.$('tr.selected').removeClass('selected');
 		            $(this).addClass('selected');
 		        }
-				
+				*/
 				rowIdx = $(this).index();
 			      
 			    //alert(rowIdx);

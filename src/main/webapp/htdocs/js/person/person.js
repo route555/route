@@ -303,13 +303,22 @@ var view = {
 			});
 			
 			$(json.prjtInfo).each(function(idx, itm) {
+				var prjtCd = json.prjtInfo.prjtCd
 				$.each(itm, function(k, v) {
-					//console.log(k,v);
-					$("#"+k).html(v);
+					if(k=='prjtNm'){
+						var pv = '<a id="btnPrjtPop" prjtCd="'+prjtCd+'" >' +v +'</a>';
+						$("#"+k).html( pv);
+					}else{
+						$("#"+k).html(v);
+					}
 				});
 			});
 			
-			
+			$("#btnPrjtPop").unbind('click');
+			$("#btnPrjtPop").click( function(e) {
+				e.preventDefault();  //stop the browser from following
+				window.open(G_CONTEXT_PATH+"/web/prjtmgt/prjtpop?prjtCd="+$(this).attr('prjtCd')+"&trAcctCd="+$("#trAcctCd").val(), "window", "width=1200,height=800");
+			});
 			
 			$("#detail").show();
 			

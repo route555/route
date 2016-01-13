@@ -201,7 +201,8 @@
 
 
 	<select id="selectPersonLastPrjt" parameterType="Map" resultType="tMap">
-	SELECT 
+	SELECT
+		A.PRJT_CD prjtCd,
 	    A.PRJT_NM prjtNm,
 	    CONCAT(DATE_FORMAT(B.WORK_START_DT, '%Y-%m-%d') , ' - ' , DATE_FORMAT(B.WORK_END_DT, '%Y-%m-%d') ) prjtDt,
 	    B.ORDR_UNIT_CST_AMT prjtAmt
