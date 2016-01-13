@@ -93,6 +93,9 @@ var view = {
 					$('#dpstExpctDay').val('');
 				});
 				
+			
+				
+				
 				
 				// $('#datetimepicker12').datetimepicker();
 				
@@ -157,6 +160,11 @@ var view = {
 					*/
 			    } );
 				
+				$('#dataTables-saleMgt tbody').on('click', 'span', function () {		
+					$(this).prev().val('');
+					$(this).prev().trigger('blur');
+				});
+				
 			}
 			, selectCommonCodes : function() {
 				var reqData = new Object();
@@ -202,8 +210,8 @@ var view = {
 			, convertDateInput : function(data, name) {
 				var el='';
 				//el +='<input type="hidden" name="'+name+'Array" value="'+data+'">';
-				el +='<input type="text" class="input-sm form-control grid-mask" style="width:86px;" value="'+data+'" name="'+name+'">';
-				
+				el +='<div  style="width:110px;" ><input  class="input-sm form-control grid-mask" style="width:86px;" value="'+data+'" name="'+name+'">';
+				el +='<span style="margin-left:5px;cursor:pointer" class="glyphicon glyphicon-remove deleteFn"></span></div>';
 				return el;
 			}
 			, setMask : function() {
@@ -221,10 +229,8 @@ var view = {
 				
 				$("#dataTables-saleMgt .grid-mask").blur( function() {
 					var numbers = $(this).val().replace(/-/g,'');
-					data = view.saleMgtTable.fnGetData($(this).parent().parent());
-					
-					//console.log($(this).get(0).name)
-					
+					data = view.saleMgtTable.fnGetData($(this).parent().parent().parent());
+						
 					if($(this).get(0).name=='billIssueDt'){
 						data.billIssueDt=numbers;
 					}else if($(this).get(0).name=='dpstDt'){
@@ -246,7 +252,8 @@ var view = {
 							"processing" : true,
 							"serverSide" : true,
 							"bFilter": false,
-							"autoWidth": true,
+							//"autoWidth": true,
+							"scrollX": true,
 							"ordering": false,
 							"iDisplayLength": 10,
 							columnDefs: [ { visible: false, targets: [1,2] },{ className: "text-center", "targets": [ 0,3 ] } ],

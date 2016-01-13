@@ -27,7 +27,7 @@ var view = {
 						 sendData = new Object();
 						 
 						 sendData.cntrctCd = data.cntrctCd;
-						 sendData.dmndSeqNo = data.dmndSeqNo;
+						 sendData.dpstSeqNo = data.dpstSeqNo;
 						 //sendData.billIssueYn = data.billIssueYn;
 						 sendData.billIssueDt = data.billIssueDt;
 						 //sendData.dpstYn = data.dpstYn;
@@ -94,6 +94,10 @@ var view = {
 					*/
 			    } );
 				
+				$('#dataTables-purchaseMgt tbody').on('click', 'span', function () {		
+					$(this).prev().val('');
+					$(this).prev().trigger('blur');
+				});
 			}
 			, selectCommonCodes : function() {
 				var reqData = new Object();
@@ -149,8 +153,9 @@ var view = {
 			, convertDateInput : function(data, name) {
 				var el='';
 				//el +='<input type="hidden" name="'+name+'Array" value="'+data+'">';
-				el +='<input type="text" class="input-sm form-control grid-mask" style="width:86px;" value="'+data+'" name="'+name+'">';
-				
+				//el +='<input type="text" class="input-sm form-control grid-mask" style="width:86px;" value="'+data+'" name="'+name+'">';
+				el +='<div  style="width:110px;" ><input  class="input-sm form-control grid-mask" style="width:86px;" value="'+data+'" name="'+name+'">';
+				el +='<span style="margin-left:5px;cursor:pointer" class="glyphicon glyphicon-remove deleteFn"></span></div>';
 				return el;
 			}
 			, setMask : function() {
@@ -168,7 +173,7 @@ var view = {
 				
 				$("#dataTables-purchaseMgt .grid-mask").blur( function() {
 					var numbers = $(this).val().replace(/-/g,'');
-					data = view.purchaseMgtTable.fnGetData($(this).parent().parent());
+					data = view.purchaseMgtTable.fnGetData($(this).parent().parent().parent());
 					
 					//console.log($(this).get(0).name)
 					
@@ -191,7 +196,8 @@ var view = {
 							"processing" : true,
 							"serverSide" : true,
 							"bFilter": false,
-							"autoWidth": true,
+							//"autoWidth": true,
+							"scrollX": true,
 							"ordering": false,
 							"iDisplayLength": 10,
 							columnDefs: [ { visible: false, targets: [19] },{ className: "text-center", "targets": [ 0,3 ] } ],
