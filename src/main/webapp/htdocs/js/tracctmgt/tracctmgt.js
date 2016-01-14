@@ -215,7 +215,10 @@ var view = {
 			var table = $('#dataTables-tracctList').DataTable(
 					{
 						dom: 'lBfrtip',
-						buttons: [{extend: 'colvis', postfixButtons: [ 'colvisRestore' ]} , 'newTracct' ],	
+						//buttons: [{extend: 'colvis', postfixButtons: [ 'colvisRestore' ]} , 'newTracct' ],
+						buttons: [{extend: 'colvis', postfixButtons: [ 'colvisRestore' ]} ,$.extend( true, {}, buttonExcel, {
+							extend: 'excel',title: "거래처" 
+						} )  , 'newTracct'  ],
 						"processing" : true,
 						"serverSide" : true,
 						"bFilter": false,

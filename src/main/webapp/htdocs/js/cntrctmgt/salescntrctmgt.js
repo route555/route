@@ -211,6 +211,10 @@ var view = {
 		, selectTableData : function() {
 			var table = $('#dataTables-salesCntrctList').DataTable(
 					{
+						dom: 'lBfrtip',
+						buttons: [{extend: 'colvis', postfixButtons: [ 'colvisRestore' ]} ,$.extend( true, {}, buttonExcel, {
+							extend: 'excel',title: "매출계약관리" 
+						} )   ],
 						"processing" : true,
 						"serverSide" : true,
 						"bFilter": false,

@@ -253,6 +253,10 @@ var view = {
 		, selectTableData : function() {
 			var table = $('#dataTables-orderCntrctList').DataTable(
 					{
+						dom: 'lBfrtip',
+						buttons: [{extend: 'colvis', postfixButtons: [ 'colvisRestore' ]} ,$.extend( true, {}, buttonExcel, {
+							extend: 'excel',title: "매입계약관리" 
+						} )   ],
 						"processing" : true,
 						"serverSide" : true,
 						"bFilter": false,

@@ -309,6 +309,10 @@ var view = {
 		, selectTableData : function() {
 			var table = $('#dataTables-prjtList').DataTable(
 					{
+						dom: 'lBfrtip',
+						buttons: [{extend: 'colvis', postfixButtons: [ 'colvisRestore' ]} ,$.extend( true, {}, buttonExcel, {
+							extend: 'excel',title: "프로젝트관리" 
+						} )   ],
 						"processing" : true,
 						"serverSide" : true,
 						"bFilter": false,

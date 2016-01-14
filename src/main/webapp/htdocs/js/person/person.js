@@ -220,7 +220,10 @@ var view = {
 				var table = $('#dataTables-person').DataTable(
 						{
 							dom: 'lBfrtip',
-							buttons: [{extend: 'colvis', postfixButtons: [ 'colvisRestore' ]} , 'newPerson' ],				        
+							//buttons: [{extend: 'colvis', postfixButtons: [ 'colvisRestore' ]} , 'newPerson' ],		
+							buttons: [{extend: 'colvis', postfixButtons: [ 'colvisRestore' ]} ,$.extend( true, {}, buttonExcel, {
+								extend: 'excel',title: "인력" 
+							} )  , 'newPerson'  ],
 							"paging": true,
 							"processing" : true,
 							"serverSide" : true,

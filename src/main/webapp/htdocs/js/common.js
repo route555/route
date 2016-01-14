@@ -31,6 +31,11 @@ var buttonExcel = {
 					} else {
 						rtn = data;
 					}
+					
+					if (typeof data == 'string' && data.indexOf(".") != -1) {
+						//rtn = '11,00';
+					}
+					
 					return rtn;
 				}
 			}
