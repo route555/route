@@ -70,10 +70,19 @@
                                         <tr>
                                             <th width="15%">청구일자</th>
                                             <td width="35%">
-											<input type="hidden" id="dpstExpctDay" name="dpstExpctDay">
-                                            <input type="text" style="width:100px;" class="input-sm form-control datepicker" placeholder="" id="dmndDateSt" name="dmndDateSt">
-                                            -
-                                            <input type="text" style="width:100px;" class="input-sm form-control datepicker" placeholder="" id="dmndDateEnd" name="dmndDateEnd">
+												<div class="input-group date" id="dmndDateStCom">
+													<input type="hidden" id="dmndDateSt" name="dmndDateSt">
+													<input type="text" style="width:100px;" class="input-sm form-control send-date">
+													<span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+												</div>
+	                                            -
+	                                            <div class="input-group date" id="dmndDateEndCom">
+	                                            	<input type="hidden" id="dmndDateEnd" name="dmndDateEnd">
+													<input type="text" style="width:100px;" class="input-sm form-control send-date">
+													<span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+												</div>
+												                                            
+											
                                             </td>
                                             <th width="15%">청구구분</th>
                                             <td width="35%"><select class="input-sm form-control selectWidth" style="width:auto;" id="dmndCdSf" name="dmndCd"/></td>

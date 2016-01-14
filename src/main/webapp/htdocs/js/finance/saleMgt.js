@@ -1,34 +1,50 @@
-
-//첫날
-function getDt1(){
-var newDt = new Date();
-newDt.setDate(1);
-return converDateString(newDt);
-}
-// 말일
-function getDt2(){
-var newDt = new Date();
-newDt.setMonth( newDt.getMonth() + 1);
-newDt.setDate(0);
-return converDateString(newDt);
-}
-function converDateString(dt){
-	return dt.getFullYear() + "" + addZero(eval(dt.getMonth()+1)) + "" + addZero(dt.getDate());
-	}
-function addZero(i){
-	var rtn = i + 100;
-	return rtn.toString().substring(1,3);
-	}
 var view = {
 			saleMgtTable : '',	
 			codeDatas : '',	
 			codeMap : {"dpstExpctDayCd":"015", "dmndCd":"016"},	//입급예정일코드, 청구구분
 			onLoadEvent : function() {
 				
-				
-				
-				$('#dmndDateSt').val(getDt1());
-				$('#dmndDateEnd').val(getDt2());
+				$('.input-group.date').datepicker({
+					format : "yyyy-mm-dd",
+					language : "kr",
+					forceParse : true,
+					autoclose : true,
+					todayBtn : "linked",
+					showOnFocus : false,
+					todayHighlight : true
+				}).on('changeDate', function(e) {
+					var obj = $(this).find("input:hidden");
+					obj.val(obj.val().replace(/-/g,''));
+				});
+						
+				$('.send-date').blur(function(e) {
+					var str = $(this).val();
+					var isValidate = false;
+					
+					if (str.length == 8 && common.isNumber(str)){
+						isValidate = true;
+					} else if(str.length == 10 && str.split('-').length == 3){
+						isValidate = true;
+					}
+								
+					if (isValidate == false){
+						alert('입력일자 형식 오류!');
+						$(this).focus();
+						return false;
+					}
+					
+					if( str.indexOf('-') == -1){
+						var match = str.match(/(\d{4})(\d{2})(\d{2})/);
+						str = match[1] + '-' + match[2] + '-' + match[3];
+					}
+					
+					$(this).parent().datepicker('update', str).trigger('changeDate');
+					
+				});
+			
+				$('#dmndDateStCom').datepicker('setDate', common.getCurrentFirstDate('-')).trigger('changeDate');
+				$('#dmndDateEndCom').datepicker('setDate', common.getCurrentLastDate('-')).trigger('changeDate');
+
 				
 				view.selectCommonCodes();
 
@@ -82,7 +98,9 @@ var view = {
 					$('form[name="sf"]').each(function() {
 						this.reset();  
 					}); 
-					$('#dpstExpctDay').val('');
+					
+					$('#dmndDateSt').val('');
+					$('#dmndDateEnd').val('');
 				});
 				
 			

@@ -3,7 +3,48 @@ var view = {
 		codeDatas : '',	
 		codeMap : {"cntrctSectCd":"004", "payDayCd":"015", "dpstCd":"016"},	//계약형태코드, 입급일코드, 지급구분
 		onLoadEvent : function() {
+			
+			$('.input-group.date').datepicker({
+				format : "yyyy-mm-dd",
+				language : "kr",
+				forceParse : true,
+				autoclose : true,
+				todayBtn : "linked",
+				showOnFocus : false,
+				todayHighlight : true
+			}).on('changeDate', function(e) {
+				var obj = $(this).find("input:hidden");
+				obj.val(obj.val().replace(/-/g,''));
+			});
+					
+			$('.send-date').blur(function(e) {
+				var str = $(this).val();
+				var isValidate = false;
+				
+				if (str.length == 8 && common.isNumber(str)){
+					isValidate = true;
+				} else if(str.length == 10 && str.split('-').length == 3){
+					isValidate = true;
+				}
+							
+				if (isValidate == false){
+					alert('입력일자 형식 오류!');
+					$(this).focus();
+					return false;
+				}
+				
+				if( str.indexOf('-') == -1){
+					var match = str.match(/(\d{4})(\d{2})(\d{2})/);
+					str = match[1] + '-' + match[2] + '-' + match[3];
+				}
+				
+				$(this).parent().datepicker('update', str).trigger('changeDate');
+				
+			});
 		
+			$('#dpstDtStCom').datepicker('setDate', common.getCurrentFirstDate('-')).trigger('changeDate');
+			$('#dpstDtEndCom').datepicker('setDate', common.getCurrentLastDate('-')).trigger('changeDate');
+			
 			view.selectCommonCodes();
 
 			$('#searchBox input').keypress(function(e) {
@@ -13,23 +54,12 @@ var view = {
 			    }         
 			});
 			
-			$('.input-group.date').datepicker({
-				format : "yyyy-mm-dd",
-				language : "kr",
-				forceParse : true,
-				autoclose : true,
-				todayBtn : "linked",
-				todayHighlight : true
-	
-			}).on('changeDate', function(e) {
-				console.log($(this))
-			});
 			
 			$("#btnSearch").unbind('click');
 			$("#btnSearch").click( function() {
 				
-				$("#dpstDtSt").val($("#dpstDtStPicker").val().replace(/-/g,''));
-				$("#dpstDtEnd").val($("#dpstDtEndPicker").val().replace(/-/g,''));
+				//$("#dpstDtSt").val($("#dpstDtStPicker").val().replace(/-/g,''));
+				//$("#dpstDtEnd").val($("#dpstDtEndPicker").val().replace(/-/g,''));
 				view.purchaseMgtTable.fnReloadAjax();
 			});
 			
@@ -334,15 +364,4 @@ var view = {
 	$(function() {
 		view.onLoadEvent();
 	});
-	
-	/*
-	$('#dpstExpctDay1').datepicker({
-		format: 'yyyy-mm-dd',
-        todayBtn: 'linked',
-        autoclose:true
-	})
-	.on('changeDate', function(ev){
-		//$('#dpstExpctDay').datepicker('hide');
-	});
-	*/
 	

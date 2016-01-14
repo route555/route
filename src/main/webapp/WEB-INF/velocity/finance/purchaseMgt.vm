@@ -73,23 +73,19 @@
                                         </tr>
                                         <tr>
                                             <th width="15%">지급일자</th>
-                                            
                                             <td width="35%">
-											<input type="hidden" id="dpstDtSt" name="dpstDtSt">
-											<input type="hidden" id="dpstDtEnd" name="dpstDtEnd">
-											
-											<div class="input-group date">
-												<input type="text" style="width:100px;" class="input-sm form-control" id="dpstDtStPicker">
-												<span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-											</div>
-                                            -
-                                            <div class="input-group date">
-												<input type="text" style="width:100px;" class="input-sm form-control" id="dpstDtEndPicker">
-												<span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-											</div>
-											
+												<div class="input-group date" id="dpstDtStCom">
+													<input type="hidden" id="dpstDtSt" name="dpstDtSt">
+													<input type="text" style="width:100px;" class="input-sm form-control send-date">
+													<span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+												</div>
+	                                            -
+	                                            <div class="input-group date" id="dpstDtEndCom">
+	                                            	<input type="hidden" id="dpstDtEnd" name="dpstDtEnd">
+													<input type="text" style="width:100px;" class="input-sm form-control send-date">
+													<span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+												</div>
                                             </td>
-                                            
                                             <th width="15%"></th>
                                             <td width="35%"></td>
                                         </tr>

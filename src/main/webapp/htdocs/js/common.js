@@ -378,6 +378,26 @@ var common = {
 
         return new Date(value_dt[0], value_dt[1], value_dt[2]);
 	}
+	
+	, getCurrentFirstDate: function(format) {
+		var newDt = new Date();
+		newDt.setDate(1);
+		return common.converDateString(newDt, format);	
+	}
+	, getCurrentLastDate: function(format) {
+		var newDt = new Date();
+		newDt.setMonth( newDt.getMonth() + 1);
+		newDt.setDate(0);
+		return common.converDateString(newDt, format);	
+	}
+	, converDateString: function(dt, format) {
+		return dt.getFullYear() + format + common.addZero(eval(dt.getMonth()+1)) + format + common.addZero(dt.getDate());
+	}
+	, addZero: function(i) {
+		var rtn = i + 100;
+		return rtn.toString().substring(1,3);
+	}
+	
 	, transDateFormat: function(date, format) {
 		if (!date.valueOf()) return " ";
 		
