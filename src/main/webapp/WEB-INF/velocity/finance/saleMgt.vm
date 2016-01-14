@@ -72,7 +72,6 @@
                                             <td width="35%">
 											<input type="hidden" id="dpstExpctDay" name="dpstExpctDay">
                                             <input type="text" style="width:100px;" class="input-sm form-control datepicker" placeholder="" id="dmndDateSt" name="dmndDateSt">
-                                            
                                             -
                                             <input type="text" style="width:100px;" class="input-sm form-control datepicker" placeholder="" id="dmndDateEnd" name="dmndDateEnd">
                                             </td>

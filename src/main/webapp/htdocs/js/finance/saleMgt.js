@@ -1,15 +1,4 @@
 
-var buttonCommon = {
-		exportOptions: {
-			format: {
-				body: function ( data, column, row ) {
-					// Strip $ from salary column to make it numeric
-					console.log(data)
-					return data;
-				}
-			}
-		}
-	};
 //첫날
 function getDt1(){
 var newDt = new Date();
@@ -35,6 +24,9 @@ var view = {
 			codeDatas : '',	
 			codeMap : {"dpstExpctDayCd":"015", "dmndCd":"016"},	//입급예정일코드, 청구구분
 			onLoadEvent : function() {
+				
+				
+				
 				$('#dmndDateSt').val(getDt1());
 				$('#dmndDateEnd').val(getDt2());
 				
@@ -210,7 +202,7 @@ var view = {
 			, convertDateInput : function(data, name) {
 				var el='';
 				//el +='<input type="hidden" name="'+name+'Array" value="'+data+'">';
-				el +='<div  style="width:110px;" ><input  class="input-sm form-control grid-mask" style="width:86px;" value="'+data+'" name="'+name+'">';
+				el +='<div isExcel="true" style="width:110px;" ><input  class="input-sm form-control grid-mask" style="width:86px;" value="'+data+'" name="'+name+'">';
 				el +='<span style="margin-left:5px;cursor:pointer" class="glyphicon glyphicon-remove deleteFn"></span></div>';
 				return el;
 			}
@@ -245,8 +237,8 @@ var view = {
 				var table = $('#dataTables-saleMgt').DataTable(
 						{
 							dom: 'lBfrtip',
-							buttons: [{extend: 'colvis', postfixButtons: [ 'colvisRestore' ]} ,$.extend( true, {}, buttonCommon, {
-								extend: 'excel'
+							buttons: [{extend: 'colvis', postfixButtons: [ 'colvisRestore' ]} ,$.extend( true, {}, buttonExcel, {
+								extend: 'excel',title: "매출관리" 
 							} )   ],				        
 							"paging": true,
 							"processing" : true,

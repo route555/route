@@ -1,104 +1,91 @@
 var view = {
-			purchaseMgtTable : '',	
-			codeDatas : '',	
-			codeMap : {"cntrctSectCd":"004", "payDayCd":"015", "dpstCd":"016"},	//계약형태코드, 입급일코드, 지급구분
-			onLoadEvent : function() {
+		purchaseMgtTable : '',	
+		codeDatas : '',	
+		codeMap : {"cntrctSectCd":"004", "payDayCd":"015", "dpstCd":"016"},	//계약형태코드, 입급일코드, 지급구분
+		onLoadEvent : function() {
 		
-				view.selectCommonCodes();
+			view.selectCommonCodes();
 
-				$('#searchBox input').keypress(function(e) {
-				    if (e.keyCode == 13){			    	
-				    	$("#btnSearch").click();
-						return false;
-				    }         
-				});
-				
-				$("#btnSearch").unbind('click');
-				$("#btnSearch").click( function() {
-					view.purchaseMgtTable.fnReloadAjax();
-				});
-				
-				$("#btnBillIssue").unbind('click');
-				$("#btnBillIssue").click( function() {
-					var sendDataArray = new Array();
-					$("input:checked", view.purchaseMgtTable.fnGetNodes()).each(function(i){
-						 data = view.purchaseMgtTable.fnGetData($(this).parent().parent());
-						 
-						 sendData = new Object();
-						 
-						 sendData.cntrctCd = data.cntrctCd;
-						 sendData.dpstSeqNo = data.dpstSeqNo;
-						 //sendData.billIssueYn = data.billIssueYn;
-						 sendData.billIssueDt = data.billIssueDt;
-						 //sendData.dpstYn = data.dpstYn;
-						 sendData.dpstDt = data.dpstDt;
-						 sendData.memoDesc = data.memoDesc;
-						 
-						 sendDataArray.push(sendData);
-					});
-					console.log(sendDataArray);
-					if(sendDataArray.length==0){
-						alert('데이터를 선택하세요');
-						return false;
-					}
-					var sendData = new Object();
-					
-					sendData.inData=sendDataArray;
-									
-					console.log(sendData);
-					view.billIssue(sendData);
-				});
-				
+			$('#searchBox input').keypress(function(e) {
+			    if (e.keyCode == 13){			    	
+			    	$("#btnSearch").click();
+					return false;
+			    }         
+			});
 			
-				$("#btnSearchInit").unbind('click');
-				$("#btnSearchInit").click( function() {			
-					$('form[name="sf"]').each(function() {
-						this.reset();  
-					}); 
-					$('#dpstExpctDay').val('');
+			$('.input-group.date').datepicker({
+				format : "yyyy-mm-dd",
+				language : "kr",
+				forceParse : true,
+				autoclose : true,
+				todayBtn : "linked",
+				todayHighlight : true
+	
+			}).on('changeDate', function(e) {
+				console.log($(this))
+			});
+			
+			$("#btnSearch").unbind('click');
+			$("#btnSearch").click( function() {
+				
+				$("#dpstDtSt").val($("#dpstDtStPicker").val().replace(/-/g,''));
+				$("#dpstDtEnd").val($("#dpstDtEndPicker").val().replace(/-/g,''));
+				view.purchaseMgtTable.fnReloadAjax();
+			});
+			
+			$("#btnSearchInit").unbind('click');
+			$("#btnSearchInit").click( function() {			
+				$('form[name="sf"]').each(function() {
+					this.reset();  
+				}); 
+				$('#dpstDtSt').val('');
+				$('#dpstDtEnd').val('');
+			});
+					
+				
+			$("#btnBillIssue").unbind('click');
+			$("#btnBillIssue").click( function() {
+				var sendData = new Object();
+				sendData.inData=new Array();
+				$("input:checked", view.purchaseMgtTable.fnGetNodes()).each(function(i){
+					 var data = view.purchaseMgtTable.fnGetData($(this).parent().parent());
+					 
+					 var rowData = new Object();
+					 rowData.cntrctCd = data.cntrctCd;
+					 rowData.dpstSeqNo = data.dpstSeqNo;
+					 rowData.billIssueDt = data.billIssueDt;
+					 rowData.dpstPrcsDt = data.dpstPrcsDt;
+					 rowData.memoDesc = data.memoDesc;
+					 
+					 sendData.inData.push(rowData);
 				});
+				if(sendData.inData.length==0){
+					alert('데이터를 선택하세요');
+					return false;
+				}
+				view.billIssue(sendData);
+			});
 				
-				$('#dpstExpctDayView').mask('9999-99-99' ,{completed:function(){
-					var numbers = this.val().replace(/-/g,'');
-					$('#dpstExpctDay').val(numbers);
-				}});
-				
-			}
-			, onLoadForAsync : function() {
-				
-				view.selectTableData();
-				view.purchaseMgtTable = $('#dataTables-purchaseMgt').dataTable();
+		}
+		, onLoadForAsync : function() {
+			
+			view.selectTableData();
+			view.purchaseMgtTable = $('#dataTables-purchaseMgt').dataTable();
 
-				$('#dataTables-purchaseMgt tbody').on('click', 'td', function(e) {
-					// console.log(view.purchaseMgtTable.fnGetPosition(this)[1]);
-					if (view.purchaseMgtTable.fnGetPosition(this)[1] == 0) {
-						var chk = $(this).closest("tr").find("input:checkbox").get(0);
-						if (e.target != chk) {
-							chk.checked = !chk.checked;
-						}
+			$('#dataTables-purchaseMgt tbody').on('click', 'td', function(e) {
+				if (view.purchaseMgtTable.fnGetPosition(this)[1] == 0) {
+					var chk = $(this).closest("tr").find("input:checkbox").get(0);
+					if (e.target != chk) {
+						chk.checked = !chk.checked;
 					}
-				});
-				
-				$('#dataTables-purchaseMgt1111 tbody').on('click', 'tr', function () {
-					
-					data = view.purchaseMgtTable.fnGetData(this);
-					
-					console.log(this);
-					console.log(data);
-					/*
-					data = view.personTable.fnGetData(this);
-					if(data==null){
-						return false;
-					}
-					view.selectOneData(data.prsnNo);
-					*/
-			    } );
-				
-				$('#dataTables-purchaseMgt tbody').on('click', 'span', function () {		
-					$(this).prev().val('');
-					$(this).prev().trigger('blur');
-				});
-			}
+				}
+			});
+			
+			$('#dataTables-purchaseMgt tbody').on('click', 'span', function () {		
+				$(this).prev().val('');
+				$(this).prev().trigger('blur');
+			});
+		}
 			, selectCommonCodes : function() {
 				var reqData = new Object();
 				var array = [];
@@ -152,10 +139,10 @@ var view = {
 			}
 			, convertDateInput : function(data, name) {
 				var el='';
-				//el +='<input type="hidden" name="'+name+'Array" value="'+data+'">';
-				//el +='<input type="text" class="input-sm form-control grid-mask" style="width:86px;" value="'+data+'" name="'+name+'">';
-				el +='<div  style="width:110px;" ><input  class="input-sm form-control grid-mask" style="width:86px;" value="'+data+'" name="'+name+'">';
-				el +='<span style="margin-left:5px;cursor:pointer" class="glyphicon glyphicon-remove deleteFn"></span></div>';
+				el +='<div style="width:110px;" isExcel="true">';
+				el +='<input class="input-sm form-control grid-mask" style="width:86px;" value="'+data+'" name="'+name+'">';
+				el +='<span style="margin-left:5px;cursor:pointer" class="glyphicon glyphicon-remove deleteFn"/>';
+				el +='</div>';
 				return el;
 			}
 			, setMask : function() {
@@ -179,8 +166,8 @@ var view = {
 					
 					if($(this).get(0).name=='billIssueDt'){
 						data.billIssueDt=numbers;
-					}else if($(this).get(0).name=='dpstDt'){
-						data.dpstDt=numbers;
+					}else if($(this).get(0).name=='dpstPrcsDt'){
+						data.dpstPrcsDt=numbers;
 					}
 								
 				});
@@ -191,13 +178,14 @@ var view = {
 				var table = $('#dataTables-purchaseMgt').DataTable(
 						{
 							dom: 'lBfrtip',
-							buttons: [{extend: 'colvis', postfixButtons: [ 'colvisRestore' ]}  ],				        
+							buttons: [{extend: 'colvis', postfixButtons: [ 'colvisRestore' ]}
+									,$.extend( true, {}, buttonExcel, {extend: 'excel',title: "매입관리" }) ],			        
 							"paging": true,
 							"processing" : true,
 							"serverSide" : true,
 							"bFilter": false,
-							//"autoWidth": true,
-							"scrollX": true,
+							autoWidth: false,
+							scrollX: true,
 							"ordering": false,
 							"iDisplayLength": 10,
 							columnDefs: [ { visible: false, targets: [19] },{ className: "text-center", "targets": [ 0,3 ] } ],

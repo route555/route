@@ -72,10 +72,24 @@
                                             <td width="35%"><select class="input-sm form-control selectWidth" style="width:auto;" id="dpstCdSf" name="dpstCd"/></td>
                                         </tr>
                                         <tr>
-                                            <th width="15%">지급일</th>
+                                            <th width="15%">지급일자</th>
+                                            
                                             <td width="35%">
-											<input type="hidden" id="dpstPrcsDt1" name="dpstPrcsDt1">
-                                            <input type="text" class="input-sm form-control" name="dpstPrcsDt" placeholder="" id="dpstPrcsDtView"></td>
+											<input type="hidden" id="dpstDtSt" name="dpstDtSt">
+											<input type="hidden" id="dpstDtEnd" name="dpstDtEnd">
+											
+											<div class="input-group date">
+												<input type="text" style="width:100px;" class="input-sm form-control" id="dpstDtStPicker">
+												<span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+											</div>
+                                            -
+                                            <div class="input-group date">
+												<input type="text" style="width:100px;" class="input-sm form-control" id="dpstDtEndPicker">
+												<span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+											</div>
+											
+                                            </td>
+                                            
                                             <th width="15%"></th>
                                             <td width="35%"></td>
                                         </tr>

@@ -18,6 +18,26 @@ Array.prototype.uniqueReplace = function()
 }
 
 
+var buttonExcel = {
+		exportOptions: {
+			
+			format: {
+				body: function ( data, column, row ) {
+					var rtn = '';
+					if (typeof data == 'string' && data.indexOf("isExcel") != -1) {
+						rtn = $(data).find('input').val()+'';
+					} else if (typeof data == 'string' && data.indexOf("checkbox") != -1) {
+						rtn = '';
+					} else {
+						rtn = data;
+					}
+					return rtn;
+				}
+			}
+		}
+	};
+
+
 $.fn.serializeObject = function() {
 
 	  var form = {};

@@ -24,7 +24,9 @@
 	    <if test="dpstYn != null and dpstYn != ''">AND M.DPST_YN = #{dpstYn}</if>	
 	    <if test="dpstCd != null and dpstCd != ''">AND M.DPST_CD = #{dpstCd}</if>
 	    <if test="cntrctSectCd != null and cntrctSectCd != ''">AND A.CNTRCT_SECT_CD = #{cntrctSectCd}</if>
-	    <if test="dpstPrcsDt != null and dpstPrcsDt != ''">AND M.DPST_PRCS_DT = #{dpstPrcsDt}</if>	
+	    <if test="dpstDtSt != '' and dpstDtEnd != ''">
+	    	 AND M.DPST_DT between #{dpstDtSt} and #{dpstDtEnd}
+	    </if>	
 	</sql>
 	
 	<select id="selectListPurchaseManagement" parameterType="Map" resultType="tMap">

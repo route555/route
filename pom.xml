@@ -366,6 +366,9 @@
 										<fileset dir="${basedir}/target/www/">
 											<include name="**/*" />
 											<exclude name="**/*.jar" />
+											<exclude name="**/*.bat" />
+											<exclude name="**/*.py" />
+											<exclude name="**/*.sh" />
 										</fileset>
 									</ftp>
 								</tasks>

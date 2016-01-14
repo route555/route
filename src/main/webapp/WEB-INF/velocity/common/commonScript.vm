@@ -74,8 +74,9 @@
 	<script src="/${contextPath}/htdocs/js/common.js"></script>
 
 
-<link href="/${contextPath}/assets/datepicker/css/datepicker.css" rel="stylesheet">
+<link href="/${contextPath}/assets/datepicker/css/bootstrap-datepicker.css" rel="stylesheet">
 <script src="/${contextPath}/assets/datepicker/js/bootstrap-datepicker.js"></script>
+<script src="/${contextPath}/assets/datepicker/locales/bootstrap-datepicker.kr.min.js"></script>
 
 <script src="/${contextPath}/assets/mask/jquery.maskedinput.min.js"></script>
    <script type="text/javascript">
