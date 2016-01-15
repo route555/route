@@ -4,7 +4,7 @@ var rowIdx;
 var prjtCd;
 var view = {
 		codeDatas : '',	
-		codeMap : {"cntrctStatusCd":"013", "dmndCd":"016"},	//매출계약코드, 매출청구코드
+		codeMap : {"cntrctStatusCd":"013", "dmndCd":"011"},	//매출계약코드, 매출청구코드
 		onLoadEvent : function() {
 		
 			view.selectCommonCodes();

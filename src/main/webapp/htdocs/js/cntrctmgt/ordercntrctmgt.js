@@ -4,7 +4,7 @@ var rowIdx;
 var prjtCd;
 var view = {
 		codeDatas : '',	
-		codeMap : {"cntrctStatusCd":"004", "dmndCd":"014", "dmndCd":"011", "dmndCd":"017"},	//계약구분코드, 계약상태코드, 검색조건구분코드, 지급정보구분코드
+		codeMap : {"cntrctStatusCd":"004", "dmndCd1":"014", "dmnd":"011", "dmndCd":"017"},	//계약구분코드, 계약상태코드, 검색조건구분코드, 지급정보구분코드
 		onLoadEvent : function() {
 		
 		$("#btnSearch").unbind('click');
@@ -175,7 +175,8 @@ var view = {
 					view.selectSrchCommonCodeCallBack014(view.codeDatas[value]);
 					view.selectCommonCodeCallBack014(view.codeDatas[value]);
 				}else if(value=='011'){
-					view.selectCommonCodeCallBack011(view.codeDatas[value]);
+					view.selectSrchCommonCodeCallBack011(view.codeDatas[value]);
+					//view.selectCommonCodeCallBack011(view.codeDatas[value]);
 				}else if(value=='017'){
 					view.selectSrchCommonCodeCallBack017(view.codeDatas[value]);
 					view.selectCommonCodeCallBack017(view.codeDatas[value]);
@@ -389,6 +390,8 @@ var view = {
 
 		, converCodeNm : function(data, groupCodeNm) {
 			var groupCode = view.codeMap[groupCodeNm];
+			
+			//console.log(groupCode);
 			var gData = jQuery.grep(view.codeDatas[groupCode], function(obj) {
 			    return obj.dtlCd === data;
 			});
@@ -413,7 +416,7 @@ var view = {
 						"iDisplayLength": 10,
 						//"columnDefs": [ { visible: false, targets: []  },{ className: "text-center", "targets": [ 0 ] }, { className: "hideTr", "targets": [ 1 ] }],
 						"aoColumns": [
-						        { data: 'dstrbtSectCd' , "render": function ( data ) { return view.converCodeNm(data, 'dmndCd');} },
+						        { data: 'dstrbtSectCd' , "render": function ( data ) { return view.converCodeNm(data, 'dmnd');} },
 						        { data: 'prsnNm' },
 						        { data: 'cntrctSectCdNm' },
 						        { data: 'workStartDt' },
