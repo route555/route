@@ -1,6 +1,5 @@
 package com.echo.biz.service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,17 +10,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.echo.biz.dao.SaleManagementDao;
-import com.echo.biz.dto.AttachFileDto;
 import com.echo.biz.dto.DummyDto;
-import com.echo.biz.dto.PersonSkillDto;
 import com.echo.biz.dto.SaleDemandDto;
 import com.echo.biz.dto.SaleManagementDto;
-import com.echo.framework.domain.EchoCookie;
+import com.echo.biz.dto.SalePurchaseHistoryDto;
 import com.echo.framework.service.AbstractService;
-import com.echo.framework.util.StringUtils;
 
 @Service("SaleManagementService")
 public class SaleManagementService extends AbstractService<Object, Object> {
@@ -33,7 +28,8 @@ public class SaleManagementService extends AbstractService<Object, Object> {
 	@Autowired
 	private SaleDemandService saleDemandService;
 	
-	
+	@Autowired
+	private SalePurchaseHistoryService salePurchaseHistoryService;
 
 	public SaleManagementService() {
 		super(Object.class, Object.class);
@@ -47,6 +43,20 @@ public class SaleManagementService extends AbstractService<Object, Object> {
 			
 			for (SaleDemandDto saleDemandDto : dto.getInData()) {
 				saleDemandService.updateDto(saleDemandDto);
+				
+				SalePurchaseHistoryDto sphDto = new SalePurchaseHistoryDto();
+				sphDto.setTrSectCd("001");
+				sphDto.setCntrctCd(saleDemandDto.getCntrctCd());
+				sphDto.setSalePchsSeqNo(saleDemandDto.getDmndSeqNo());
+				sphDto.setPrcsSectCd("001");
+				String prcsRsnDesc = "";
+				prcsRsnDesc += "\n세금계산서 발행일자 : "+saleDemandDto.getBillIssueDt()+"로 변경";
+				prcsRsnDesc += "\n입금일자  : "+saleDemandDto.getBillIssueDt()+"로 변경";
+				sphDto.setPrcsRsnDesc(prcsRsnDesc);
+				
+				salePurchaseHistoryService.insertDto(sphDto);
+				
+				
 				cnt++;
 			}
 			

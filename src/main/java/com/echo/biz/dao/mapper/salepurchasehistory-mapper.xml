@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="salepurchasehistory">
+
+	
+	<insert id="insertSalePurchaseHistory" parameterType="Map" >
+		<selectKey resultType="Integer" keyProperty="hstSeqNo" order="BEFORE"> 
+			SELECT ifnull(MAX(hst_seq_no),0)+1 FROM T_PMS014 WHERE tr_sect_cd = #{trSectCd}
+		</selectKey>
+		  
+		INSERT INTO /* insertSalePurchaseHistory */ T_PMS014
+			(tr_sect_cd, hst_seq_no, cntrct_cd, sale_pchs_seq_no, prcs_sect_cd, prcs_rsn_desc, rgt_tm, rgtr_id, upt_tm, uptr_id) 
+		VALUES
+			(#{trSectCd}, #{hstSeqNo}, #{cntrctCd}, #{salePchsSeqNo}, #{prcsSectCd}, #{prcsRsnDesc}, now(), #{rgtrId}, now(), #{uptrId})
+
+	</insert>	
+	
+
+</mapper>
