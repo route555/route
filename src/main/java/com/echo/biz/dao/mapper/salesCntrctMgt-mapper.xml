@@ -43,9 +43,14 @@
 		AND T1.CSTMR_NM LIKE CONCAT('%', #{srchCstmrNm}, '%')
 		</if>
 		
-	    <if test="srchCntrctStatusCd != null and ''.equals(srchCntrctStatusCd) == false">
-	    AND T2.CNTRCT_STATUS_CD = #{srchCntrctStatusCd}
+	    <if test="srchCntrctStatusCd == '001'" >
+	    	AND T2.CNTRCT_STATUS_CD IS NULL
 	    </if>
+	    
+	     <if test="srchCntrctStatusCd != null and srchCntrctStatusCd != '001' and ''.equals(srchCntrctStatusCd) == false">
+	    	AND T2.CNTRCT_STATUS_CD = #{srchCntrctStatusCd}
+	    </if> 
+	    
 	) T
 	
 	WHERE 1=1
@@ -104,6 +109,15 @@
 	    <if test="srchCntrctStatusCd != null and ''.equals(srchCntrctStatusCd) == false">
 	    AND T2.CNTRCT_STATUS_CD = #{srchCntrctStatusCd}
 	    </if>
+	    
+	    
+	      <if test="srchCntrctStatusCd == '001'" >
+	    	AND T2.CNTRCT_STATUS_CD IS NULL
+	    </if>
+	    
+	     <if test="srchCntrctStatusCd != null and srchCntrctStatusCd != '001' and ''.equals(srchCntrctStatusCd) == false">
+	    	AND T2.CNTRCT_STATUS_CD = #{srchCntrctStatusCd}
+	    </if> 
 	    
 	) T
 	
