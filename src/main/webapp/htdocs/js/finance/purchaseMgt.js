@@ -218,6 +218,7 @@ var view = {
 							scrollX: true,
 							"ordering": false,
 							"iDisplayLength": 10,
+							"lengthMenu": [[10, 25, 50, 500, 1000, -1], [10, 25, 50, 500, 1000, "All"]],
 							columnDefs: [ { visible: false, targets: [19] },{ className: "text-center", "targets": [ 0,3 ] } ],
 							select:false,
 							"aoColumns": [

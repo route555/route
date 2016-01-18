@@ -230,6 +230,7 @@ var view = {
 							"bFilter": false,
 							"autoWidth": true,
 							"ordering": false,
+							"lengthMenu": [[10, 25, 50, 500, 1000, -1], [10, 25, 50, 500, 1000, "All"]],
 							"iDisplayLength": 10,
 							columnDefs: [ { visible: false, targets: [0] } ],
 							select:true,
