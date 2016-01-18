@@ -21,7 +21,7 @@
 		FROM T_PMS001 T1, T_PMS006 T2
 		WHERE T1.TR_ACCT_CD=T2.TR_ACCT_CD
         <include refid="listWhere"/>
-		ORDER BY T2.PRJT_CD DESC
+		ORDER BY T1.TR_ACCT_NM ASC, T2.WORK_START_DT DESC
 		
     	<if test="pageSize != null and pageSize != -1">
 		LIMIT ${start}, ${pageSize}

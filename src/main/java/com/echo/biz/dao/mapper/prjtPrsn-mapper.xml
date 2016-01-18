@@ -37,7 +37,7 @@
 		FROM T_PMS007 T1, T_PMS003 T2
 		WHERE T1.PRSN_NO=T2.PRSN_NO 
 	    AND T1.PRJT_CD = #{prjtCd} 
-	    ORDER BY T1.DSTRBT_SEQ_NO ASC) T
+	    ORDER BY T1.WORK_START_DT ASC, T1.PRSN_MM ASC) T
 	</select>
 	
 	<insert id="insertPrjtPrsn" parameterType="Map">

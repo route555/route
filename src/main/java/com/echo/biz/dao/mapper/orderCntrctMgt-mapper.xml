@@ -74,7 +74,18 @@
 	AND B.CNTRCT_STATUS_CD = #{srchCntrctStatusCd}
 	</if>
 	
-	ORDER BY B.CNTRCT_CD DESC, A.PRJT_CD DESC, A.DSTRBT_SEQ_NO DESC 
+	<!-- ORDER BY B.CNTRCT_CD DESC, A.PRJT_CD DESC, A.DSTRBT_SEQ_NO DESC  -->
+	
+	
+	
+	<if test="srchOrder == null or ''.equals(srchOrder) == true">
+		ORDER BY A.PRSN_NM ASC, A.WORK_START_DT ASC
+	</if>
+	
+	<if test="srchOrder != null and ''.equals(srchOrder) == false">
+		ORDER BY  A.WORK_START_DT DESC
+	</if>
+	
 	
 	<if test="pageSize != null and pageSize != -1">
 	LIMIT ${start}, ${pageSize}
@@ -206,7 +217,9 @@
 	AND DPST_CD = #{srchDsptCd}
 	</if>
 		
-	ORDER BY DPST_DT DESC, DPST_SEQ_NO DESC
+	<!-- ORDER BY DPST_DT DESC, DPST_SEQ_NO DESC -->
+	ORDER BY DPST_DT ASC, DPST_CD ASC
+	
 	</select>
 	
 	<select id="selectMaxOrderCntrctCd" parameterType="Map" resultType="tMap">

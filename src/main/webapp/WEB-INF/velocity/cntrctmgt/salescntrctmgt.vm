@@ -78,7 +78,7 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-body">
-                        	<form class="navbar-form" id="sf"  id="sf"  role="search">	
+                        	<form class="navbar-form" id="sf"  name="sf"  role="search">	
                         		<label for="srchPrjtNm" >프로젝트명</label>
                         		<input type="text" class="form-control" placeholder="프로젝트명" id="srchPrjtNm" name="srchPrjtNm">
                         		&nbsp; &nbsp; &nbsp; 
@@ -92,7 +92,10 @@
                         		&nbsp; &nbsp; &nbsp;
                         		<label for="srchCntrctSectCd" >계약상태</label>
                         		<select class="form-control" id="srchCntrctStatusCd" name="srchCntrctStatusCd"><option value="">전체</option></select>
-                        		 
+
+                        		&nbsp; &nbsp;<label for="srchOrder" >최신순으로 보기</label>
+                        		<input type="checkbox" class=""  id="srchOrder" name="srchOrder" value="true">
+                        		
 	                            <button type="button" class="btn btn-primary pull-right" id="btnSearch">조회</button>
                             </form>
                         

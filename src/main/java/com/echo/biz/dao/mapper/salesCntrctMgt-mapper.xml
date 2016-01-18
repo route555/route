@@ -62,7 +62,14 @@
 	AND T.CHGR_NM LIKE CONCAT('%', #{srchChgrNm}, '%')
 	</if>
 	
-	ORDER BY T.CNTRCT_CD DESC, T.PRJT_CD DESC
+	<if test="srchOrder == null or ''.equals(srchOrder) == true">
+		ORDER BY T.TR_ACCT_NM ASC, T.WORK_START_DT ASC
+	</if>
+	
+	<if test="srchOrder != null and ''.equals(srchOrder) == false">
+		ORDER BY T.WORK_START_DT DESC
+	</if>
+	
 	
 	<if test="pageSize != null and pageSize != -1">
 	LIMIT ${start}, ${pageSize}
@@ -181,7 +188,7 @@
 	       MEMO_DESC memoDesc
 	FROM T_PMS010
 	WHERE CNTRCT_CD = #{cntrctCd}
-	ORDER BY DMND_DATE DESC, DMND_SEQ_NO DESC
+	ORDER BY DMND_DATE ASC
 	</select>
 	
 	<select id="selectMaxCntrctCd" parameterType="Map" resultType="tMap">

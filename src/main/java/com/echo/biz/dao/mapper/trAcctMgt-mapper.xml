@@ -63,8 +63,9 @@
 
 		ON T1.TR_ACCT_CD=T2.TR_ACCT_CD
 		 
-		ORDER BY T1.TR_ACCT_CD DESC, T2.CHGR_SEQ_NO ASC
-		
+		<!-- ORDER BY T1.TR_ACCT_CD DESC, T2.CHGR_SEQ_NO ASC -->
+		 ORDER BY T1.TR_ACCT_NM ASC
+		 
     	<if test="pageSize != null and pageSize != -1">
 		LIMIT ${start}, ${pageSize}
 		</if>

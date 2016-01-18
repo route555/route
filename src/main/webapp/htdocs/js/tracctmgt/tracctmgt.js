@@ -225,11 +225,20 @@ var view = {
 						"autoWidth": true,
 						"ordering": false,
 						"iDisplayLength": 10,
-						// "scrollY":        "300px",
-						
-					  //      "scrollCollapse": true,
+						select: {
+
+							 style: 'os', blurable: true
+
+					    },
+						//deferRender: true,
+						//rowId: 'pstnNm',
+						rowsGroup: [						           
+						            0
+						          ],
+
+					
 						"aoColumns": [
-						        { data: 'trAcctNm',"sClass": "a-left"},
+						        { data: 'trAcctNm',"sClass": "a-left select-no"},
 						        { data: 'ceoNm' },
 						        { data: 'bizRgtNo',"sClass": "a-center" },
 						        { data: 'chgSectNm' },
@@ -274,15 +283,20 @@ var view = {
 							});
 						}
 					});
-			
+			//table.select.blurable( true );
 			$('#dataTables-tracctList tbody').on('click', 'tr', function () {
-				
+				/*
 				if ( $(this).hasClass('selected') ) {
 		            $(this).removeClass('selected');
 		        }   else {
 		            table.$('tr.selected').removeClass('selected');
 		            $(this).addClass('selected');
 		        }
+				*/
+				console.log($(".select-no"))
+				$(".select-no").css("background-color","white");
+				$(".select-no").css("color","black");
+
 				
 		        var data = table.row( this ).data();
 		        //console.log(data);

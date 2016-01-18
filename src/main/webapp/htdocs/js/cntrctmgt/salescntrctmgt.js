@@ -236,6 +236,7 @@ var view = {
 						],
 						"sAjaxSource" : G_CONTEXT_PATH+"/salesCntrctMgt",
 						"fnServerData" : function(sSource, aoData, fnCallback,	oSettings) {
+							/*
 							aoData.push({
 								"name" : "srchPrjtNm",
 								"value" :  $("#srchPrjtNm").val()
@@ -253,9 +254,17 @@ var view = {
 								"value" :  $("#srchChgrNm").val()
 							},
 							{
+								"name" : "srchOrder", 
+								"value" :  $("#srchOrder input:checked").val()
+							},
+							{
 								"name" : "srchCntrctStatusCd",
 								"value" :  $("#srchCntrctStatusCd").val()
 							});
+							*/
+							var reqData = $('form[name="sf"]').serializeArray();
+							$.merge(aoData,reqData);
+							
 							oSettings.jqXHR = $.ajax({
 								"dataType" : 'json',
 								"type" : "GET",

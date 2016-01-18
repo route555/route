@@ -63,15 +63,7 @@
 			AND A.PRSN_NO = D.PRSN_NO
  			<include refid="listWhere"/>
 		ORDER BY
-		<if test="orderElement == null or ''.equals(orderElement) == true">
-	    	M.CNTRCT_CD
-    	</if>
-    	<if test="orderElement != null and ''.equals(orderElement) == false">
-	    	${orderElement}
-    	</if>
-    	<if test="orderType != 'ASC'">
-	    	DESC
-    	</if>
+		A.PRSN_NM ASC, M.DPST_DT ASC
     	<if test="pageSize != null and pageSize != -1">
 		LIMIT ${start}, ${pageSize}
 		</if>

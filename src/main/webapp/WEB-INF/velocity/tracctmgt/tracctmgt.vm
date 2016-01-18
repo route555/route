@@ -4,6 +4,8 @@
 <head>
 	#parse("common/commonScript.vm") 
 	<script src="/${contextPath}/htdocs/js/tracctmgt/tracctmgt.js"></script>
+	 <script src="//cdn.rawgit.com/ashl1/datatables-rowsgroup/v1.0.0/dataTables.rowsGroup.js"></script>
+	
 	<style>
 	.form-control2 {
 	  height: 34px;
@@ -125,7 +127,7 @@
                         <!-- /.panel-heading -->
                         <div class="panel-body"> 
                             <div class="dataTable_wrapper">
-                                <table cellspacing="0" width="100%" class="display table table-striped table-bordered table-hover" id="dataTables-tracctList">
+                                <table cellspacing="0" width="100%" class="display table table-strip1ed table-bordered table-hove1r" id="dataTables-tracctList">
                                     <thead>
                                         <tr>
                                             <th style="text-align: center;">거래처(법인)명</th>

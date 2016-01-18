@@ -162,7 +162,7 @@
 		) AA
 	GROUP BY AA.PRSN_NO	
 	ORDER BY
-		AA.PRSN_NO DESC    	
+		AA.PRSN_NM ASC    	
    	<if test="pageSize != null and pageSize != -1">
 	LIMIT ${start}, ${pageSize}
 	</if>		
