@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dashboard">
+
+
+	<select id="selectPrjt" resultType="tMap">
+		SELECT /*selectPrjt*/
+		    COUNT(PRJT_CD) AS prjtTotalCnt,
+		    SUM(IF((PRJT_CFRM_YN = 'N'
+		            OR PRJT_CFRM_YN IS NULL),
+		        1,
+		        0)) AS prjtNoCfrmCnt,
+		    SUM(IF((PRJT_CFRM_YN = 'Y'
+		            AND (PRJT_END_YN = 'N' OR PRJT_END_YN IS NULL)),
+		        1,
+		        0)) AS prjtIngCnt,
+		    SUM(IF(PRJT_END_YN = 'Y', 1, 0)) AS prjtEndCnt
+		FROM
+		    T_PMS006	
+	</select>
+
+
+	<select id="selectSaleCont" resultType="tMap">
+		SELECT /*selectSaleCont*/ 
+		    SUM(IF(M.PRJT_CFRM_YN = 'Y', 1, 0)) AS saleContNoCfrmCnt,
+		    SUM(IFNULL(SALES_UNIT_COST_AMT,0)) saleContNoCfrmAmt
+		FROM
+		    (SELECT 
+		        A.*,
+				(SELECT 
+					SUM(SALES_UNIT_COST_AMT)
+				FROM
+					T_PMS007
+				WHERE
+					PRJT_CD = A.PRJT_CD) AS SALES_UNIT_COST_AMT
+		    FROM
+		        T_PMS006 A
+		    LEFT OUTER JOIN T_PMS008 B ON A.PRJT_CD = B.PRJT_CD
+		    WHERE
+		        B.CNTRCT_CD IS NULL) M
+	</select>
+
+
+	<select id="selectPurchaseCont" resultType="tMap">
+		SELECT /*selectPurchaseCont*/     
+		    SUM(IF(M.PRJT_CFRM_YN = 'Y', 1, 0)) AS purchaseContNoCfrmCnt  ,
+		    SUM(IFNULL(ORDR_UNIT_CST_AMT,0))  AS purchaseContNoCfrmAmt
+		FROM
+		    (SELECT 
+		        A.*,
+				(SELECT 
+					SUM(ORDR_UNIT_CST_AMT)
+				FROM
+					T_PMS007
+				WHERE
+					PRJT_CD = A.PRJT_CD) AS ORDR_UNIT_CST_AMT
+		    FROM
+		        T_PMS006 A
+		    LEFT OUTER JOIN T_PMS011 B ON A.PRJT_CD = B.PRJT_CD
+		    WHERE
+		        B.CNTRCT_CD IS NULL) M
+	
+	</select>
+	
+	<select id="selectSaleMgt" resultType="tMap">
+		SELECT /*selectSaleMgt*/ 
+		    COUNT(*) AS saleDmndCnt,
+		    SUM( IFNULL(SUPPLY_AMT,0) + IFNULL(TAX_AMT,0) ) AS saleDmndAmt,
+		    SUM(IF((DPST_YN = 'N' OR DPST_YN IS NULL),
+		        1,
+		        0)) AS saleNoDpstCnt,
+		    SUM(IF((DPST_YN = 'N' OR DPST_YN IS NULL),
+		        IFNULL(SUPPLY_AMT,0) + IFNULL(TAX_AMT,0),
+		        0)) AS saleNoDpstAmt
+		FROM
+		    T_PMS010
+		WHERE
+		    1 = 1
+		    AND MONTH(DMND_DATE) = MONTH(NOW())
+	</select>
+	
+	<select id="selectPurchaseMgt" resultType="tMap">
+		SELECT /*selectPurchaseMgt*/ 
+		    COUNT(*) AS purchaseDpstCnt,
+		    SUM( IFNULL(SUPPLY_AMT,0) + IFNULL(TAX_AMT,0) ) AS purchaseDpstAmt,
+		    SUM(IF((DPST_YN = 'N' OR DPST_YN IS NULL),
+		        1,
+		        0)) AS purchaseNoDpstCnt,
+		    SUM(IF((DPST_YN = 'N' OR DPST_YN IS NULL),
+		        IFNULL(SUPPLY_AMT,0) + IFNULL(TAX_AMT,0),
+		        0)) AS purchaseNoDpstAmt
+		FROM
+		    T_PMS013
+		WHERE
+		    1 = 1
+		        AND MONTH(DPST_DT) = MONTH(NOW())
+	</select>			
+
+</mapper>
+
+
+    
