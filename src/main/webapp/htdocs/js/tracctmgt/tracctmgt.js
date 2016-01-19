@@ -373,7 +373,7 @@ var view = {
 						        { data: '' , "render": function ( data ) { return '<input type="radio" name="choice" id="choice" style="width:50%;" value="">';} },
 						        { data: 'chgSectCd' , "render": function ( data,  code) {
 						        	//console.log(chgrSectCdList);
-						        	html =  '<select name="chgSectCd" id="chgSectCd" class="form-control" style="width:100px;"><option value="">1AS선택</option>';
+						        	html =  '<select name="chgSectCd" id="chgSectCd" class="form-control" style="width:100px;"><option value="">선택</option>';
 						        	
 						        	for (var i=0; i<chgrSectCdList.length; i++) {
 						        		var val = chgrSectCdList[i];

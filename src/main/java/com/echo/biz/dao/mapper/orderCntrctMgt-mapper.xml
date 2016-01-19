@@ -223,7 +223,7 @@
 	</select>
 	
 	<select id="selectMaxOrderCntrctCd" parameterType="Map" resultType="tMap">
-	SELECT   CONCAT('C', DATE_FORMAT(NOW(), '%Y'), 'O', LPAD(CAST(IFNULL(MAX(SUBSTR(CNTRCT_CD, 7, 3))+1, 1) AS CHAR), 3, '0')) maxCntrctCd
+	SELECT   CONCAT('C', DATE_FORMAT(NOW(), '%Y'), 'O', LPAD(CAST(IFNULL(MAX(SUBSTR(CNTRCT_CD, 7, 4))+1, 1) AS CHAR), 4, '0')) maxCntrctCd
 	FROM T_PMS011
 	WHERE SUBSTR(CNTRCT_CD, 2, 4)   = DATE_FORMAT(NOW(), '%Y')
 	</select>

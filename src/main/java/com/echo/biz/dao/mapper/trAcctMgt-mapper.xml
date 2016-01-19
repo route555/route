@@ -172,7 +172,7 @@
 	</select>
 	
 	<select id="selectMaxTrAcctCd" parameterType="Map" resultType="tMap">
-	SELECT   CONCAT('T', DATE_FORMAT(NOW(), '%Y'), LPAD(CAST(IFNULL(MAX(SUBSTR(TR_ACCT_CD, 6, 2))+1, 1) AS CHAR), 2, '0')) trAcctCd
+	SELECT   CONCAT('T', DATE_FORMAT(NOW(), '%Y'), LPAD(CAST(IFNULL(MAX(SUBSTR(TR_ACCT_CD, 6, 4))+1, 1) AS CHAR), 4, '0')) trAcctCd
 	 FROM T_PMS001
 	 WHERE SUBSTR(TR_ACCT_CD, 2, 4)   = DATE_FORMAT(NOW(), '%Y')
 	</select>
