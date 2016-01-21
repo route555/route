@@ -255,6 +255,9 @@
                                             <th width="15%">사업자등록번호</th>
                                             <td width="35%">
                                             	 <div class="form-inline">
+                                            	 
+                                            	 <input type="text" id="bizRgtNo" name="bizRgtNo" class="input-sm form-control" />
+                                            	 <!--
                                             	 	<div class="form-group">
                                             	 		<input type="text" style="width:80px;"  id="bizRgtNo1" name="bizRgtNo1" class="input-sm form-control" />
 												    </div>
@@ -266,6 +269,8 @@
 											          <div class="form-group">
 											            <input type="text" style="width:80px;"   id="bizRgtNo3" name="bizRgtNo3" class="input-sm form-control" />
 											          </div>
+											           -->
+											          
                                              	</div>
                                              </td>
                                         </tr>

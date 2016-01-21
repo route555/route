@@ -60,6 +60,8 @@ var view = {
 				
 				
 				$("#f").submit(function(e) {
+					
+					//$('#lawRgtNo').val($('#lawRgtNo1')+$('#lawRgtNo2'));
 					var formData = new FormData(this);
 					
 					if($("#prsnNo").val()==''){
@@ -313,6 +315,10 @@ var view = {
 						var pv = '<a id="btnPrjtPop" prjtCd="'+prjtCd+'" >' +v +'</a>';
 						$("#"+k).html( pv);
 					}else{
+						
+						if (k.indexOf("Amt") > -1) {
+							v = common.toDotNumber(v);
+						}
 						$("#"+k).html(v);
 					}
 				});

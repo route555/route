@@ -234,14 +234,14 @@ var view = {
 						//deferRender: true,
 						//rowId: 'pstnNm',
 						rowsGroup: [						           
-						            0
+						            0,1,2
 						          ],
 
 					
 						"aoColumns": [
 						        { data: 'trAcctNm',"sClass": "a-left select-no"},
-						        { data: 'ceoNm' },
-						        { data: 'bizRgtNo',"sClass": "a-center" },
+						        { data: 'ceoNm' ,"sClass": "select-no"  },
+						        { data: 'bizRgtNo',"sClass": "a-center select-no" },
 						        { data: 'chgSectNm' },
 						        { data: 'chgrNm' },
 						        { data: 'pstnNm' },

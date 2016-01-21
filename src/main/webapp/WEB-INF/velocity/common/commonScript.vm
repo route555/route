@@ -88,6 +88,10 @@
 	<script src="https://cdn.datatables.net/buttons/1.1.0/js/buttons.flash.min.js"></script>
 	
 	
+	
+	<script src="/${contextPath}/assets/mask/jquery.price_format.2.0.js"></script>
+	
+	
 	<link href="https://cdn.datatables.net/buttons/1.1.0/css/buttons.dataTables.min.css" rel="stylesheet">
 	<style>
 	.dataTables_wrapper .dataTables_length {

@@ -63,7 +63,7 @@ public class PrjtPrsnService extends AbstractService<PrjtPrsn, PrjtPrsnDto> {
 				map.put("prjtCd", params.get("prjtCd"));
 				
 				//팝업붙이면, 인력번호 삭제해야함.
-				map.put("prsnNo", "13");
+				//map.put("prsnNo", params.get("prsnNo"));
 				
 				if(map.get("salesUnitCostAmt") == null || "".equals(map.get("salesUnitCostAmt")))
 					map.put("salesUnitCostAmt", null);

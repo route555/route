@@ -42,12 +42,12 @@ var view = {
 	        	}
 				html += '</select></td>';
 				
-				html += '<td><input type="input" name="_workStartDt" id="_workStartDt" class="form-control" style="width:100%;" maxlength="8" value="" onBlur="javascript:fnCalMm();"></td><td><input type="input" name="_workEndDt" id="_workEndDt" class="form-control" style="width:100%;" maxlength="8" value="" onBlur="javascript:fnCalMm();"></td><td><input type="input" name="prsnMm" id="prsnMm" class="form-control" style="width:60px;" maxlength="5" value=""></td><td><input type="input" name="salesUnitCostAmt" id="salesUnitCostAmt" class="form-control" style="width:100%;" maxlength="9" value=""></td><td><input type="input" name="ordrUnitCstAmt" id="ordrUnitCstAmt" class="form-control" style="width:100%;" maxlength="9" value=""></td><td><input type="input" name="_memoDesc" id="_memoDesc" class="form-control" style="width:100%;" maxlength="1000" value=""></td><td><input type="input" name="prjtPrsnCnt" id="prjtPrsnCnt" class="form-control" style="width:100%;" maxlength="10" value="N"></td>';
+				html += '<td><input type="input" name="_workStartDt" id="_workStartDt" class="form-control" style="width:100%;" maxlength="8" value="" onBlur="javascript:fnCalMm();"></td><td><input type="input" name="_workEndDt" id="_workEndDt" class="form-control" style="width:100%;" maxlength="8" value="" onBlur="javascript:fnCalMm();"></td><td><input type="input" name="prsnMm" id="prsnMm" class="form-control" style="width:60px;" maxlength="5" value=""></td><td><input type="input" name="salesUnitCostAmt" id="salesUnitCostAmt" class="form-control mask-number" style="width:100%;" maxlength="9" value=""></td><td><input type="input" name="ordrUnitCstAmt" id="ordrUnitCstAmt" class="form-control mask-number" style="width:100%;" maxlength="9" value=""></td><td><input type="input" name="_memoDesc" id="_memoDesc" class="form-control" style="width:100%;" maxlength="1000" value=""></td><td><input type="input" name="prjtPrsnCnt" id="prjtPrsnCnt" class="form-control" style="width:100%;" maxlength="10" value="N"></td>';
 				html += '<td><button type="button" style="align:center;" class="btn btn-success" id="btnPrsnPop1">선택</button></td></tr>';
 				
 				//alert(html);
 				$('#dataTables-prjtPrsnList > tbody:last').append(html);
-				
+				view.setMask();
 			});
 			
 			$("#btnRowDel").click( function() {
@@ -105,6 +105,14 @@ var view = {
         	table1 = $('#dataTables-prjtPrsnList').dataTable();
         	table1.fnReloadAjax();
 			
+		}
+
+		, setMask : function(){
+			$(".mask-number").unpriceFormat();
+			$(".mask-number").priceFormat({
+				 prefix: '',
+				  centsLimit: 0
+			 });
 		}
 		, selectPrjtDetail : function(pPrjtCd){
 			var reqData = $('form[name="f"]').serializeArray();
@@ -269,14 +277,19 @@ var view = {
 						        { data: 'workStartDt' , "render": function ( data ) { return '<input type="input" name="_workStartDt" id="_workStartDt" style="width:100%;" class="form-control" maxlength="8" value="'+data+'" onBlur="javascript:fnCalMm();">';} },
 						        { data: 'workEndDt' , "render": function ( data ) { return '<input type="input" name="_workEndDt" id="_workEndDt" style="width:100%;" class="form-control" maxlength="8" value="'+data+'" onBlur="javascript:fnCalMm();">';} },
 						        { data: 'prsnMm' , "render": function ( data ) { return '<input type="input" name="prsnMm" id="prsnMm" style="width:60px;" class="form-control" maxlength="5" value="'+data+'">';} },
-						        { data: 'salesUnitCostAmt' , "render": function ( data ) { return '<input type="input" name="salesUnitCostAmt" id="salesUnitCostAmt" style="width:100%;" class="form-control" maxlength="9" value="'+data+'">';} },
-						        { data: 'ordrUnitCstAmt' , "render": function ( data ) { return '<input type="input" name="ordrUnitCstAmt" id="ordrUnitCstAmt" style="width:100%;" class="form-control" maxlength="9" value="'+data+'">';} },
+						        { data: 'salesUnitCostAmt' , "render": function ( data ) { return '<input type="input"  name="salesUnitCostAmt" id="salesUnitCostAmt" style="width:100%;" class="form-control mask-number" maxlength="9" value="'+data+'">';} },
+						        { data: 'ordrUnitCstAmt' , "render": function ( data ) { return '<input type="input" name="ordrUnitCstAmt" id="ordrUnitCstAmt" style="width:100%;" class="form-control mask-number" maxlength="9" value="'+data+'">';} },
 						        { data: 'memoDesc' , "render": function ( data ) { return '<input type="input" name="_memoDesc" id="_memoDesc" style="width:100%;" class="form-control" maxlength="1000" title="'+data+'" value="'+data+'">';} },
 						        { data: 'prjtPrsnCnt' , "render": function ( data ) { return '<input type="input" name="prjtPrsnCnt" id="prjtPrsnCnt" style="width:100%;" class="form-control" maxlength="10" value="'+data+'">';} },
 						        { data: '' , "render": function ( data ) { return '<button type="button" style="align:center;" class="btn btn-success" id="btnPrsnPop">선택</button>';} }
 
 						],
 						"sAjaxSource" : G_CONTEXT_PATH+"/prjtPrsn/selectPrjtPrsnList",
+						"fnDrawCallback": function( nRow, aData, iDataIndex ) {
+							view.setMask();
+						},
+			
+						
 						"fnServerData" : function(sSource, aoData, fnCallback,	oSettings) {
 							aoData.push({
 								"name" : "prjtCd",
@@ -346,6 +359,13 @@ var view = {
 			
 		}
 		, insertData : function() {
+			$(".mask-number").unpriceFormat();
+			
+			$(".mask-number").priceFormat({
+				 prefix: '',
+				 thousandsSeparator: '',
+				  centsLimit: 0
+			 });
 			
 			var reqData = $('form[name="f"]').serializeArray();
 			
@@ -412,12 +432,12 @@ function fnCalMm() {
 
     //날짜 유효성검사
     if (!isValidDate(sDate) ) {
-    	alert(rowIdx+'번째 행의 투입시작일자 오류입니다.');
-    	return;
+    	//alert(rowIdx+'번째 행의 투입시작일자 오류입니다.');
+    	//return;
     } 
     if (!isValidDate(eDate) ) {
-    	alert(rowIdx+'번째 행의 투입종료일자 오류입니다.');
-    	return;
+    	//alert(rowIdx+'번째 행의 투입종료일자 오류입니다.');
+    	//return;
     }
    
     var days = calDateRange(sDate, eDate);
