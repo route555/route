@@ -80,7 +80,7 @@
                                         <tr>
                                             <th width="15%">현재수행여부</th>
                                             <td width="35%">
-                                            	<label class="radio-inline"><input type="radio" name="actYn" value="">전체</label>
+                                            	<label class="radio-inline"><input type="radio" name="actYn" value="">All</label>
                                             	<label class="radio-inline"><input type="radio" name="actYn" value="Y">Yes</label>
                                             	<label class="radio-inline"><input type="radio" name="actYn" value="N">No</label>
                                             </td>
