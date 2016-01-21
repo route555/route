@@ -20,6 +20,7 @@
 			<if test="phone != null and phone !=''">phone = #{phone},</if>
 			<if test="email != null and email !=''">email = #{email},</if>
 			<if test="rightsType != null and rightsType !=''">rights_type = #{rightsType},</if>
+			<if test="allowMenu != null and allowMenu !=''">allow_menu = #{allowMenu},</if>
 			<if test="isUse != null and isUse !=''">is_use = #{isUse},</if>
 			<if test="isDel != null and isDel !=''">is_del = #{isDel},</if>
 			upt_tm =  NOW(),
@@ -46,6 +47,7 @@
 			phone AS phone,
 			email AS email,
 			rights_type AS rightsType,
+			allow_menu AS allowMenu,
 			is_use AS isUse,
 			is_del AS isDel,
 			rgt_tm AS rgtTm,
@@ -68,6 +70,7 @@
 			phone AS phone,
 			email AS email,
 			rights_type AS rightsType,
+			allow_menu AS allowMenu,
 			is_use AS isUse,
 			is_del AS isDel,
 			rgt_tm AS rgtTm,

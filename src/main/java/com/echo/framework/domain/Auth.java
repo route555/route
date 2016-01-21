@@ -23,6 +23,7 @@ public class Auth extends BaseDomain {
 	private String mobile;
 	private String dashboardType;
 
+	private String allowMenu;
 
 
 	
@@ -38,6 +39,15 @@ public class Auth extends BaseDomain {
 	private String addrExInfo;
 	private String deviceState;
 
+	
+	public String getAllowMenu() {
+		return allowMenu;
+	}
+
+	public void setAllowMenu(String allowMenu) {
+		this.allowMenu = allowMenu;
+	}
+	
 	public int getUserId() {
 		return userId;
 	}

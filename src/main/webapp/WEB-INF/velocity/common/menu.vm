@@ -14,43 +14,56 @@
                         </li>
                         
                         
+						#set($allowMenuArr = $allowMenu.split(","))
                         
-                        <li>
-                            <a href="/${apiPath}/web/main"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
-                        </li>
+                        #if ($allowMenuArr.contains("1"))
+	                        <li>
+	                            <a href="/${apiPath}/web/main"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+	                        </li>                        	
+                        #end
                         
-                        <li>
-                            <a href="/${apiPath}/web/tracctmgt/tracctmgt"><i class="fa fa-thumbs-up fa-fw"></i> 거래처관리</a>
-                        </li>                     
+                        #if ($allowMenuArr.contains("2"))
+	                        <li>
+                            	<a href="/${apiPath}/web/tracctmgt/tracctmgt"><i class="fa fa-thumbs-up fa-fw"></i> 거래처관리</a>
+                        	</li>                         	
+                        #end
                         
-                        <li>
-                            <a href="/${apiPath}/web/person/person"><i class="fa fa-user fa-fw"></i> 인력관리</a>
-                        </li> 
+                        #if ($allowMenuArr.contains("3"))
+	                        <li>
+	                            <a href="/${apiPath}/web/person/person"><i class="fa fa-user fa-fw"></i> 인력관리</a>
+	                        </li>                          	
+                        #end
                         
-                        <li>
-                            <a href="/${apiPath}/web/prjtmgt/prjtmgt"><i class="fa  fa-folder-open fa-fw"></i> 프로젝트관리</a>
-                        </li> 
+                        #if ($allowMenuArr.contains("4"))
+	                       <li>
+	                            <a href="/${apiPath}/web/prjtmgt/prjtmgt"><i class="fa  fa-folder-open fa-fw"></i> 프로젝트관리</a>
+	                        </li>                          	
+                        #end
                         
+                        #if ($allowMenuArr.contains("5"))
+	                         <li>
+                                <a href="/${apiPath}/web/cntrctmgt/salescntrctmgt"><i class="fa   fa-hand-o-right   fa-fw"></i> 매출계약관리</a>
+                            </li>                         	
+                        #end
                         
-                        <li>
-                                    <a href="/${apiPath}/web/cntrctmgt/salescntrctmgt"><i class="fa   fa-hand-o-right   fa-fw"></i> 매출계약관리</a>
-                                </li>
-                                <li>
-                                    <a href="/${apiPath}/web/cntrctmgt/ordercntrctmgt"><i class="fa   fa-hand-o-left   fa-fw"></i> 매입계약관리</a>
-                                </li>
+                        #if ($allowMenuArr.contains("6"))
+	                        <li>
+                                <a href="/${apiPath}/web/cntrctmgt/ordercntrctmgt"><i class="fa   fa-hand-o-left   fa-fw"></i> 매입계약관리</a>
+                            </li>                         	
+                        #end
                         
-                      
-                          <li>
-                                    <a href="/${apiPath}/web/finance/saleMgt"><i class="fa  fa-send  fa-fw"></i> 매출관리</a>
-                                </li>
-                                <li>
-                                    <a href="/${apiPath}/web/finance/purchaseMgt"><i class="fa  fa-send-o  fa-fw"></i> 매입관리</a>
-                                </li>
-                        
-                        
-                        
-                        
-                        <li>
+                        #if ($allowMenuArr.contains("7"))
+	                         <li>
+                                <a href="/${apiPath}/web/finance/saleMgt"><i class="fa  fa-send  fa-fw"></i> 매출관리</a>
+                            </li>                       	
+                        #end
+                        #if ($allowMenuArr.contains("8"))
+	                         <li>
+                                <a href="/${apiPath}/web/finance/purchaseMgt"><i class="fa  fa-send-o  fa-fw"></i> 매입관리</a>
+                            </li>                         	
+                        #end
+                        #if ($allowMenuArr.contains("9"))
+	                         <li>
                             <a href="#"><i class="fa fa-wrench fa-fw"></i> 시스템관리<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
@@ -59,13 +72,15 @@
                                 <li>
                                     <a href="/${apiPath}/web/system/user">유저관리</a>
                                 </li>
+                                <li>
+                                    <a href="/${apiPath}/web/system/menuUser">유저 메뉴관리</a>
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
-                        </li>
+                        </li>                        	
+                        #end
                         
-                      
-                      
-                      
+                                              
                       
                       <li>
                             <a href="/${apiPath}/web/board/bugReport"><i class="fa fa-codepen fa-fw"></i> 버그리포트</a>

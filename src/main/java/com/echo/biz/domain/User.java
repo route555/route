@@ -21,6 +21,7 @@ public class User extends BaseDomain {
 	private String email;
 	private String rightsType;
 	private String isUse;
+	private String allowMenu;
 	
 	public User() {
 
@@ -41,9 +42,18 @@ public class User extends BaseDomain {
 		this.email = dto.getEmail();
 		this.rightsType = dto.getRightsType();
 		this.isUse = dto.getIsUse();
+		this.allowMenu = dto.getAllowMenu();
 
 	}
 
+	
+	public String getAllowMenu() {
+		return allowMenu;
+	}
+
+	public void setAllowMenu(String allowMenu) {
+		this.allowMenu = allowMenu;
+	}
 	public Integer getUserId() {
 		return userId;
 	}

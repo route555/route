@@ -1,6 +1,7 @@
 package com.echo.framework.service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -151,10 +152,45 @@ public class AuthService extends AbstractService<Auth, BaseDto> {
 		return path;
 	}
 
+	private boolean checkUrlAuth(String uri, EchoCookie echoCookie){
+		
+		if (uri.matches(".*/web/.*") == true) {
+			log.debug(echoCookie.getValue("allowMenu")+"####################" + uri);	
+			
+			//noLoginRegex.add(".*index");
+			
+			
+			//HashMap menuHm = new HashMap();			
+			//menuHm.put("1", ".*/person/person");
+			//menuHm.put("2", ".*/system/user");
+			
+			
+			/*
+			String[] menuUri = echoCookie.getValue("allowMenu").split(",");
+			
+			for (String key : menuUri) {
+				
+				String regex = menuHm.get(key).toString();
+				
+				if (uri.matches(regex) == true) {
+					return true;					
+				}
+				
+			}
+			*/
+			//return false;
+		}else{
+			
+		}
+		
+		
+		return true;
+	}
+	
+	
 	private void checkUserAuth(HttpServletRequest request, String contextPath) {
 		String uri = request.getRequestURI();
 		EchoCookie echoCookie = null;
-
 		if (isNoLoginUri(uri)) {
 			echoCookie = CookieUtil.getEchoCookie(request, CommonConst.COOKIE_KEY);
 
@@ -188,11 +224,16 @@ public class AuthService extends AbstractService<Auth, BaseDto> {
 			} else if (!hasPermission(request.getMethod(), uri, echoCookie, contextPath)) {
 				throw new EchoException(HttpServletResponse.SC_UNAUTHORIZED, new Object[] { "error.auth.unauthorized.permission" });
 			}
+			
+			if (!checkUrlAuth(uri, echoCookie)) {
+				throw new EchoException(HttpServletResponse.SC_UNAUTHORIZED, new Object[] { "error.auth.unauthorized.permission" });
+			}
+			
 
 			if (now >= (echoCookie.getTimestamp() + COOKIE_RECOOK_MSEC)) {
 				echoCookie.setValue(EchoCookie.KEY_TIMESTAMP, String.valueOf(new Date().getTime()));
 			}
-
+			System.out.println("$%$%" + echoCookie);
 			request.setAttribute(CommonConst.COOKIE_KEY, echoCookie);
 		}
 	}

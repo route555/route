@@ -16,7 +16,7 @@
 		<class>com.echo.framework.util.JsonUtil</class>
 	</tool>
 	<tool>
-		<key>signageUtil</key>
+		<key>echoUtil</key>
 		<scope>application</scope>
 		<class>com.echo.framework.util.EchoUtil</class>
 	</tool>

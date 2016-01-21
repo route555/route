@@ -29,4 +29,9 @@ public class SystemWebController extends BaseController {
 		return "sample/file";
 	}
 	
+	@RequestMapping(value = "/system/menuUser", method = RequestMethod.GET)
+	public String menuUser(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+		return "/system/menuUser";
+	}
+	
 }

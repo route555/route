@@ -56,13 +56,13 @@
                                         <tr>
                                             <th width="15%">계산서 발행여부</th>
                                             <td width="35%">
-                                            	<label class="radio-inline"><input type="radio" name="billIssueYn" value="">전체</label>
+                                            	<label class="radio-inline"><input type="radio" name="billIssueYn" value="">All</label>
                                             	<label class="radio-inline"><input type="radio" name="billIssueYn" value="Y">Yes</label>
                                             	<label class="radio-inline"><input type="radio" name="billIssueYn" value="N">No</label>
                                             </td>
                                             <th width="15%">입금여부</th>
                                             <td width="35%">
-                                            	<label class="radio-inline"><input type="radio" name="dpstYn" value="">전체</label>
+                                            	<label class="radio-inline"><input type="radio" name="dpstYn" value="">All</label>
                                             	<label class="radio-inline"><input type="radio" name="dpstYn" value="Y">Yes</label>
                                             	<label class="radio-inline"><input type="radio" name="dpstYn" value="N">No</label>
                                             </td>

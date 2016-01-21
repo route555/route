@@ -16,7 +16,18 @@ public class UserDto extends BasePmsDto {
 	private String phone;
 	private String email;
 	private String rightsType;
+	private String allowMenu;
 	private String isUse;
+
+	
+	
+	public String getAllowMenu() {
+		return allowMenu;
+	}
+
+	public void setAllowMenu(String allowMenu) {
+		this.allowMenu = allowMenu;
+	}
 
 	public Integer getUserId() {
 		return userId;

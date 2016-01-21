@@ -12,11 +12,11 @@
 
 #set($contextPath = ${propsUtil.getValue("context.web.path")})
 #set($apiPath = ${propsUtil.getValue("context.api.path")})
-#set($loginId = "$!{signage.getValue('loginId')}")
-#set($rightsType = "$!{signage.getValue('rightsType')}")
-#set($businessId = "$!{signage.getValue('businessId')}")
-#set($userId = "$!{signage.getValue('userId')}")
-
+#set($loginId = "$!{echo.getValue('loginId')}")
+#set($rightsType = "$!{echo.getValue('rightsType')}")
+#set($businessId = "$!{echo.getValue('businessId')}")
+#set($userId = "$!{echo.getValue('userId')}")
+#set($allowMenu = "$!{echo.getValue('allowMenu')}")
 
     <!-- Bootstrap Core CSS -->
     <link href="/${contextPath}/assets/sbadmin/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">

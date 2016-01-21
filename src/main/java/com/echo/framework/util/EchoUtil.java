@@ -202,6 +202,13 @@ public class EchoUtil {
 
 	public static String getJsonErrorReport(HttpServletRequest request,
 			Object obj) {
+		
+		if(obj==null){
+			log.debug("#######22");
+		}
+		
+		log.debug("#######33" + obj);
+		
 		int status = -1;
 
 		try {

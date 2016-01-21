@@ -155,7 +155,7 @@
                             	매출 미계약건수/금액 : <span id="saleContNoCfrmCnt"></span>건/<span id="saleContNoCfrmAmt"></span>원   
                             </div>
                             <div class="alert alert-info">
-                               	 매출 미계약건수/금액 : <span id="purchaseContNoCfrmCnt"></span>건/<span id="purchaseContNoCfrmAmt"></span>원   
+                               	 매입 미계약건수/금액 : <span id="purchaseContNoCfrmCnt"></span>건/<span id="purchaseContNoCfrmAmt"></span>원   
                             </div>
                              <!--
                             <div class="alert ">

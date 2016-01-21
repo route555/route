@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="menu">
+
+	<insert id="insertMenu" parameterType="Map" useGeneratedKeys="true" keyProperty="menuId" keyColumn="menuId"  >
+		INSERT INTO  /* insertMenu */ T_PMS024
+			(menu_id, menu_name, menu_order, menu_desc, use_yn, rgt_tm, rgtr_id, upt_tm, uptr_id) 
+		VALUES
+			(#{menuId}, #{menuName}, #{menuOrder}, #{menuDesc}, #{useYn}, #{rgtTm}, #{rgtrId}, #{uptTm}, #{uptrId})
+
+	</insert>	
+	
+	<update id="updateMenu" parameterType="menu">
+		UPDATE	 /* updatePerson */
+			T_PMS024
+		SET	<if test="menuId != null and menuId !=''">menu_id = #{menuId}</if>
+			<if test="menuName != null and menuName !=''">menu_name = #{menuName},</if>
+			<if test="menuOrder != null and menuOrder !=''">menu_order = #{menuOrder},</if>
+			<if test="menuDesc != null and menuDesc !=''">menu_desc = #{menuDesc},</if>
+			<if test="useYn != null and useYn !=''">use_yn = #{useYn},</if>
+			<if test="uptTm != null and uptTm !=''">upt_tm = #{uptTm},</if>
+			<if test="uptrId != null and uptrId !=''">uptr_id = #{uptrId},</if>
+		WHERE	
+			menu_id = #{menuId}
+	</update>
+		
+	<delete id="deleteMenu" parameterType="menu">
+		UPDATE  /* deleteMenu */
+			T_PMS024 
+		SET	
+			USE_YN='N'
+			,upt_tm =  #{uptTm}
+			,uptr_id = #{uptrId} 
+		WHERE	
+			menu_id = #{menuId}
+	</delete>	
+	
+	<select id="selectMenu" parameterType="menu" resultType="menu">
+		SELECT	/* selectMenu */
+			menu_id AS menuId,
+			menu_name AS menuName,
+			menu_order AS menuOrder,
+			menu_desc AS menuDesc,
+			use_yn AS useYn,
+			rgt_tm AS rgtTm,
+			rgtr_id AS rgtrId,
+			upt_tm AS uptTm,
+			uptr_id AS uptrId
+		FROM	T_PMS024 
+		WHERE	menu_id = #{menuId}
+	</select>
+	
+	<select id="selectListMenu" parameterType="Map" resultType="tMap">
+	SELECT	/* selectListMenu */    
+ 			menu_id AS menuId,
+			menu_name AS menuName,
+			menu_order AS menuOrder,
+			menu_desc AS menuDesc,
+			use_yn AS useYn,
+			rgt_tm AS rgtTm,
+			rgtr_id AS rgtrId,
+			upt_tm AS uptTm,
+			uptr_id AS uptrId
+		FROM	T_PMS024
+		WHERE 1 = 1	
+        <include refid="listWhere"/>
+	ORDER BY
+		menu_order ASC    	
+   	<if test="pageSize != null and pageSize != -1">
+	LIMIT ${start}, ${pageSize}
+	</if>		
+	
+	</select>
+	
+	<select id="selectCntMenu" parameterType="Map" resultType="int">
+		SELECT /* selectCntMenu */
+			COUNT(1)
+		FROM	T_PMS024
+		WHERE 1 = 1	
+        <include refid="listWhere"/>
+		
+	</select>
+	
+	
+	<sql id="listWhere">
+		AND USE_YN='Y'	
+		
+	</sql>
+
+
+
+</mapper>

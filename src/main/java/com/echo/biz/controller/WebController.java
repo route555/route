@@ -21,6 +21,25 @@ import com.echo.framework.util.StringUtils;
 public class WebController extends BaseController {
 
 	
+	@RequestMapping(value = "/index", method = RequestMethod.GET)
+	public String index(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+		EchoCookie echoCookie = (EchoCookie) request.getAttribute(CommonConst.COOKIE_KEY);
+		if (echoCookie != null) {
+			return main(request, response, model);
+		} else {
+			return "index/index";
+		}
+	}
+	@RequestMapping(value = "/main", method = RequestMethod.GET)
+	public String main(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+		return "index/main";
+	}
+	
+	@RequestMapping(value = "/person/person", method = RequestMethod.GET)
+	public String person(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+		return "person/person";
+	}
+	
 	/**
 	 * 거래처관리 화면 조회
 	 * @param request
@@ -152,32 +171,14 @@ public class WebController extends BaseController {
 	}
 
 	
-	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public String index(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
-		EchoCookie echoCookie = (EchoCookie) request.getAttribute(CommonConst.COOKIE_KEY);
-System.out.println("###############################");
-		if (echoCookie != null) {
-			return main(request, response, model);
-		}
-		else {
-			return "index/index";
-		}
-	}
+
 		
 	@RequestMapping(value = "board/bugReport", method = RequestMethod.GET)
 	public String bugReport(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
 		return "board/bugReport";
 	}
 	
-	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public String main(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
-		return "index/main";
-	}
-	
-	@RequestMapping(value = "/person/person", method = RequestMethod.GET)
-	public String person(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
-		return "person/person";
-	}
+
 	
 	
 	@RequestMapping(value = "/person/personPop", method = RequestMethod.GET)

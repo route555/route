@@ -43,6 +43,8 @@ public abstract class BaseDomain implements Serializable {
 		uptId = "temp";
 		rgtrId= "temp";
 		uptrId= "temp";
+		rgtTm = new Date();
+		uptTm = new Date();
 		if (echoCookie != null) {
 			echo = echoCookie;
 

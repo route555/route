@@ -41,7 +41,9 @@ public class EchoCookie {
 	public static final String KEY_RIGHTSTYPE = "rightsType";
 	public static final String KEY_TENANTID = "tenantId"; 
 	public static final String KEY_TIMESTAMP = "ts";
-
+	public static final String KEY_ALLOWMENU = "allowMenu";
+	
+	
 	private static final String DEFAULT_CHARSET = "UTF-8";
 
 	private static final Set<String> NEED_ENCODING = new HashSet<String>();
@@ -69,6 +71,7 @@ public class EchoCookie {
 		setValue(KEY_RIGHTSTYPE, auth.getRightsType(), true /* isNeedCook */);
 		setValue(KEY_TENANTID, String.valueOf(auth.getTenantId()), true /* isNeedCook */);
 		setValue(KEY_TIMESTAMP, String.valueOf(new Date().getTime()), true /* isNeedCook */);
+		setValue(KEY_ALLOWMENU, String.valueOf(auth.getAllowMenu()), true /* isNeedCook */);
 	}
 
 	public EchoCookie(String cookieKey, String cookie) {
@@ -215,10 +218,13 @@ public class EchoCookie {
 
 		buff.append(SEPARATOR_KK);
 		getKeyValue(buff, KEY_TENANTID, getValue(KEY_TENANTID));
-
+		
 		buff.append(SEPARATOR_KK);
 		getKeyValue(buff, KEY_TIMESTAMP, getValue(KEY_TIMESTAMP));
 
+		buff.append(SEPARATOR_KK);
+		getKeyValue(buff, KEY_ALLOWMENU, getValue(KEY_ALLOWMENU));
+		
 		String s = null;
 
 		if (CommonConst.FLAG_Y.equals(IS_ENCRYPT) == true) {
@@ -254,7 +260,9 @@ public class EchoCookie {
 		buff.append(", rightType=").append(getValue(KEY_RIGHTSTYPE));
 		buff.append(", tenantId=").append(getValue(KEY_TENANTID));
 		buff.append(", ts=").append(getValue(KEY_TIMESTAMP));
-
+		buff.append(", allowMenu=").append(getValue(KEY_ALLOWMENU));
+		
+		
 		return buff.toString();
 	}
 }
