@@ -66,7 +66,7 @@ var view = {
 				alert("프로젝트를 선택하세요");
 				return;
 			}
-			window.open(G_CONTEXT_PATH+"/web/prjtmgt/prjtpop?prjtCd="+$("#prjtCd").val()+"&trAcctCd="+$("#trAcctCd").val(), "window", "width=1200,height=800");
+			window.open(G_CONTEXT_PATH+"/web/prjtmgt/prjtpop?prjtCd="+$("#prjtCd").val()+"&trAcctCd="+$("#trAcctCd").val(), "window", "width=1200,height=800,scrollbars=yes");
 			
 		});
 		

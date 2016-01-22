@@ -37,7 +37,7 @@
 			$("#btnPop").unbind('click');
 			$("#btnPop").click( function() {			
 				var url = G_CONTEXT_PATH+"/web/person/personPop";
-				window.open(url, 'newWindow', 'width=1000, height=900, toolbar=no, menubar=no, scrollbars=no, resizable=no');
+				window.open(url, 'newWindow', 'width=1000, height=900, toolbar=no, menubar=no, scrollbars=yes, resizable=no');
 			});	
 			
 			view.selectTableData();

@@ -327,7 +327,7 @@ var view = {
 			$("#btnPrjtPop").unbind('click');
 			$("#btnPrjtPop").click( function(e) {
 				e.preventDefault();  //stop the browser from following
-				window.open(G_CONTEXT_PATH+"/web/prjtmgt/prjtpop?prjtCd="+$(this).attr('prjtCd')+"&trAcctCd="+$("#trAcctCd").val(), "window", "width=1200,height=800");
+				window.open(G_CONTEXT_PATH+"/web/prjtmgt/prjtpop?prjtCd="+$(this).attr('prjtCd')+"&trAcctCd="+$("#trAcctCd").val(), "window", "width=1200,height=800,scrollbars=yes");
 			});
 			
 			$("#detail").show();

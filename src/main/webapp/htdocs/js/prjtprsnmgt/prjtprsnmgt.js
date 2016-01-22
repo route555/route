@@ -332,7 +332,7 @@ var view = {
 				if($(this).children(":first").is(':button')){
 					console.log('asdf')
 					
-					window.open(G_CONTEXT_PATH+"/web/person/personPop?prjtCd="+$("#prjtCd").val()+"&trAcctCd="+$("#trAcctCd").val(), "window", "width=1200,height=800");
+					window.open(G_CONTEXT_PATH+"/web/person/personPop?prjtCd="+$("#prjtCd").val()+"&trAcctCd="+$("#trAcctCd").val(), "window", "width=1200,height=800,scrollbars=yes");
 					
 					
 					//view.popEvent('a')
