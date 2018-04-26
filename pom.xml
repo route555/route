@@ -248,7 +248,6 @@
 	</dependencies>
 
 	<build>
-		<finalName>www</finalName>
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -285,7 +284,6 @@
 					</configuration>
 				</plugin>
 				
-				<!-- 
 				<plugin>
 					<artifactId>maven-war-plugin</artifactId>
 					<version>2.4</version>
@@ -300,7 +298,6 @@
 						</execution>
 					</executions>
 				</plugin>
-				-->
 				
 
 				
@@ -349,7 +346,7 @@
 				</configuration>
 			</plugin>
 
-							
+			<!-- 				
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-antrun-plugin</artifactId>
@@ -389,7 +386,7 @@
 					</dependencies>
 				</plugin>
 				
-				
+				 -->
 		</plugins>
 	</build>
 
@@ -400,15 +397,15 @@
 				<profile.active.profiles>jdbc</profile.active.profiles>
 				<!-- <profile.active.profiles>jndi</profile.active.profiles> -->
 				<profile.db.driver>net.sf.log4jdbc.DriverSpy</profile.db.driver>
-				<profile.db.master.url>jdbc:log4jdbc:mysql://echopms.cafe24.com:3306/echopms?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;zeroDateTimeBehavior=convertToNull</profile.db.master.url>
+				<profile.db.master.url>jdbc:log4jdbc:mysql://localhost:3306/echopms?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;zeroDateTimeBehavior=convertToNull</profile.db.master.url>
 				<profile.db.master.username>echopms</profile.db.master.username>
-				<profile.db.master.password>echo1qazXSW@</profile.db.master.password>
-				<profile.db.slave.url>jdbc:log4jdbc:mysql://echopms.cafe24.com:3306/echopms?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;zeroDateTimeBehavior=convertToNull</profile.db.slave.url>
+				<profile.db.master.password>echopms1004~</profile.db.master.password>
+				<profile.db.slave.url>jdbc:log4jdbc:mysql://localhost:3306/echopms?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;zeroDateTimeBehavior=convertToNull</profile.db.slave.url>
 				<profile.db.slave.username>echopms</profile.db.slave.username>
-				<profile.db.slave.password>echo1qazXSW@</profile.db.slave.password>
+				<profile.db.slave.password>echopms1004~</profile.db.slave.password>
 				<profile.cookie.domain>127.0.0.1</profile.cookie.domain>
-				<profile.context.admin.path>.</profile.context.admin.path>
-				<profile.context.echo.path>api</profile.context.echo.path>
+				<profile.context.admin.path>www</profile.context.admin.path>
+				<profile.context.echo.path>echo-pms</profile.context.echo.path>
 				<profile.context.device.path>echo-device</profile.context.device.path>
 				<profile.mqtt.broker>echoit.iptime.org</profile.mqtt.broker>
 				<profile.mqtt.port>6883</profile.mqtt.port>
@@ -441,13 +438,13 @@
 				<profile.db.driver>net.sf.log4jdbc.DriverSpy</profile.db.driver>
 				<profile.db.master.url>jdbc:log4jdbc:mysql://localhost:3306/echopms?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;zeroDateTimeBehavior=convertToNull</profile.db.master.url>
 				<profile.db.master.username>echopms</profile.db.master.username>
-				<profile.db.master.password>echo1qazXSW@</profile.db.master.password>
+				<profile.db.master.password>echopms1004~</profile.db.master.password>
 				<profile.db.slave.url>jdbc:log4jdbc:mysql://localhost:3306/echopms?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;zeroDateTimeBehavior=convertToNull</profile.db.slave.url>
 				<profile.db.slave.username>echopms</profile.db.slave.username>
-				<profile.db.slave.password>echo1qazXSW@</profile.db.slave.password>
-				<profile.cookie.domain>pms.echoit.co.kr</profile.cookie.domain>
-				<profile.context.admin.path>.</profile.context.admin.path>
-				<profile.context.echo.path>api</profile.context.echo.path>
+				<profile.db.slave.password>echopms1004~</profile.db.slave.password>
+				<profile.cookie.domain>127.0.0.1</profile.cookie.domain>
+				<profile.context.admin.path>www</profile.context.admin.path>
+				<profile.context.echo.path>echo-pms</profile.context.echo.path>
 				<profile.context.device.path>echo-device</profile.context.device.path>
 				<profile.mqtt.broker>echoit.iptime.org</profile.mqtt.broker>
 				<profile.mqtt.port>6883</profile.mqtt.port>

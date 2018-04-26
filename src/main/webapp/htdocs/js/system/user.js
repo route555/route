@@ -88,7 +88,7 @@
 				var table = $('#dataTables-user').DataTable(
 						{
 							dom: 'lBfrtip',
-							buttons: [{extend: 'colvis', postfixButtons: [ 'colvisRestore' ]} , 'newUser' ],				        
+							buttons: [{extend: 'colvis', postfixButtons: [ 'colvisRestore' ]} , 'newUser', 'excel', 'print' ],				        
 							"paging": true,
 							"processing" : true,
 							"serverSide" : true,

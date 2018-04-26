@@ -255,7 +255,7 @@
                                             <th style="text-align: center;">담당자</th>
                                         </tr>
                                     </thead>
-                                    <tbody
+                                    <tbody>
                                     	<tr>
                                     		<td><input type="text" id="chgSectNm1" name="chgSectNm1" class="form-control" style="width:100%;" readonly="readonly" value="영업"></td>
                                     		<td><input type="text" id="chgrNm1" name="chgrNm1" class="form-control" style="width:100%;" readonly="readonly"></td>

@@ -190,6 +190,8 @@ public class AuthService extends AbstractService<Auth, BaseDto> {
 	
 	private void checkUserAuth(HttpServletRequest request, String contextPath) {
 		String uri = request.getRequestURI();
+
+		System.out.println("uri : " + uri);
 		EchoCookie echoCookie = null;
 		if (isNoLoginUri(uri)) {
 			echoCookie = CookieUtil.getEchoCookie(request, CommonConst.COOKIE_KEY);
@@ -204,6 +206,8 @@ public class AuthService extends AbstractService<Auth, BaseDto> {
 			auth.setLoginId(request.getParameter("loginId"));
 			auth.setLoginPw(request.getParameter("loginPw"));
 			auth = authDao.selectUserAuth(auth);
+
+			System.out.println("LoginID : " + auth.getLoginId());
 
 			if (auth == null) {
 				throw new EchoException(HttpServletResponse.SC_UNAUTHORIZED, new Object[] { "error.auth.require.signup" });
