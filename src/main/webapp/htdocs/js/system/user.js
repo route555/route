@@ -47,6 +47,70 @@
 					data = view.userTable.fnGetData(this);
 					view.selectOneData(data.userId);
 			    } );
+				
+				$("#addExcelImportBtn").unbind('click');
+				$("#addExcelImportBtn").click( function() {			
+					$("#excelUploadForm").submit();
+				});
+				
+				//엑셀 파일업로드
+				$("#excelUploadForm").submit(function(e) {
+					
+					var formData = new FormData(this);
+					
+					jQuery.ajax({
+				  		url :  G_CONTEXT_PATH+"/excelUploadAjax",
+						type: "POST",
+						data:  formData,
+						mimeType:"multipart/form-data",
+						contentType: false,
+						cache: false,
+						processData:false,
+						success: view.insertExcelDataCallBack,
+						error: view.insertExcelDataCallBack
+					});
+					
+					e.preventDefault();
+				});
+			}
+			, insertExcelDataCallBack : function(data){
+				var json = jQuery.parseJSON(data);
+				
+				if ( json.status == 200 ) {
+					alert("Excel 업로드 성공!!");
+					view.userTable.fnReloadAjax();
+				}
+				else {
+					alert(json.msg);
+				}	
+			}
+			, checkFileType : function(filePath) {			
+				var fileFormat = filePath.split(".");
+                if (fileFormat.indexOf("xlsx") > -1) {
+                    return true;
+                } else {
+                    return false;
+                }
+			}
+			, check : function() {			
+				var file = $("#excelFile").val();
+                if (file == "" || file == null) {
+                    alert("파일을 선택해주세요.");
+                    return false;
+                } else if (!view.checkFileType(file)) {
+                    alert("엑셀 파일만 업로드 가능합니다.");
+                    return false;
+                }
+ 
+                if (confirm("업로드 하시겠습니까?")) {
+                    var options = {
+                        success : function(data) {
+                            alert("모든 데이터가 업로드 되었습니다.");
+                        },
+                        type : "POST"
+                    };
+                    $("#excelUploadForm").ajaxSubmit(options);
+                }
 			}
 			, selectCommonCode : function() {			
 				common.ajax({
@@ -94,7 +158,7 @@
 							"serverSide" : true,
 							"bFilter": false,
 							"autoWidth": true,
-							"ordering": false,
+							"ordering": true,
 							"iDisplayLength": 10,
 							columnDefs: [ { visible: false, targets: [0,1] } ],
 							select:true,
@@ -132,6 +196,11 @@
 								});
 							}
 						});
+				
+				$("#dataTables-user").find("thead").on('click', 'th', function() {
+				    var col_idx =  table.column(this).index();
+				    console.log("colId = " + col_idx);
+				});
 				
 			}
 		, selectOneData : function(userId){
